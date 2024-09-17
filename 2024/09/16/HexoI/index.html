@@ -409,7 +409,7 @@ mjx-container[display="true"] + br {
 
             <span class="meta-info-item post-update-date">
                 <i class="icon fa-solid fa-file-pen"></i>&nbsp;
-                <span class="datetime" data-updated="Mon Sep 16 2024 21:10:08 GMT+0800">2024 年 09 月 16 日 21:10</span>
+                <span class="datetime" data-updated="Tue Sep 17 2024 13:49:48 GMT+0800">2024 年 09 月 17 日 13:49</span>
             </span>
         
 
@@ -447,7 +447,7 @@ mjx-container[display="true"] + br {
         
         
             <span class="meta-info-item post-wordcount">
-                <i class="icon fas fa-file-word"></i>&nbsp;<span>562 字</span>
+                <i class="icon fas fa-file-word"></i>&nbsp;<span>597 字</span>
             </span>
         
         
@@ -473,7 +473,7 @@ mjx-container[display="true"] + br {
                 <div class="post-content keep-markdown-body code-block-unshrink">
                     
                         <div class="post-aging-tips"
-                             data-update-date="Mon Sep 16 2024 21:10:08 GMT+0800"
+                             data-update-date="Tue Sep 17 2024 13:49:48 GMT+0800"
                              data-aging-days=""
                         >
                             <i class="fa-solid fa-circle-exclamation"></i>本文距离上次更新已过去 <span class="days">0</span> 天，部分内容可能已经过时，请注意甄别。
@@ -488,7 +488,6 @@ mjx-container[display="true"] + br {
 <ul>
 <li>一个健康的搜索引擎（遇到问题自己搜啊喂）</li>
 <li>一个 GitHub 账号</li>
-<li>一个文件系统为 <strong>NTFS</strong> 的硬盘，用来存放博客文件。</li>
 </ul>
 <h2 id="一安装-git-和-node.js">一、安装 Git 和 Node.js</h2>
 <p>Git 在 <a class="link" target="_blank" rel="noopener" href="https://git-scm.com/downloads">这里<i class="fas fa-external-link-alt"></i></a>
@@ -509,8 +508,14 @@ Git: <a class="link" target="_blank" rel="noopener" href="https://github.com/way
 <code>npm install -g hexo-cli</code>，但我们<del>出于众所周知的网络原因</del>而不用，而是使用阿里的镜像源：<br>
 <figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">npm install -g cnpm --registry=https://registry.npmmirror.com</span><br><span class="line">cnpm install -g hexo-cli</span><br></pre></td></tr></table></figure></p>
 <p>这样就成功安装了 Hexo。</p>
-<div class="keep-note primary"><p>在网上找到开头为 <code>npm</code> 的命令，可以将其替换成
-<code>cnpm</code> 哦！</p>
+<p>如果遇到形如
+<code>Install fail! Error: EISDIR: illegal operation on a directory, symlink…</code>
+的报错，那请尝试运行<code>corepack enable</code>，然后将
+<code>npm</code> 换成 <code>pnpm</code>。</p>
+<div class="keep-note primary"><p>在网上找到开头为 <code>npm</code> 的命令，将其替换成
+<code>cnpm</code> 或 <code>pnpm</code> 哦！<br>
+<del>遇到问题了可以 <code>cnpm</code> 或 <code>pnpm</code>
+换着试，没准就成功了呢</del></p>
 </div>
 <h2 id="三初始化-hexo-项目">三、初始化 Hexo 项目</h2>
 <p>找一个心仪的位置，然后右键 →
