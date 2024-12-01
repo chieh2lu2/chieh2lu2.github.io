@@ -9,7 +9,7 @@
     
     <title>
         
-            关于 |
+            归档: 2024/12 |
         
         Zera 的小博客
     </title>
@@ -204,7 +204,7 @@ mjx-container[display="true"] + br {
                         </li>
                     
                         
-                        <li class="menu-item flex-start border-box">
+                        <li class="menu-item flex-start border-box active">
                             <a class="menu-text-color border-box" href="/archives">
                                 
                                     <i class="menu-text-color menu-icon fa-solid fa-folder"></i>
@@ -240,7 +240,7 @@ mjx-container[display="true"] + br {
                         </li>
                     
                         
-                        <li class="menu-item flex-start border-box active">
+                        <li class="menu-item flex-start border-box">
                             <a class="menu-text-color border-box" href="/about">
                                 
                                     <i class="menu-text-color menu-icon fa-solid fa-user-graduate"></i>
@@ -289,7 +289,7 @@ mjx-container[display="true"] + br {
                 </li>
             
                 
-                <li class="drawer-menu-item border-box not-sub-menu">
+                <li class="drawer-menu-item border-box not-sub-menu active">
                     <label class="drawer-menu-label border-box">
                         <a class="drawer-menu-text-color left-side flex-start border-box" href="/archives">
                             
@@ -337,7 +337,7 @@ mjx-container[display="true"] + br {
                 </li>
             
                 
-                <li class="drawer-menu-item border-box not-sub-menu active">
+                <li class="drawer-menu-item border-box not-sub-menu">
                     <label class="drawer-menu-label border-box">
                         <a class="drawer-menu-text-color left-side flex-start border-box" href="/about">
                             
@@ -367,121 +367,37 @@ mjx-container[display="true"] + br {
             <div class="main-content border-box">
                 
 
-                    
-
-<div class="fade-in-down-animation">
-    <div class="page-template-container border-box keep-container ">
-        <!-- page top -->
-        
-
-        <!-- page bottom -->
-        <div class="page-template-bottom border-box">
-            <!-- use page template -->
+                    <div class="fade-in-down-animation">
+    <div class="archives-container">
+        <div class="archives-timeline border-box">
             
-
-            <!-- page content -->
-            <div class="page-content border-box keep-markdown-body ">
-                
-                    <p>我是 Zera，来自浙江永嘉，现就读于浙江省永嘉中学，高二生。<br>
-一名普通的 Oier。</p>
-
-                
+<div class="archive-list-container border-box">
+    
+        <section class="archive-item border-box">
+            <div class="archive-item-header border-box">
+                <span class="archive-year">2024</span>
             </div>
-
-            <!-- comment plugin -->
-            
+            <ul class="archive-item-body border-box">
                 
-
-
-    <div class="comments-container border-box">
-        <div id="comments-anchor" class="comment-area-title border-box">
-            <i class="fas fa-comments"></i>&nbsp;评论
-        </div>
-        <div class="comment-plugin-fail border-box">
-    <span class="fail-tip">评论插件加载失败</span>
-    <button class="reload keep-button">点击重新加载</button>
+                    <li class="post-item border-box">
+                        <span class="starting-point border-box flex-center"></span>
+                        <span class="post-date border-box">12-01</span>
+                        <a class="post-title border-box text-ellipsis"
+                           href="/2024/12/01/Spider/"
+                        >Spider</a>
+                    </li>
+                
+            </ul>
+        </section>
+    
 </div>
-<div class="comment-plugin-loading flex-center border-box">
-    <i class="loading-icon fa-solid fa-spinner fa-spin"></i>
-    <span class="load-tip">正在加载评论插件</span>
-</div>
-<script data-pjax>
-  window.KeepCommentPlugin = {}
-  window.KeepCommentPlugin.hideLoading = () => {
-    const cplDom = document.querySelector('.comments-container .comment-plugin-loading')
-    cplDom.style.display = 'none'
-  }
-  window.KeepCommentPlugin.loadFailHandle = () => {
-    window.KeepCommentPlugin.hideLoading()
-    const cpfDom = document.querySelector('.comments-container .comment-plugin-fail')
-    cpfDom.style.display = 'flex'
-    cpfDom.querySelector('.reload').addEventListener('click', () => {
-      window.location.reload()
-    })
-  }
-</script>
 
-        
-            
-
-    <div class="valine-container">
-        <div id="vcomments"></div>
-        <script data-pjax
-                src="//cdn.jsdelivr.net/npm/valine@latest/dist/Valine.min.js"
-                async
-                onerror="window.KeepCommentPlugin.loadFailHandle()"
-        ></script>
-        <script data-pjax
-                async
-                onerror="window.KeepCommentPlugin.loadFailHandle()"
-        >
-          window.KeepCommentPlugin.initValine = () => {
-            const config = {
-              el: '#vcomments',
-              appId: 'N9Ityn6W4MX6ONQG7BnYbD0Q-MdYXbMMI',
-              appKey: 'uA4T3jkdNLH2AsmzLeyfcBpr',
-              meta: ['nick', 'mail', 'link'],
-              avatar: 'wavatar',
-              enableQQ: true,
-              placeholder: '少女评论中…',
-              lang: 'zh-CN'.toLowerCase()
-            }
-
-            if ('') {
-              config.serverURLs = ''
-            }
-
-            if (window?.Valine) {
-              new Valine(config)
-              window.KeepCommentPlugin.hideLoading()
-            } else {
-              setTimeout(() => {
-                window.KeepCommentPlugin.initValine()
-              }, 1000)
-            }
-          }
-
-          if ('true' === 'true') {
-            setTimeout(() => {
-              window.KeepCommentPlugin.initValine()
-            }, 1200)
-          } else {
-            window.addEventListener('DOMContentLoaded', window.KeepCommentPlugin.initValine)
-          }
-        </script>
-    </div>
-
-
-        
-    </div>
-
-
-
-
-
-            
         </div>
     </div>
+    
+
+
+
 </div>
 
 
@@ -621,6 +537,7 @@ mjx-container[display="true"] + br {
     <!-- tablet toc -->
     
 </main>
+
 
 
 
