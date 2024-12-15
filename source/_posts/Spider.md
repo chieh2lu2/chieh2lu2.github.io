@@ -124,23 +124,25 @@ with open("plmm.jpg", "wb+") as f: # 使用 wb+ 来读写图片
 
 什么意思呢？以在百度搜索内容的过程举例。比方说我搜「迷你世界」：
 
-![figure_3.1.1](../images/3.1.1.png)
+![figure_3.1.1](https://www.imagehub.cc/image/3.1.1.CKNEss)
+
+
 
 我们 右键 → 查看页面源代码 来查看页面的 HTML 源代码。在其中搜索「迷你世界」，出现了大量匹配。可见，服务器将我们请求关于「迷你世界」的相关数据写进了 HTML 中，再把这个 HTML 返回给了我们。这属于服务器渲染。
 
-![figure_3.1.2](../images/3.1.2.png)
+![figure_3.1.2](https://www.imagehub.cc/image/3.1.2.CKN4wZ)
 
 客户端渲染的一个例子是 B 站首页。B 站首页有许多系统推荐的视频，算是客户端索取的数据。然而，我们查看 B 站首页源代码，会发现他空空如也：
 
-![figure_3.1.3](../images/3.1.3.png)
+![figure_3.1.3](https://www.imagehub.cc/image/3.1.3.CKNGpI)
 
-![figure_3.1.4](../images/3.1.4.png)
+![figure_3.1.4](https://www.imagehub.cc/image/3.1.4.CKNR1h)
 
 这种就属于客户端渲染。
 
 对于第一种情况我们可以直接爬取网页源代码后再处理源代码；但如果我们面对的是第二种情况呢？这就需要我们使用浏览器的**抓包工具**。按下 F12，选择网络（Network），就可以看到每个网络操作的相关信息，包括详细的耗时数据、HTTP 请求与响应标头和 Cookie。在名称（Name）一栏的第一个就是客户端先收到的 HTML 框架；后面就是客户端陆陆续续渲染的数据了。选择标头（Headers），第一行就是这个数据所在的 URL。
 
-![figure_3.1.5](../images/3.1.5.png)
+![figure_3.1.5](https://www.imagehub.cc/image/3.1.5.CKNc4G)
 
 关于 Web 请求过程我们就先讲这么多，主要是了解了解抓包的过程。
 
