@@ -477,23 +477,42 @@ mjx-container[display="true"] + br {
                     
                          <div class="keep-note danger"><p>所有字体、<strong>包括系统字体</strong>一定要做好备份！</p>
 </div>
-<p>在网络上经常看到更换电脑字体的教程，可大多教程都解决不了一个问题——更换系统的英文字体。Windows 下某些地方的英文字体使用的是 Segoe UI，个人觉得十分丑陋。这篇文章将以字体 Inter 为例解决这个痛点，并同时介绍替换中文字体的方法。</p>
+<p>在网络上经常看到更换电脑字体的教程，可大多教程都解决不了一个问题——更换系统的英文字体。Windows
+下某些地方的英文字体使用的是 Segoe
+UI，个人觉得十分丑陋。这篇文章将以字体 Inter
+为例解决这个痛点，并同时介绍替换中文字体的方法。</p>
 <hr>
-<h2 id="一-软件安装"><a class="markdownIt-Anchor" href="#一-软件安装"></a> 一、软件安装</h2>
-<p>我使用的软件是 <a class="link" target="_blank" rel="noopener" href="https://github.com/GuiWonder/WeiFonts/">WeiFonts<i class="fas fa-external-link-alt"></i></a> 和 <a class="link" target="_blank" rel="noopener" href="https://www.fishlee.net/soft/SysFontReplacer/">字体替换工具(Font Replace Utility)<i class="fas fa-external-link-alt"></i></a>。前一个软件能够将被替换字体文件的信息写到你要替换的字体上，并把字体打包成 <code>.ttc</code>。后一个软件能够替换掉系统字体。</p>
-<h2 id="二-weifonts-的使用"><a class="markdownIt-Anchor" href="#二-weifonts-的使用"></a> 二、WeiFonts 的使用</h2>
-<p>下载发行包后，打开文件中的 <code>WeiFonts.exe</code> 就差不多会用了。对于 「Windows 中文」 选项卡里的内容我不是很会用，貌似是要先打包成 <code>.ttc</code> 再替换，有点麻烦 <s>（其实是我根本没了解啦）</s>。直接聚焦于「给定字体」选项卡即可。</p>
-<p>先讲讲中文字体：微软雅黑一共有三个字体要替换：<code>msyhl.ttc</code>、<code>msyh.ttc</code>、<code>msyhbd.ttc</code>，分别是 Light, Regular 和 Bold 字重。在「模板字体」一栏直接输入 <code>C:\Windows\Fonts\上述三个字体</code> 即可。（因为如果点右边的选择的话是找不到 Fonts 文件夹的，很奇怪）。<br>
-「输入字体」一栏直接找到你要替换的对应字重的字体的绝对地址即可。如果你的字体文件只有一个字重的话，或者你不在乎有几个字重，每次都用这一个文件即可。「保存为」一栏自定。如果 <code>.otf</code> 出了问题的话，尝试把它转化成 <code>.ttf</code> 文件。AFTools 提供了这一功能。<br>
+<h2 id="一软件安装">一、软件安装</h2>
+<p>我使用的软件是 <a class="link" target="_blank" rel="noopener" href="https://github.com/GuiWonder/WeiFonts/">WeiFonts<i class="fas fa-external-link-alt"></i></a> 和 <a class="link" target="_blank" rel="noopener" href="https://www.fishlee.net/soft/SysFontReplacer/">字体替换工具(Font
+Replace
+Utility)<i class="fas fa-external-link-alt"></i></a>。前一个软件能够将被替换字体文件的信息写到你要替换的字体上，并把字体打包成
+<code>.ttc</code>。后一个软件能够替换掉系统字体。</p>
+<h2 id="二weifonts-的使用">二、WeiFonts 的使用</h2>
+<p>下载发行包后，打开文件中的 <code>WeiFonts.exe</code>
+就差不多会用了。对于 「Windows 中文」
+选项卡里的内容我不是很会用，貌似是要先打包成 <code>.ttc</code>
+再替换，有点麻烦
+<del>（其实是我根本没了解啦）</del>。直接聚焦于「给定字体」选项卡即可。</p>
+<p>先讲讲中文字体：微软雅黑一共有三个字体要替换：<code>msyhl.ttc</code>、<code>msyh.ttc</code>、<code>msyhbd.ttc</code>，分别是
+Light, Regular 和 Bold 字重。在「模板字体」一栏直接输入
+<code>C:\Windows\Fonts\上述三个字体</code>
+即可。（因为如果点右边的选择的话是找不到 Fonts
+文件夹的，很奇怪）。<br>
+「输入字体」一栏直接找到你要替换的对应字重的字体的绝对地址即可。如果你的字体文件只有一个字重的话，或者你不在乎有几个字重，每次都用这一个文件即可。「保存为」一栏自定。如果
+<code>.otf</code> 出了问题的话，尝试把它转化成 <code>.ttf</code>
+文件。AFTools 提供了这一功能。<br>
 下图是使用阿里巴巴普惠体的例子。<br>
 <img lazyload="" alt="图 1" data-src="https://img.picui.cn/free/2024/09/16/66e83d91edeb9.png"></p>
-<p>英文字体就比较搞了，这时候把字体打包成 <code>.ttc</code> 是比较方便的，但电脑里的 Segoe UI 并没有打包成 <code>.ttc</code>（亦或是我没找到打包或可变字体），所以需要一个一个字重去替换。这里我选择 Inter，一款非常像 SF Pro 的字体。以下是示例：<br>
+<p>英文字体就比较搞了，这时候把字体打包成 <code>.ttc</code>
+是比较方便的，但电脑里的 Segoe UI 并没有打包成
+<code>.ttc</code>（亦或是我没找到打包或可变字体），所以需要一个一个字重去替换。这里我选择
+Inter，一款非常像 SF Pro 的字体。以下是示例：<br>
 <img lazyload="" alt="图 2" data-src="https://img.picui.cn/free/2024/09/16/66e83f185dff5.png"><br>
 工作量有点大，最后替换好应该得到了这么些文件：<br>
 <img lazyload="" alt="图 3" data-src="https://img.picui.cn/free/2024/09/16/66e83fe8e34ea.png"></p>
 <div class="keep-note danger"><p>替换前一定要注意字重是否对应哦！</p>
 </div>
-<h2 id="三-字体替换工具的使用"><a class="markdownIt-Anchor" href="#三-字体替换工具的使用"></a> 三、字体替换工具的使用</h2>
+<h2 id="三字体替换工具的使用">三、字体替换工具的使用</h2>
 <p>这更是一款傻瓜式软件：打开后直接把所有字体拖进去，然后点「开始执行任务」即可。</p>
 <p><img lazyload="" alt="图 4" data-src="https://img.picui.cn/free/2024/09/16/66e840916c313.png"></p>
 <p>如果没有备份而想回退到之前的字体，点「还原」并找到自动的备份即可。</p>
@@ -723,7 +742,7 @@ mjx-container[display="true"] + br {
             <div class="pc-post-toc left-toc">
                 <div class="post-toc-wrap border-box">
     <div class="post-toc border-box">
-        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80-%E8%BD%AF%E4%BB%B6%E5%AE%89%E8%A3%85"><span class="nav-text"> 一、软件安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C-weifonts-%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="nav-text"> 二、WeiFonts 的使用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89-%E5%AD%97%E4%BD%93%E6%9B%BF%E6%8D%A2%E5%B7%A5%E5%85%B7%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="nav-text"> 三、字体替换工具的使用</span></a></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E8%BD%AF%E4%BB%B6%E5%AE%89%E8%A3%85"><span class="nav-text">一、软件安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8Cweifonts-%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="nav-text">二、WeiFonts 的使用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89%E5%AD%97%E4%BD%93%E6%9B%BF%E6%8D%A2%E5%B7%A5%E5%85%B7%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="nav-text">三、字体替换工具的使用</span></a></li></ol>
     </div>
 </div>
 
@@ -741,7 +760,7 @@ mjx-container[display="true"] + br {
             
 <footer class="footer border-box">
     <div class="copyright-info info-item">
-        &copy;&nbsp;<span>2024</span>&nbsp;-&nbsp;2024
+        &copy;&nbsp;<span>2024</span>&nbsp;-&nbsp;2025
         
             &nbsp;<i class="fas fa-heart icon-animate"></i>&nbsp;&nbsp;<a href="/">Zera / 捷攎</a>
         
@@ -758,7 +777,7 @@ mjx-container[display="true"] + br {
             
                 <span class="count-item border-box word">
                     <span class="item-type border-box">总字数</span>
-                    <span class="item-value border-box word">11.3k</span>
+                    <span class="item-value border-box word">10.1k</span>
                 </span>
             
 
@@ -910,7 +929,7 @@ mjx-container[display="true"] + br {
             <div class="tablet-post-toc">
                 <div class="post-toc-wrap border-box">
     <div class="post-toc border-box">
-        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80-%E8%BD%AF%E4%BB%B6%E5%AE%89%E8%A3%85"><span class="nav-text"> 一、软件安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C-weifonts-%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="nav-text"> 二、WeiFonts 的使用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89-%E5%AD%97%E4%BD%93%E6%9B%BF%E6%8D%A2%E5%B7%A5%E5%85%B7%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="nav-text"> 三、字体替换工具的使用</span></a></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E8%BD%AF%E4%BB%B6%E5%AE%89%E8%A3%85"><span class="nav-text">一、软件安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8Cweifonts-%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="nav-text">二、WeiFonts 的使用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89%E5%AD%97%E4%BD%93%E6%9B%BF%E6%8D%A2%E5%B7%A5%E5%85%B7%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="nav-text">三、字体替换工具的使用</span></a></li></ol>
     </div>
 </div>
 
