@@ -3,7 +3,7 @@ title: 日記
 comment: false
 mathjax: true
 code_block_shrink: false
-password: 捷攎
+password: 紪絽
 date: 2025-01-01 16:36:57
 tags:
   - 日記
