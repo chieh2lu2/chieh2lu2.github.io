@@ -481,44 +481,28 @@ mjx-container[display="true"] + br {
                     
 
                     
-                         <h1 id="为啥要学爬虫">0. 为啥要学爬虫？</h1>
+                         <h1 id="0-为啥要学爬虫"><a class="markdownIt-Anchor" href="#0-为啥要学爬虫"></a> 0. 为啥要学爬虫？</h1>
 <p>有无在网站上手动一张一张下载图片时感到麻烦？<br>
-可否好奇过网上所谓的 <a class="link" target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1Y94y1e7g3/">绘板活动<i class="fas fa-external-link-alt"></i></a>
-大家是如何参与其中的？<br>
+可否好奇过网上所谓的 <a class="link" target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1Y94y1e7g3/">绘板活动<i class="fas fa-external-link-alt"></i></a> 大家是如何参与其中的？<br>
 每每要获得一个网页中若干子网页的特定内容，是否感到烦恼？<br>
 希望保存一些视频、数据之类，但却无从下手？<br>
 爬虫会帮你解决上述的问题！</p>
-<p>虽然计算机社活动的时间很短，所以讲不了太深的东西（<del>主要我自己没有实力</del>），只能介绍比较简单和常见的爬虫写法。<br>
-但我仍然希望大家能捞到点东西，有兴趣的话可以自己深入学学。<del>其实爬虫是可以赚钱的，大学里可以搞搞兼职</del></p>
+<p>虽然计算机社活动的时间很短，所以讲不了太深的东西（<s>主要我自己没有实力</s>），只能介绍比较简单和常见的爬虫写法。<br>
+但我仍然希望大家能捞到点东西，有兴趣的话可以自己深入学学。<s>其实爬虫是可以赚钱的，大学里可以搞搞兼职</s></p>
 <hr>
-<h1 id="什么是爬虫">1. 什么是爬虫？</h1>
+<h1 id="1-什么是爬虫"><a class="markdownIt-Anchor" href="#1-什么是爬虫"></a> 1. 什么是爬虫？</h1>
 <blockquote>
-<p>网络爬虫（又称为网页蜘蛛，网络机器人，在 FOAF
-社区中间，更经常的称为网页追逐者），是一种按照一定的规则，自动地抓取万维网信息的程序或者脚本。另外一些不常使用的名字还有蚂蚁、自动索引、模拟程序或者蠕虫。——百度百科</p>
+<p>网络爬虫（又称为网页蜘蛛，网络机器人，在 FOAF 社区中间，更经常的称为网页追逐者），是一种按照一定的规则，自动地抓取万维网信息的程序或者脚本。另外一些不常使用的名字还有蚂蚁、自动索引、模拟程序或者蠕虫。——百度百科</p>
 </blockquote>
 <p>显然这不是我们能看得懂的。简单点说，爬虫就是你写的一个程序，它能帮你在网上爬取你想要的东西，或者是帮你做点重复性的网页工作。百度要实现搜索引擎的功能，就要先用爬虫获取数据。</p>
-<h3 id="那我是不是啥都能爬包括重要机密那种">……那我是不是啥都能爬，包括重要机密那种？</h3>
-<p>首先，任何网站都有一个
-<code>robots.txt</code>，里面描述了网站管理者不希望爬虫做的事，如不要访问某些文件夹、限制访问网站的频率等等。想要查看一个网站的
-<code>robots.txt</code> 的话，只需网站的根域名 +
-<code>/robots.txt</code> 即可。例如，迷你世界官网的
-<code>robots.txt</code> 就在 <a target="_blank" rel="noopener" href="https://www.mini1.cn/robots.txt"><code>https://www.mini1.cn/robots.txt</code></a>
-查看。<del>（不过貌似是空的）</del><br>
+<h3 id="那我是不是啥都能爬包括重要机密那种"><a class="markdownIt-Anchor" href="#那我是不是啥都能爬包括重要机密那种"></a> ……那我是不是啥都能爬，包括重要机密那种？</h3>
+<p>首先，任何网站都有一个 <code>robots.txt</code>，里面描述了网站管理者不希望爬虫做的事，如不要访问某些文件夹、限制访问网站的频率等等。想要查看一个网站的 <code>robots.txt</code> 的话，只需网站的根域名 + <code>/robots.txt</code> 即可。例如，迷你世界官网的 <code>robots.txt</code> 就在 <a target="_blank" rel="noopener" href="https://www.mini1.cn/robots.txt"><code>https://www.mini1.cn/robots.txt</code></a> 查看。<s>（不过貌似是空的）</s><br>
 其次，网页也有许多的反爬机制以限制爬虫。</p>
-<p>我们写的爬虫要遵守
-<code>robots.txt</code>，以及限制我们访问的频率。</p>
-<h1 id="微编写两个小爬虫">2. 微编写两个小爬虫</h1>
+<p>我们写的爬虫要遵守 <code>robots.txt</code>，以及限制我们访问的频率。</p>
+<h1 id="2-微编写两个小爬虫"><a class="markdownIt-Anchor" href="#2-微编写两个小爬虫"></a> 2. 微编写两个小爬虫</h1>
 <p>在这之前我先介绍一下 Python 的文件读写操作。</p>
-<p>Python 使用 <code>open(dir, mode)</code>
-读取文件。其中，<code>dir</code>
-为一个文件的绝对路径或相对路径的字符串，<code>mode</code>
-决定了打开文件的模式。如果不写这个参数，那默认为只读（<code>r</code>）。下面列出一些常见的
-<code>mode</code> 参数：</p>
+<p>Python 使用 <code>open(dir, mode)</code> 读取文件。其中，<code>dir</code> 为一个文件的绝对路径或相对路径的字符串，<code>mode</code> 决定了打开文件的模式。如果不写这个参数，那默认为只读（<code>r</code>）。下面列出一些常见的 <code>mode</code> 参数：</p>
 <table>
-<colgroup>
-<col style="width: 50%">
-<col style="width: 50%">
-</colgroup>
 <thead>
 <tr>
 <th><code>mode</code> 参数</th>
@@ -576,28 +560,12 @@ mjx-container[display="true"] + br {
 </tr>
 </tbody>
 </table>
-<p>简单来说，<code>r</code> 读文件，<code>w</code>
-写文件，<code>b</code> 用二进制格式打开，可以打开非文本文件。相比于
-<code>w</code>，<code>a</code>
-为追加，在被多次调用时不会覆盖文件原来的内容。<code>+</code>
-可以「拓展功能」，由原来单一的读、写变成同时可读写模式。<strong>但
-<code>r+</code> 得保证文件存在。</strong></p>
-<p><code>open()</code> 函数会返回一个 <code>file</code>
-对象，而这种对象有个 <code>read()</code>
-方法。调用后，会读取文件里的内容（字节），并以字符串的形式返回。比方说，我们让
-<code>f = open("mnsj.txt", "r")</code>，如果执行
-<code>print(f.read())</code>，那就会输出 <code>mnsj.txt</code>
-中的内容了。</p>
-<p>读完文件后需要关闭文件，代码为
-<code>f.close()</code>。非常多的情况下我们会忘记这一操作，所以另一种方法就是使用
-<code>with</code>。对比一下两种写法：</p>
+<p>简单来说，<code>r</code> 读文件，<code>w</code> 写文件，<code>b</code> 用二进制格式打开，可以打开非文本文件。相比于 <code>w</code>，<code>a</code> 为追加，在被多次调用时不会覆盖文件原来的内容。<code>+</code> 可以「拓展功能」，由原来单一的读、写变成同时可读写模式。<strong>但 <code>r+</code> 得保证文件存在。</strong></p>
+<p><code>open()</code> 函数会返回一个 <code>file</code> 对象，而这种对象有个 <code>read()</code> 方法。调用后，会读取文件里的内容（字节），并以字符串的形式返回。比方说，我们让 <code>f = open("mnsj.txt", "r")</code>，如果执行 <code>print(f.read())</code>，那就会输出 <code>mnsj.txt</code> 中的内容了。</p>
+<p>读完文件后需要关闭文件，代码为 <code>f.close()</code>。非常多的情况下我们会忘记这一操作，所以另一种方法就是使用 <code>with</code>。对比一下两种写法：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 第一种</span></span><br><span class="line">f = <span class="built_in">open</span>(<span class="string">"mnsj.txt"</span>, <span class="string">"r"</span>)</span><br><span class="line"><span class="built_in">print</span>(f.read())</span><br><span class="line">f.close()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 第二种</span></span><br><span class="line"><span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">"mnsj.txt"</span>, <span class="string">"r"</span>) <span class="keyword">as</span> f:</span><br><span class="line">    <span class="built_in">print</span>(f.read())</span><br></pre></td></tr></table></figure>
 <p>推荐使用第二种写法。下面列出了 <code>file</code> 对象的常用方法：</p>
 <table>
-<colgroup>
-<col style="width: 50%">
-<col style="width: 50%">
-</colgroup>
 <thead>
 <tr>
 <th><code>file</code> 对象的方法</th>
@@ -607,8 +575,7 @@ mjx-container[display="true"] + br {
 <tbody>
 <tr>
 <td><code>read(size)</code></td>
-<td>读取 <span class="math inline"><mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.025ex;" xmlns="http://www.w3.org/2000/svg" width="3.529ex" height="1.538ex" role="img" focusable="false" viewBox="0 -669 1560 680"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mtext"><path data-c="73" d="M295 316Q295 356 268 385T190 414Q154 414 128 401Q98 382 98 349Q97 344 98 336T114 312T157 287Q175 282 201 278T245 269T277 256Q294 248 310 236T342 195T359 133Q359 71 321 31T198 -10H190Q138 -10 94 26L86 19L77 10Q71 4 65 -1L54 -11H46H42Q39 -11 33 -5V74V132Q33 153 35 157T45 162H54Q66 162 70 158T75 146T82 119T101 77Q136 26 198 26Q295 26 295 104Q295 133 277 151Q257 175 194 187T111 210Q75 227 54 256T33 318Q33 357 50 384T93 424T143 442T187 447H198Q238 447 268 432L283 424L292 431Q302 440 314 448H322H326Q329 448 335 442V310L329 304H301Q295 310 295 316Z"></path><path data-c="69" d="M69 609Q69 637 87 653T131 669Q154 667 171 652T188 609Q188 579 171 564T129 549Q104 549 87 564T69 609ZM247 0Q232 3 143 3Q132 3 106 3T56 1L34 0H26V46H42Q70 46 91 49Q100 53 102 60T104 102V205V293Q104 345 102 359T88 378Q74 385 41 385H30V408Q30 431 32 431L42 432Q52 433 70 434T106 436Q123 437 142 438T171 441T182 442H185V62Q190 52 197 50T232 46H255V0H247Z" transform="translate(394,0)"></path><path data-c="7A" d="M42 263Q44 270 48 345T53 423V431H393Q399 425 399 415Q399 403 398 402L381 378Q364 355 331 309T265 220L134 41L182 40H206Q254 40 283 46T331 77Q352 105 359 185L361 201Q361 202 381 202H401V196Q401 195 393 103T384 6V0H209L34 1L31 3Q28 8 28 17Q28 30 29 31T160 210T294 394H236Q169 393 152 388Q127 382 113 367Q89 344 82 264V255H42V263Z" transform="translate(672,0)"></path><path data-c="65" d="M28 218Q28 273 48 318T98 391T163 433T229 448Q282 448 320 430T378 380T406 316T415 245Q415 238 408 231H126V216Q126 68 226 36Q246 30 270 30Q312 30 342 62Q359 79 369 104L379 128Q382 131 395 131H398Q415 131 415 121Q415 117 412 108Q393 53 349 21T250 -11Q155 -11 92 58T28 218ZM333 275Q322 403 238 411H236Q228 411 220 410T195 402T166 381T143 340T127 274V267H333V275Z" transform="translate(1116,0)"></path></g></g></g></svg></mjx-container></span> 个字符。若
-<span class="math inline"><mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.025ex;" xmlns="http://www.w3.org/2000/svg" width="3.529ex" height="1.538ex" role="img" focusable="false" viewBox="0 -669 1560 680"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mtext"><path data-c="73" d="M295 316Q295 356 268 385T190 414Q154 414 128 401Q98 382 98 349Q97 344 98 336T114 312T157 287Q175 282 201 278T245 269T277 256Q294 248 310 236T342 195T359 133Q359 71 321 31T198 -10H190Q138 -10 94 26L86 19L77 10Q71 4 65 -1L54 -11H46H42Q39 -11 33 -5V74V132Q33 153 35 157T45 162H54Q66 162 70 158T75 146T82 119T101 77Q136 26 198 26Q295 26 295 104Q295 133 277 151Q257 175 194 187T111 210Q75 227 54 256T33 318Q33 357 50 384T93 424T143 442T187 447H198Q238 447 268 432L283 424L292 431Q302 440 314 448H322H326Q329 448 335 442V310L329 304H301Q295 310 295 316Z"></path><path data-c="69" d="M69 609Q69 637 87 653T131 669Q154 667 171 652T188 609Q188 579 171 564T129 549Q104 549 87 564T69 609ZM247 0Q232 3 143 3Q132 3 106 3T56 1L34 0H26V46H42Q70 46 91 49Q100 53 102 60T104 102V205V293Q104 345 102 359T88 378Q74 385 41 385H30V408Q30 431 32 431L42 432Q52 433 70 434T106 436Q123 437 142 438T171 441T182 442H185V62Q190 52 197 50T232 46H255V0H247Z" transform="translate(394,0)"></path><path data-c="7A" d="M42 263Q44 270 48 345T53 423V431H393Q399 425 399 415Q399 403 398 402L381 378Q364 355 331 309T265 220L134 41L182 40H206Q254 40 283 46T331 77Q352 105 359 185L361 201Q361 202 381 202H401V196Q401 195 393 103T384 6V0H209L34 1L31 3Q28 8 28 17Q28 30 29 31T160 210T294 394H236Q169 393 152 388Q127 382 113 367Q89 344 82 264V255H42V263Z" transform="translate(672,0)"></path><path data-c="65" d="M28 218Q28 273 48 318T98 391T163 433T229 448Q282 448 320 430T378 380T406 316T415 245Q415 238 408 231H126V216Q126 68 226 36Q246 30 270 30Q312 30 342 62Q359 79 369 104L379 128Q382 131 395 131H398Q415 131 415 121Q415 117 412 108Q393 53 349 21T250 -11Q155 -11 92 58T28 218ZM333 275Q322 403 238 411H236Q228 411 220 410T195 402T166 381T143 340T127 274V267H333V275Z" transform="translate(1116,0)"></path></g></g></g></svg></mjx-container></span> 为空或 <span class="math inline"><mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.09ex;" xmlns="http://www.w3.org/2000/svg" width="7.552ex" height="1.604ex" role="img" focusable="false" viewBox="0 -669 3338 709"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mtext"><path data-c="73" d="M295 316Q295 356 268 385T190 414Q154 414 128 401Q98 382 98 349Q97 344 98 336T114 312T157 287Q175 282 201 278T245 269T277 256Q294 248 310 236T342 195T359 133Q359 71 321 31T198 -10H190Q138 -10 94 26L86 19L77 10Q71 4 65 -1L54 -11H46H42Q39 -11 33 -5V74V132Q33 153 35 157T45 162H54Q66 162 70 158T75 146T82 119T101 77Q136 26 198 26Q295 26 295 104Q295 133 277 151Q257 175 194 187T111 210Q75 227 54 256T33 318Q33 357 50 384T93 424T143 442T187 447H198Q238 447 268 432L283 424L292 431Q302 440 314 448H322H326Q329 448 335 442V310L329 304H301Q295 310 295 316Z"></path><path data-c="69" d="M69 609Q69 637 87 653T131 669Q154 667 171 652T188 609Q188 579 171 564T129 549Q104 549 87 564T69 609ZM247 0Q232 3 143 3Q132 3 106 3T56 1L34 0H26V46H42Q70 46 91 49Q100 53 102 60T104 102V205V293Q104 345 102 359T88 378Q74 385 41 385H30V408Q30 431 32 431L42 432Q52 433 70 434T106 436Q123 437 142 438T171 441T182 442H185V62Q190 52 197 50T232 46H255V0H247Z" transform="translate(394,0)"></path><path data-c="7A" d="M42 263Q44 270 48 345T53 423V431H393Q399 425 399 415Q399 403 398 402L381 378Q364 355 331 309T265 220L134 41L182 40H206Q254 40 283 46T331 77Q352 105 359 185L361 201Q361 202 381 202H401V196Q401 195 393 103T384 6V0H209L34 1L31 3Q28 8 28 17Q28 30 29 31T160 210T294 394H236Q169 393 152 388Q127 382 113 367Q89 344 82 264V255H42V263Z" transform="translate(672,0)"></path><path data-c="65" d="M28 218Q28 273 48 318T98 391T163 433T229 448Q282 448 320 430T378 380T406 316T415 245Q415 238 408 231H126V216Q126 68 226 36Q246 30 270 30Q312 30 342 62Q359 79 369 104L379 128Q382 131 395 131H398Q415 131 415 121Q415 117 412 108Q393 53 349 21T250 -11Q155 -11 92 58T28 218ZM333 275Q322 403 238 411H236Q228 411 220 410T195 402T166 381T143 340T127 274V267H333V275Z" transform="translate(1116,0)"></path><path data-c="20" d="" transform="translate(1560,0)"></path><path data-c="3C" d="M694 -11T694 -19T688 -33T678 -40Q671 -40 524 29T234 166L90 235Q83 240 83 250Q83 261 91 266Q664 540 678 540Q681 540 687 534T694 519T687 505Q686 504 417 376L151 250L417 124Q686 -4 687 -5Q694 -11 694 -19Z" transform="translate(1810,0)"></path><path data-c="20" d="" transform="translate(2588,0)"></path><path data-c="30" d="M96 585Q152 666 249 666Q297 666 345 640T423 548Q460 465 460 320Q460 165 417 83Q397 41 362 16T301 -15T250 -22Q224 -22 198 -16T137 16T82 83Q39 165 39 320Q39 494 96 585ZM321 597Q291 629 250 629Q208 629 178 597Q153 571 145 525T137 333Q137 175 145 125T181 46Q209 16 250 16Q290 16 318 46Q347 76 354 130T362 333Q362 478 354 524T321 597Z" transform="translate(2838,0)"></path></g></g></g></svg></mjx-container></span> 则读取整个文件。</td>
+<td>读取 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext>size</mtext></mrow><annotation encoding="application/x-tex">\text{size}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.66786em;vertical-align:0em;"></span><span class="mord text"><span class="mord">size</span></span></span></span></span> 个字符。若 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext>size</mtext></mrow><annotation encoding="application/x-tex">\text{size}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.66786em;vertical-align:0em;"></span><span class="mord text"><span class="mord">size</span></span></span></span></span> 为空或 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext>size &lt; 0</mtext></mrow><annotation encoding="application/x-tex">\text{size &lt; 0}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.70696em;vertical-align:-0.0391em;"></span><span class="mord text"><span class="mord">size &lt; 0</span></span></span></span></span> 则读取整个文件。</td>
 </tr>
 <tr>
 <td><code>close()</code></td>
@@ -624,101 +591,57 @@ mjx-container[display="true"] + br {
 <hr>
 <p>我们使用 Python 来写我们的爬虫代码。我们爬取 <a class="link" target="_blank" rel="noopener" href="https://www.mini1.cn/">迷你世界官网<i class="fas fa-external-link-alt"></i></a> 的源代码：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests <span class="comment"># 引入 requsets 库</span></span><br><span class="line">response = requests.get(<span class="string">'https://www.mini1.cn/'</span>) <span class="comment"># get 请求</span></span><br><span class="line">response.encoding = <span class="string">'utf-8'</span> <span class="comment"># 用 utf-8 解码</span></span><br><span class="line"><span class="built_in">print</span>(response.text) <span class="comment"># 输出</span></span><br></pre></td></tr></table></figure>
-<p>成功输出了迷你世界官网的 HTML
-代码！有同学会发现，换成某些网站可能会报错。出现这种情况的原因、解决方法与
-Request 库的进一步了解我们之后再聊。</p>
-<p>接下来是下载图片的爬虫。在网上冲浪时，经常能碰见能够生成随机壁纸的网站以及
-API。我们来写一个爬虫把图片下载下来。</p>
+<p>成功输出了迷你世界官网的 HTML 代码！有同学会发现，换成某些网站可能会报错。出现这种情况的原因、解决方法与 Request 库的进一步了解我们之后再聊。</p>
+<p>接下来是下载图片的爬虫。在网上冲浪时，经常能碰见能够生成随机壁纸的网站以及 API。我们来写一个爬虫把图片下载下来。</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line">response = requests.get(<span class="string">'https://www.dmoe.cc/random.php'</span>) <span class="comment"># 调用某随机图片 API 下载图片</span></span><br><span class="line"><span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">"plmm.jpg"</span>, <span class="string">"wb+"</span>) <span class="keyword">as</span> f: <span class="comment"># 使用 wb+ 来读写图片</span></span><br><span class="line">    f.write(response.content) <span class="comment"># 写入到 plmm.jpg 中</span></span><br></pre></td></tr></table></figure>
 <p>发现同文件夹下出现了 <code>plmm.jpg</code> 文件。真的有漂亮美眉！</p>
-<p>至此，我们对爬虫已经有了初步的了解。下次活动我们会介绍 HTTP
-协议和爬虫发送请求的具体过程，虽然非常枯燥，但是非常重要，请一定要认真听。</p>
-<h1 id="web-请求过程分析与-https-协议">3. Web 请求过程分析与 HTTPS
-协议</h1>
+<p>至此，我们对爬虫已经有了初步的了解。下次活动我们会介绍 HTTP 协议和爬虫发送请求的具体过程，虽然非常枯燥，但是非常重要，请一定要认真听。</p>
+<h1 id="3-web-请求过程分析与-https-协议"><a class="markdownIt-Anchor" href="#3-web-请求过程分析与-https-协议"></a> 3. Web 请求过程分析与 HTTPS 协议</h1>
 <p>在学习 Request 库之前，我们先来了解 Web 请求过程以及 HTTPS 协议。</p>
-<h2 id="web-请求过程">3.1 Web 请求过程</h2>
+<h2 id="31-web-请求过程"><a class="markdownIt-Anchor" href="#31-web-请求过程"></a> 3.1 Web 请求过程</h2>
 <p>渲染一个网页有<strong>服务器渲染</strong>和<strong>客户端渲染</strong>两种方式。具体过程不做过多介绍。<br>
-简单来说，服务器渲染，就是服务端把 HTML
-和数据整合在一起发送给客户端；客户端渲染，就是服务端先把 HTML
-的「框架」发送给客户端，在客户端再次请求获取数据后，动态地生成网页内容。其中，页面的渲染过程主要由客户端的浏览器完成，因而得名。</p>
+简单来说，服务器渲染，就是服务端把 HTML 和数据整合在一起发送给客户端；客户端渲染，就是服务端先把 HTML 的「框架」发送给客户端，在客户端再次请求获取数据后，动态地生成网页内容。其中，页面的渲染过程主要由客户端的浏览器完成，因而得名。</p>
 <p>什么意思呢？以在百度搜索内容的过程举例。比方说我搜「迷你世界」：</p>
 <p><img lazyload="" alt="figure_3.1.1" data-src="https://s1.imagehub.cc/images/2024/12/15/1459981046f26cdcd35fd1cc68e2835d.png"></p>
-<p>我们 右键 → 查看页面源代码 来查看页面的 HTML
-源代码。在其中搜索「迷你世界」，出现了大量匹配。可见，服务器将我们请求关于「迷你世界」的相关数据写进了
-HTML 中，再把这个 HTML 返回给了我们。这属于服务器渲染。</p>
+<p>我们 右键 → 查看页面源代码 来查看页面的 HTML 源代码。在其中搜索「迷你世界」，出现了大量匹配。可见，服务器将我们请求关于「迷你世界」的相关数据写进了 HTML 中，再把这个 HTML 返回给了我们。这属于服务器渲染。</p>
 <p><img lazyload="" alt="figure_3.1.2" data-src="https://s1.imagehub.cc/images/2024/12/15/650f1f54bcb43896a4266e2016022056.png"></p>
-<p>客户端渲染的一个例子是 B 站首页。B
-站首页有许多系统推荐的视频，算是客户端索取的数据。然而，我们查看 B
-站首页源代码，会发现他空空如也：</p>
+<p>客户端渲染的一个例子是 B 站首页。B 站首页有许多系统推荐的视频，算是客户端索取的数据。然而，我们查看 B 站首页源代码，会发现他空空如也：</p>
 <p><img lazyload="" alt="figure_3.1.3" data-src="https://s1.imagehub.cc/images/2024/12/15/298ceed26bbc93223cd132d87bc3e1d3.png"></p>
 <p><img lazyload="" alt="figure_3.1.4" data-src="https://s1.imagehub.cc/images/2024/12/15/1459981046f26cdcd35fd1cc68e2835d.png"></p>
 <p>这种就属于客户端渲染。</p>
-<p>对于第一种情况我们可以直接爬取网页源代码后再处理源代码；但如果我们面对的是第二种情况呢？这就需要我们使用浏览器的<strong>抓包工具</strong>。按下
-F12，选择网络（Network），就可以看到每个网络操作的相关信息，包括详细的耗时数据、HTTP
-请求与响应标头和 Cookie。在名称（Name）一栏的第一个就是客户端先收到的
-HTML
-框架；后面就是客户端陆陆续续渲染的数据了。选择标头（Headers），第一行就是这个数据所在的
-URL。</p>
+<p>对于第一种情况我们可以直接爬取网页源代码后再处理源代码；但如果我们面对的是第二种情况呢？这就需要我们使用浏览器的<strong>抓包工具</strong>。按下 F12，选择网络（Network），就可以看到每个网络操作的相关信息，包括详细的耗时数据、HTTP 请求与响应标头和 Cookie。在名称（Name）一栏的第一个就是客户端先收到的 HTML 框架；后面就是客户端陆陆续续渲染的数据了。选择标头（Headers），第一行就是这个数据所在的 URL。</p>
 <p><img lazyload="" alt="figure_3.1.5" data-src="https://s1.imagehub.cc/images/2024/12/15/5a113516f3d108867d9e9b8cf6c63e9c.png"></p>
 <p>关于 Web 请求过程我们就先讲这么多，主要是了解了解抓包的过程。</p>
-<h2 id="http-协议">3.2 HTTP 协议</h2>
-<p>HTTP 协议，Hypertext Transfer
-Protocol（超文本传输协议）的简写。浏览器和服务器间的数据交互遵守的就是HTTP
-协议。</p>
+<h2 id="32-http-协议"><a class="markdownIt-Anchor" href="#32-http-协议"></a> 3.2 HTTP 协议</h2>
+<p>HTTP 协议，Hypertext Transfer Protocol（超文本传输协议）的简写。浏览器和服务器间的数据交互遵守的就是HTTP 协议。</p>
 <blockquote>
-<p>通常，由 HTTP 客户端发起一个请求，建立一个到服务器指定端口（默认是 80
-端口）的 TCP 连接。HTTP
-服务器则在那个端口监听客户端的请求。一旦收到请求，服务器会向客户端返回一个状态，比如
-<code>HTTP/1.1 200 OK</code>，以及返回的内容，如请求的文件、错误消息、或者其它信息。——维基百科</p>
+<p>通常，由 HTTP 客户端发起一个请求，建立一个到服务器指定端口（默认是 80 端口）的 TCP 连接。HTTP 服务器则在那个端口监听客户端的请求。一旦收到请求，服务器会向客户端返回一个状态，比如 <code>HTTP/1.1 200 OK</code>，以及返回的内容，如请求的文件、错误消息、或者其它信息。——维基百科</p>
 </blockquote>
 <p>HTTP 协议的一条消息有请求和相应两种类型。</p>
-<h3 id="http-请求">3.2.1 HTTP 请求</h3>
+<h3 id="321-http-请求"><a class="markdownIt-Anchor" href="#321-http-请求"></a> 3.2.1 HTTP 请求</h3>
 <p>请求消息有三块内容：请求行、请求头、请求体。</p>
-<p>请求行包括请求方法、资源路径与协议版本。其中，请求方法我们需要了解两种：<strong>GET
-方法</strong> 和 <strong>POST 方法</strong>。GET
-用于获取数据，如进入一个网页时，获得网页内容；POST
-用于创建数据，如用户提交自己的用户名等等。</p>
-<p>请求头包含一些给服务器的信息，如 HOST、User-Agent、cookie
-等等。User-Agent 表明了客户端的相关信息。</p>
+<p>请求行包括请求方法、资源路径与协议版本。其中，请求方法我们需要了解两种：<strong>GET 方法</strong> 和 <strong>POST 方法</strong>。GET 用于获取数据，如进入一个网页时，获得网页内容；POST 用于创建数据，如用户提交自己的用户名等等。</p>
+<p>请求头包含一些给服务器的信息，如 HOST、User-Agent、cookie 等等。User-Agent 表明了客户端的相关信息。</p>
 <p>请求体一般放一些请求参数。GET 的请求体一般是空的。</p>
-<h3 id="http-响应">3.2.2 HTTP 响应</h3>
+<h3 id="322-http-响应"><a class="markdownIt-Anchor" href="#322-http-响应"></a> 3.2.2 HTTP 响应</h3>
 <p>响应消息有也三块内容：状态行、响应头、响应体。</p>
-<p>状态行有协议版本和状态码。<code>404</code>（Not
-Found）就是一种状态码，表明「
-服务器无法根据客户端的请求找到资源」。状态码对应的意思（状态信息）可以参考
-<a class="link" target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Status">这里<i class="fas fa-external-link-alt"></i></a>。</p>
+<p>状态行有协议版本和状态码。<code>404</code>（Not Found）就是一种状态码，表明「	服务器无法根据客户端的请求找到资源」。状态码对应的意思（状态信息）可以参考 <a class="link" target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Status">这里<i class="fas fa-external-link-alt"></i></a>。</p>
 <p>响应头包含一些给客户端的信息。如日期、编码类型等。</p>
-<p>响应体包含的是客户端真正要的内容，如 HTML
-等，也就是我们要爬的东西。</p>
-<h3 id="使用浏览器抓包工具查看上述内容">3.2.3
-使用浏览器抓包工具查看上述内容</h3>
-<p>还是按下
-F12，选择网络（Network），选择一个数据，就可以看到请求方法、状态代码等诸多内容。</p>
+<p>响应体包含的是客户端真正要的内容，如 HTML 等，也就是我们要爬的东西。</p>
+<h3 id="323-使用浏览器抓包工具查看上述内容"><a class="markdownIt-Anchor" href="#323-使用浏览器抓包工具查看上述内容"></a> 3.2.3 使用浏览器抓包工具查看上述内容</h3>
+<p>还是按下 F12，选择网络（Network），选择一个数据，就可以看到请求方法、状态代码等诸多内容。</p>
 <hr>
-<p>了解了这么多内容，下次我们是时候该学学 <code>requests</code>
-这个库咋用了。</p>
-<h1 id="requests-库入门">4. <code>requests</code> 库入门</h1>
-<h2 id="基本方法与函数">4.1 基本方法与函数</h2>
+<p>了解了这么多内容，下次我们是时候该学学 <code>requests</code> 这个库咋用了。</p>
+<h1 id="4-requests-库入门"><a class="markdownIt-Anchor" href="#4-requests-库入门"></a> 4. <code>requests</code> 库入门</h1>
+<h2 id="41-基本方法与函数"><a class="markdownIt-Anchor" href="#41-基本方法与函数"></a> 4.1 基本方法与函数</h2>
 <p>在第二节我们展示了这样一段代码：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests <span class="comment"># 引入 requsets 库</span></span><br><span class="line">response = requests.get(<span class="string">'https://www.mini1.cn/'</span>) <span class="comment"># get 请求</span></span><br><span class="line">response.encoding = <span class="string">'utf-8'</span> <span class="comment"># 用 utf-8 解码</span></span><br><span class="line"><span class="built_in">print</span>(response.text) <span class="comment"># 输出</span></span><br></pre></td></tr></table></figure>
-<p>但有些人可能会发现如果把网址换成其他的会出现「404」或「异常访问请求」的提示。这又是咋回事呢？别急，在这之前让我们先来了解
-<code>requests</code> 的一些基本用法。</p>
-<p>使用 <code>requests</code>
-库前得先安装一次这个库。直接在命令行（cmd）中输入
-<code>pip install requests</code> 即可。如果网速太慢，可使用<a class="link" target="_blank" rel="noopener" href="https://mirrors.tuna.tsinghua.edu.cn/help/pypi/">清华源<i class="fas fa-external-link-alt"></i></a>。输入
-<code>pip install -i https://mirrors.tuna.tsinghua.edu.cn/pypi/web/simple requests</code>
-即可。</p>
-<p>在我们导入 <code>requests</code>
-库（<code>import requests</code>）后，我们可以用 <code>requests</code>
-库下的方法 <strong><code>get</code></strong> 获得一个
-<code>response</code> 对象：</p>
+<p>但有些人可能会发现如果把网址换成其他的会出现「404」或「异常访问请求」的提示。这又是咋回事呢？别急，在这之前让我们先来了解 <code>requests</code> 的一些基本用法。</p>
+<p>使用 <code>requests</code> 库前得先安装一次这个库。直接在命令行（cmd）中输入 <code>pip install requests</code> 即可。如果网速太慢，可使用<a class="link" target="_blank" rel="noopener" href="https://mirrors.tuna.tsinghua.edu.cn/help/pypi/">清华源<i class="fas fa-external-link-alt"></i></a>。输入 <code>pip install -i https://mirrors.tuna.tsinghua.edu.cn/pypi/web/simple requests</code> 即可。</p>
+<p>在我们导入 <code>requests</code> 库（<code>import requests</code>）后，我们可以用 <code>requests</code> 库下的方法 <strong><code>get</code></strong> 获得一个 <code>response</code> 对象：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests <span class="comment"># 导入 requests 包</span></span><br><span class="line">re = requests.get(<span class="string">'https://www.mini1.cn/'</span>)</span><br></pre></td></tr></table></figure>
 <p>该对象包含了具体的响应信息，如状态码、响应头、响应内容等。节选部分如下表格：</p>
 <table>
-<colgroup>
-<col style="width: 50%">
-<col style="width: 50%">
-</colgroup>
 <thead>
 <tr>
 <th>代码</th>
@@ -748,8 +671,7 @@ F12，选择网络（Network），选择一个数据，就可以看到请求方�
 </tr>
 <tr>
 <td><code>response.ok</code></td>
-<td>检查 <code>status_code</code> 的值，如果小于 400，则返回
-<code>True</code>，如果不小于 400，则返回 <code>False</code></td>
+<td>检查 <code>status_code</code> 的值，如果小于 400，则返回 <code>True</code>，如果不小于 400，则返回 <code>False</code></td>
 </tr>
 </tbody>
 </table>
@@ -758,48 +680,25 @@ F12，选择网络（Network），选择一个数据，就可以看到请求方�
 <p>输出来的内容是这样的：<br>
 <img lazyload="" alt="4.1.1" data-src="https://s1.imagehub.cc/images/2025/01/01/4d25d50288e39cdb401d3a18fabc1e6e.png"></p>
 <p>我们一块一块解释。<br>
-<strong><code>status_code</code></strong> 表示状态码，200
-就代表获取成功了。当然我们也可以使用 <strong><code>ok</code></strong>
-来判断自己是否访问成功（即最下面一行的 <code>True</code>
-表示成功）。</p>
-<p><strong><code>content</code></strong>
-返回的是响应内容的二进制形式。我们可以发现开头有一个 b
-字母，还有一些类似 <code>\xe7\x99</code>
-的乱码。这是字节字符串的标志。</p>
-<p><strong><code>text</code></strong> 猜测编码方式将
-<code>content</code> 内容编码成字符串。如果页面只有 <code>ascii</code>
-码，这那么<code>text</code> 和上述的 <code>content</code>
-的结果是一样的。但对于其他的文字（比如中文），就会出现乱码现象（即图中的不知名字符），需要编码才能正常显示。那我咋判断网页用的是什么编码方式呢？我们就需要
-<code>apparent_encoding</code> 了：</p>
-<p><strong><code>apparent_encoding</code></strong>
-会从网页的内容中分析网页编码的方式，比 <code>encoding</code>
-更加准确。（<code>encoding</code> 从 HTTP header
-中猜测响应内容编码方式。Python 会从 header 中的 charset
-提取的编码方式，若 没有 charset 字段则会默认为
-ISO-8859-1，这就是图中无法正确解码的原因。）Python 会根据
-<code>encoding</code> 中存的内容进行解码。所以可以采用
-<code>response.encoding = response.apparent_encoding</code>（当然手动判断并输入是更保险的）。</p>
+<strong><code>status_code</code></strong> 表示状态码，200 就代表获取成功了。当然我们也可以使用 <strong><code>ok</code></strong> 来判断自己是否访问成功（即最下面一行的 <code>True</code> 表示成功）。</p>
+<p><strong><code>content</code></strong> 返回的是响应内容的二进制形式。我们可以发现开头有一个 b 字母，还有一些类似 <code>\xe7\x99</code> 的乱码。这是字节字符串的标志。</p>
+<p><strong><code>text</code></strong> 猜测编码方式将 <code>content</code> 内容编码成字符串。如果页面只有 <code>ascii</code> 码，这那么<code>text</code> 和上述的 <code>content</code> 的结果是一样的。但对于其他的文字（比如中文），就会出现乱码现象（即图中的不知名字符），需要编码才能正常显示。那我咋判断网页用的是什么编码方式呢？我们就需要 <code>apparent_encoding</code> 了：</p>
+<p><strong><code>apparent_encoding</code></strong> 会从网页的内容中分析网页编码的方式，比 <code>encoding</code> 更加准确。（<code>encoding</code> 从 HTTP header 中猜测响应内容编码方式。Python 会从 header 中的 charset 提取的编码方式，若 没有 charset 字段则会默认为 ISO-8859-1，这就是图中无法正确解码的原因。）Python 会根据 <code>encoding</code> 中存的内容进行解码。所以可以采用 <code>response.encoding = response.apparent_encoding</code>（当然手动判断并输入是更保险的）。</p>
 <p>现在，你能看懂之前展示的两段代码了吗？</p>
-<h2 id="为啥有404或异常访问请求">4.2
-为啥有「404」或「异常访问请求」？</h2>
+<h2 id="42-为啥有404或异常访问请求"><a class="markdownIt-Anchor" href="#42-为啥有404或异常访问请求"></a> 4.2 为啥有「404」或「异常访问请求」？</h2>
 <p>我们还是没有解决这个问题！如爬取知乎首页：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"></span><br><span class="line">response = requests.get(<span class="string">'https://www.zhihu.com/'</span>)</span><br><span class="line">response.encoding = <span class="string">'utf-8'</span></span><br><span class="line"><span class="built_in">print</span>(response.status_code) <span class="comment"># 输出状态码</span></span><br></pre></td></tr></table></figure>
 <p>怎么返回了 403？这是<a class="link" target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Status#%E5%AE%A2%E6%88%B7%E7%AB%AF%E9%94%99%E8%AF%AF%E5%93%8D%E5%BA%94">「服务器拒绝提供请求的资源」<i class="fas fa-external-link-alt"></i></a>的意思！这该如何解决？</p>
-<p>上次说到，请求头（header）中的 User-Agent(UA)
-表明了客户端的相关信息。服务器就是通过这个判断你是人还是爬虫。这已是最简单的反爬机制。所以说，我们要通过修改
-UA 来把自己的浏览器「伪装成人」。</p>
-<p>首先，我们获取一个正常点的
-UA。通过上回说到的浏览器抓包工具找到了一个正常的 UA：<br>
+<p>上次说到，请求头（header）中的 User-Agent(UA) 表明了客户端的相关信息。服务器就是通过这个判断你是人还是爬虫。这已是最简单的反爬机制。所以说，我们要通过修改 UA 来把自己的浏览器「伪装成人」。</p>
+<p>首先，我们获取一个正常点的 UA。通过上回说到的浏览器抓包工具找到了一个正常的 UA：<br>
 <img lazyload="" alt="figure_4.2.1" data-src="!%5B4.2.1%5D(https://s1.imagehub.cc/images/2025/01/01/28b477c137988fd8e37f6d260bdac076.png)"><br>
 把他复制下来。</p>
-<p><code>get()</code> 中不仅可以传入网址，还可以传入
-header，类型为字典。所以，我们要创建一个包含 UA 信息的字典：</p>
+<p><code>get()</code> 中不仅可以传入网址，还可以传入 header，类型为字典。所以，我们要创建一个包含 UA 信息的字典：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">headers = {<span class="string">"User-Agent"</span>: <span class="string">"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/132.0.0.0 Safari/537.36"</span>}</span><br></pre></td></tr></table></figure>
 <p>就像这样。现在，我们再来试一下：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"></span><br><span class="line">headers = {<span class="string">"User-Agent"</span>: <span class="string">"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/132.0.0.0 Safari/537.36"</span>}</span><br><span class="line">response = requests.get(<span class="string">'https://www.zhihu.com/'</span>, headers = headers) <span class="comment"># 把 UA 传进去。注意，这两个 headers 不同，前面是 get 的关键字，后面的是我们自己建立的字典，可以随便改名字</span></span><br><span class="line">response.encoding = <span class="string">'utf-8'</span></span><br><span class="line"><span class="built_in">print</span>(response.status_code)</span><br><span class="line"><span class="built_in">print</span>(response.text)</span><br></pre></td></tr></table></figure>
 <p>可喜可贺！成功骗过了知乎！这也是我们反反爬的一个技巧。</p>
-<p>接下来，请大家尝试一下实现这样一个程序：输入一个游戏名，返回必应搜索到的网页源代码。（如，我输入「原神」，程序返回给我
-<code>https://cn.bing.com/search?q=原神</code> 的源代码。）<br>
+<p>接下来，请大家尝试一下实现这样一个程序：输入一个游戏名，返回必应搜索到的网页源代码。（如，我输入「原神」，程序返回给我 <code>https://cn.bing.com/search?q=原神</code> 的源代码。）<br>
 提示：<code>f-string</code> 用法：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="built_in">str</span> = <span class="string">'Miniworld'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="string">f'Hello <span class="subst">{<span class="built_in">str</span>}</span>'</span>  <span class="comment"># 替换变量</span></span><br><span class="line"><span class="string">'Hello Miniworld'</span></span><br></pre></td></tr></table></figure>
 
@@ -1014,10 +913,7 @@ header，类型为字典。所以，我们要创建一个包含 UA 信息的字�
             <div class="pc-post-toc left-toc">
                 <div class="post-toc-wrap border-box">
     <div class="post-toc border-box">
-        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%BA%E5%95%A5%E8%A6%81%E5%AD%A6%E7%88%AC%E8%99%AB"><span class="nav-text">0. 为啥要学爬虫？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E7%88%AC%E8%99%AB"><span class="nav-text">1. 什么是爬虫？</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%82%A3%E6%88%91%E6%98%AF%E4%B8%8D%E6%98%AF%E5%95%A5%E9%83%BD%E8%83%BD%E7%88%AC%E5%8C%85%E6%8B%AC%E9%87%8D%E8%A6%81%E6%9C%BA%E5%AF%86%E9%82%A3%E7%A7%8D"><span class="nav-text">……那我是不是啥都能爬，包括重要机密那种？</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%BE%AE%E7%BC%96%E5%86%99%E4%B8%A4%E4%B8%AA%E5%B0%8F%E7%88%AC%E8%99%AB"><span class="nav-text">2. 微编写两个小爬虫</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#web-%E8%AF%B7%E6%B1%82%E8%BF%87%E7%A8%8B%E5%88%86%E6%9E%90%E4%B8%8E-https-%E5%8D%8F%E8%AE%AE"><span class="nav-text">3. Web 请求过程分析与 HTTPS
-协议</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#web-%E8%AF%B7%E6%B1%82%E8%BF%87%E7%A8%8B"><span class="nav-text">3.1 Web 请求过程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#http-%E5%8D%8F%E8%AE%AE"><span class="nav-text">3.2 HTTP 协议</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#http-%E8%AF%B7%E6%B1%82"><span class="nav-text">3.2.1 HTTP 请求</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#http-%E5%93%8D%E5%BA%94"><span class="nav-text">3.2.2 HTTP 响应</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E6%B5%8F%E8%A7%88%E5%99%A8%E6%8A%93%E5%8C%85%E5%B7%A5%E5%85%B7%E6%9F%A5%E7%9C%8B%E4%B8%8A%E8%BF%B0%E5%86%85%E5%AE%B9"><span class="nav-text">3.2.3
-使用浏览器抓包工具查看上述内容</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#requests-%E5%BA%93%E5%85%A5%E9%97%A8"><span class="nav-text">4. requests 库入门</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E6%96%B9%E6%B3%95%E4%B8%8E%E5%87%BD%E6%95%B0"><span class="nav-text">4.1 基本方法与函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%BA%E5%95%A5%E6%9C%89404%E6%88%96%E5%BC%82%E5%B8%B8%E8%AE%BF%E9%97%AE%E8%AF%B7%E6%B1%82"><span class="nav-text">4.2
-为啥有「404」或「异常访问请求」？</span></a></li></ol></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#0-%E4%B8%BA%E5%95%A5%E8%A6%81%E5%AD%A6%E7%88%AC%E8%99%AB"><span class="nav-text"> 0. 为啥要学爬虫？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#1-%E4%BB%80%E4%B9%88%E6%98%AF%E7%88%AC%E8%99%AB"><span class="nav-text"> 1. 什么是爬虫？</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%82%A3%E6%88%91%E6%98%AF%E4%B8%8D%E6%98%AF%E5%95%A5%E9%83%BD%E8%83%BD%E7%88%AC%E5%8C%85%E6%8B%AC%E9%87%8D%E8%A6%81%E6%9C%BA%E5%AF%86%E9%82%A3%E7%A7%8D"><span class="nav-text"> ……那我是不是啥都能爬，包括重要机密那种？</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-%E5%BE%AE%E7%BC%96%E5%86%99%E4%B8%A4%E4%B8%AA%E5%B0%8F%E7%88%AC%E8%99%AB"><span class="nav-text"> 2. 微编写两个小爬虫</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-web-%E8%AF%B7%E6%B1%82%E8%BF%87%E7%A8%8B%E5%88%86%E6%9E%90%E4%B8%8E-https-%E5%8D%8F%E8%AE%AE"><span class="nav-text"> 3. Web 请求过程分析与 HTTPS 协议</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#31-web-%E8%AF%B7%E6%B1%82%E8%BF%87%E7%A8%8B"><span class="nav-text"> 3.1 Web 请求过程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#32-http-%E5%8D%8F%E8%AE%AE"><span class="nav-text"> 3.2 HTTP 协议</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#321-http-%E8%AF%B7%E6%B1%82"><span class="nav-text"> 3.2.1 HTTP 请求</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#322-http-%E5%93%8D%E5%BA%94"><span class="nav-text"> 3.2.2 HTTP 响应</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#323-%E4%BD%BF%E7%94%A8%E6%B5%8F%E8%A7%88%E5%99%A8%E6%8A%93%E5%8C%85%E5%B7%A5%E5%85%B7%E6%9F%A5%E7%9C%8B%E4%B8%8A%E8%BF%B0%E5%86%85%E5%AE%B9"><span class="nav-text"> 3.2.3 使用浏览器抓包工具查看上述内容</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4-requests-%E5%BA%93%E5%85%A5%E9%97%A8"><span class="nav-text"> 4. requests 库入门</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#41-%E5%9F%BA%E6%9C%AC%E6%96%B9%E6%B3%95%E4%B8%8E%E5%87%BD%E6%95%B0"><span class="nav-text"> 4.1 基本方法与函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#42-%E4%B8%BA%E5%95%A5%E6%9C%89404%E6%88%96%E5%BC%82%E5%B8%B8%E8%AE%BF%E9%97%AE%E8%AF%B7%E6%B1%82"><span class="nav-text"> 4.2 为啥有「404」或「异常访问请求」？</span></a></li></ol></li></ol>
     </div>
 </div>
 
@@ -1052,7 +948,7 @@ header，类型为字典。所以，我们要创建一个包含 UA 信息的字�
             
                 <span class="count-item border-box word">
                     <span class="item-type border-box">总字数</span>
-                    <span class="item-value border-box word">10.1k</span>
+                    <span class="item-value border-box word">12.6k</span>
                 </span>
             
 
@@ -1204,10 +1100,7 @@ header，类型为字典。所以，我们要创建一个包含 UA 信息的字�
             <div class="tablet-post-toc">
                 <div class="post-toc-wrap border-box">
     <div class="post-toc border-box">
-        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%BA%E5%95%A5%E8%A6%81%E5%AD%A6%E7%88%AC%E8%99%AB"><span class="nav-text">0. 为啥要学爬虫？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E7%88%AC%E8%99%AB"><span class="nav-text">1. 什么是爬虫？</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%82%A3%E6%88%91%E6%98%AF%E4%B8%8D%E6%98%AF%E5%95%A5%E9%83%BD%E8%83%BD%E7%88%AC%E5%8C%85%E6%8B%AC%E9%87%8D%E8%A6%81%E6%9C%BA%E5%AF%86%E9%82%A3%E7%A7%8D"><span class="nav-text">……那我是不是啥都能爬，包括重要机密那种？</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%BE%AE%E7%BC%96%E5%86%99%E4%B8%A4%E4%B8%AA%E5%B0%8F%E7%88%AC%E8%99%AB"><span class="nav-text">2. 微编写两个小爬虫</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#web-%E8%AF%B7%E6%B1%82%E8%BF%87%E7%A8%8B%E5%88%86%E6%9E%90%E4%B8%8E-https-%E5%8D%8F%E8%AE%AE"><span class="nav-text">3. Web 请求过程分析与 HTTPS
-协议</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#web-%E8%AF%B7%E6%B1%82%E8%BF%87%E7%A8%8B"><span class="nav-text">3.1 Web 请求过程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#http-%E5%8D%8F%E8%AE%AE"><span class="nav-text">3.2 HTTP 协议</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#http-%E8%AF%B7%E6%B1%82"><span class="nav-text">3.2.1 HTTP 请求</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#http-%E5%93%8D%E5%BA%94"><span class="nav-text">3.2.2 HTTP 响应</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E6%B5%8F%E8%A7%88%E5%99%A8%E6%8A%93%E5%8C%85%E5%B7%A5%E5%85%B7%E6%9F%A5%E7%9C%8B%E4%B8%8A%E8%BF%B0%E5%86%85%E5%AE%B9"><span class="nav-text">3.2.3
-使用浏览器抓包工具查看上述内容</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#requests-%E5%BA%93%E5%85%A5%E9%97%A8"><span class="nav-text">4. requests 库入门</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E6%96%B9%E6%B3%95%E4%B8%8E%E5%87%BD%E6%95%B0"><span class="nav-text">4.1 基本方法与函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%BA%E5%95%A5%E6%9C%89404%E6%88%96%E5%BC%82%E5%B8%B8%E8%AE%BF%E9%97%AE%E8%AF%B7%E6%B1%82"><span class="nav-text">4.2
-为啥有「404」或「异常访问请求」？</span></a></li></ol></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#0-%E4%B8%BA%E5%95%A5%E8%A6%81%E5%AD%A6%E7%88%AC%E8%99%AB"><span class="nav-text"> 0. 为啥要学爬虫？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#1-%E4%BB%80%E4%B9%88%E6%98%AF%E7%88%AC%E8%99%AB"><span class="nav-text"> 1. 什么是爬虫？</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%82%A3%E6%88%91%E6%98%AF%E4%B8%8D%E6%98%AF%E5%95%A5%E9%83%BD%E8%83%BD%E7%88%AC%E5%8C%85%E6%8B%AC%E9%87%8D%E8%A6%81%E6%9C%BA%E5%AF%86%E9%82%A3%E7%A7%8D"><span class="nav-text"> ……那我是不是啥都能爬，包括重要机密那种？</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-%E5%BE%AE%E7%BC%96%E5%86%99%E4%B8%A4%E4%B8%AA%E5%B0%8F%E7%88%AC%E8%99%AB"><span class="nav-text"> 2. 微编写两个小爬虫</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-web-%E8%AF%B7%E6%B1%82%E8%BF%87%E7%A8%8B%E5%88%86%E6%9E%90%E4%B8%8E-https-%E5%8D%8F%E8%AE%AE"><span class="nav-text"> 3. Web 请求过程分析与 HTTPS 协议</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#31-web-%E8%AF%B7%E6%B1%82%E8%BF%87%E7%A8%8B"><span class="nav-text"> 3.1 Web 请求过程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#32-http-%E5%8D%8F%E8%AE%AE"><span class="nav-text"> 3.2 HTTP 协议</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#321-http-%E8%AF%B7%E6%B1%82"><span class="nav-text"> 3.2.1 HTTP 请求</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#322-http-%E5%93%8D%E5%BA%94"><span class="nav-text"> 3.2.2 HTTP 响应</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#323-%E4%BD%BF%E7%94%A8%E6%B5%8F%E8%A7%88%E5%99%A8%E6%8A%93%E5%8C%85%E5%B7%A5%E5%85%B7%E6%9F%A5%E7%9C%8B%E4%B8%8A%E8%BF%B0%E5%86%85%E5%AE%B9"><span class="nav-text"> 3.2.3 使用浏览器抓包工具查看上述内容</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4-requests-%E5%BA%93%E5%85%A5%E9%97%A8"><span class="nav-text"> 4. requests 库入门</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#41-%E5%9F%BA%E6%9C%AC%E6%96%B9%E6%B3%95%E4%B8%8E%E5%87%BD%E6%95%B0"><span class="nav-text"> 4.1 基本方法与函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#42-%E4%B8%BA%E5%95%A5%E6%9C%89404%E6%88%96%E5%BC%82%E5%B8%B8%E8%AE%BF%E9%97%AE%E8%AF%B7%E6%B1%82"><span class="nav-text"> 4.2 为啥有「404」或「异常访问请求」？</span></a></li></ol></li></ol>
     </div>
 </div>
 
