@@ -182,3 +182,117 @@ HTTP 协议的一条消息有请求和相应两种类型。
 *******
 
 了解了这么多内容，下次我们是时候该学学 `requests` 这个库咋用了。
+
+# 4. `requests` 库入门
+
+## 4.1 基本方法与函数
+
+在第二节我们展示了这样一段代码：
+
+```python
+import requests # 引入 requsets 库
+response = requests.get('https://www.mini1.cn/') # get 请求
+response.encoding = 'utf-8' # 用 utf-8 解码
+print(response.text) # 输出
+```
+
+但有些人可能会发现如果把网址换成其他的会出现「404」或「异常访问请求」的提示。这又是咋回事呢？别急，在这之前让我们先来了解 `requests` 的一些基本用法。
+
+使用 `requests` 库前得先安装一次这个库。直接在命令行（cmd）中输入 `pip install requests` 即可。如果网速太慢，可使用[清华源](https://mirrors.tuna.tsinghua.edu.cn/help/pypi/)。输入 `pip install -i https://mirrors.tuna.tsinghua.edu.cn/pypi/web/simple requests` 即可。
+
+在我们导入 `requests` 库（`import requests`）后，我们可以用 `requests` 库下的方法 **`get`** 获得一个 `response` 对象：
+
+```python
+import requests # 导入 requests 包
+re = requests.get('https://www.mini1.cn/')
+```
+
+该对象包含了具体的响应信息，如状态码、响应头、响应内容等。节选部分如下表格：
+
+|代码|说明|
+|-|-|
+|`response.status_code`|返回 HTTP 的状态码，比如 404 和 200|
+|`response.content`|HTTP 响应内容的二进制形式|
+|`response.text`|HTTP 响应内容的字符串形式|
+|`response.apparent_encoding`|从内容中分析出的响应内容编码方式|
+|`response.encoding`|从 HTTP header 中猜测的响应内容编码方式|
+|`response.ok`|检查 `status_code` 的值，如果小于 400，则返回 `True`，如果不小于 400，则返回 `False`|
+
+emm……不像人话。那我们来具体输出一下，看看这都是什么东西。
+
+```python
+import requests # 导入 requests 包
+
+re = requests.get('https://www.mini1.cn/')
+print(re)
+print(re.status_code)
+print(re.content)
+print(re.text)
+print(re.apparent_encoding)
+print(re.encoding)
+print(re.ok)
+```
+
+输出来的内容是这样的：
+![4.1.1](https://s1.imagehub.cc/images/2025/01/01/4d25d50288e39cdb401d3a18fabc1e6e.png)
+
+我们一块一块解释。
+**`status_code`** 表示状态码，200 就代表获取成功了。当然我们也可以使用 **`ok`** 来判断自己是否访问成功（即最下面一行的 `True` 表示成功）。
+
+**`content`** 返回的是响应内容的二进制形式。我们可以发现开头有一个 b 字母，还有一些类似 `\xe7\x99` 的乱码。这是字节字符串的标志。
+
+**`text`** 猜测编码方式将 `content` 内容编码成字符串。如果页面只有 `ascii` 码，这那么`text` 和上述的 `content` 的结果是一样的。但对于其他的文字（比如中文），就会出现乱码现象（即图中的不知名字符），需要编码才能正常显示。那我咋判断网页用的是什么编码方式呢？我们就需要 `apparent_encoding` 了：
+
+**`apparent_encoding`** 会从网页的内容中分析网页编码的方式，比 `encoding` 更加准确。（`encoding` 从 HTTP header 中猜测响应内容编码方式。Python 会从 header 中的 charset 提取的编码方式，若 没有 charset 字段则会默认为 ISO-8859-1，这就是图中无法正确解码的原因。）Python 会根据 `encoding` 中存的内容进行解码。所以可以采用 `response.encoding = response.apparent_encoding`（当然手动判断并输入是更保险的）。
+
+现在，你能看懂之前展示的两段代码了吗？
+
+## 4.2 为啥有「404」或「异常访问请求」？
+
+我们还是没有解决这个问题！如爬取知乎首页：
+
+```python
+import requests
+
+response = requests.get('https://www.zhihu.com/')
+response.encoding = 'utf-8'
+print(response.status_code) # 输出状态码
+```
+
+怎么返回了 403？这是[「服务器拒绝提供请求的资源」](https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Status#%E5%AE%A2%E6%88%B7%E7%AB%AF%E9%94%99%E8%AF%AF%E5%93%8D%E5%BA%94)的意思！这该如何解决？
+
+上次说到，请求头（header）中的 User-Agent(UA) 表明了客户端的相关信息。服务器就是通过这个判断你是人还是爬虫。这已是最简单的反爬机制。所以说，我们要通过修改 UA 来把自己的浏览器「伪装成人」。
+
+首先，我们获取一个正常点的 UA。通过上回说到的浏览器抓包工具找到了一个正常的 UA：  
+![figure_4.2.1](![4.2.1](https://s1.imagehub.cc/images/2025/01/01/28b477c137988fd8e37f6d260bdac076.png))  
+把他复制下来。
+
+`get()` 中不仅可以传入网址，还可以传入 header，类型为字典。所以，我们要创建一个包含 UA 信息的字典：
+
+```python
+headers = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/132.0.0.0 Safari/537.36"}
+```
+
+就像这样。现在，我们再来试一下：
+
+```python
+import requests
+
+headers = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/132.0.0.0 Safari/537.36"}
+response = requests.get('https://www.zhihu.com/', headers = headers) # 把 UA 传进去。注意，这两个 headers 不同，前面是 get 的关键字，后面的是我们自己建立的字典，可以随便改名字
+response.encoding = 'utf-8'
+print(response.status_code)
+print(response.text)
+```
+
+可喜可贺！成功骗过了知乎！这也是我们反反爬的一个技巧。
+
+接下来，请大家尝试一下实现这样一个程序：输入一个游戏名，返回必应搜索到的网页源代码。（如，我输入「原神」，程序返回给我 `https://cn.bing.com/search?q=原神` 的源代码。）
+提示：`f-string` 用法：
+
+```python
+>>> str = 'Miniworld'
+>>> f'Hello {str}'  # 替换变量
+'Hello Miniworld'
+```
+
