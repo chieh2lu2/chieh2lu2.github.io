@@ -409,7 +409,7 @@ mjx-container[display="true"] + br {
 
             <span class="meta-info-item post-update-date">
                 <i class="icon fa-solid fa-file-pen"></i>&nbsp;
-                <span class="datetime" data-updated="Wed Jan 01 2025 16:04:47 GMT+0800">2025 年 01 月 01 日 16:04</span>
+                <span class="datetime" data-updated="Sun Feb 23 2025 10:50:59 GMT+0800">2025 年 02 月 23 日 10:50</span>
             </span>
         
 
@@ -428,16 +428,16 @@ mjx-container[display="true"] + br {
             <span class="post-tag meta-info-item border-box">
                 <ul class="post-tag-ul">
                     
-                            <li class="tag-item"><span class="tag-separator"><i class="icon fas fa-hashtag"></i></span><a href="/tags/Python/">Python</a></li>
-                        
-                    
-                            <li class="tag-item"><span class="tag-separator"><i class="icon fas fa-hashtag"></i></span><a href="/tags/%E7%88%AC%E8%99%AB/">爬虫</a></li>
+                            <li class="tag-item"><span class="tag-separator"><i class="icon fas fa-hashtag"></i></span><a href="/tags/%E6%B0%B8%E4%B8%AD/">永中</a></li>
                         
                     
                             <li class="tag-item"><span class="tag-separator"><i class="icon fas fa-hashtag"></i></span><a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%A4%BE/">计算机社</a></li>
                         
                     
-                            <li class="tag-item"><span class="tag-separator"><i class="icon fas fa-hashtag"></i></span><a href="/tags/%E6%B0%B8%E4%B8%AD/">永中</a></li>
+                            <li class="tag-item"><span class="tag-separator"><i class="icon fas fa-hashtag"></i></span><a href="/tags/Python/">Python</a></li>
+                        
+                    
+                            <li class="tag-item"><span class="tag-separator"><i class="icon fas fa-hashtag"></i></span><a href="/tags/%E7%88%AC%E8%99%AB/">爬虫</a></li>
                         
                     
                 </ul>
@@ -447,12 +447,12 @@ mjx-container[display="true"] + br {
         
         
             <span class="meta-info-item post-wordcount">
-                <i class="icon fas fa-file-word"></i>&nbsp;<span>4.3k 字</span>
+                <i class="icon fas fa-file-word"></i>&nbsp;<span>4.8k 字</span>
             </span>
         
         
             <span class="meta-info-item post-min2read">
-                <i class="icon fas fa-clock"></i>&nbsp;<span>15 分钟</span>
+                <i class="icon fas fa-clock"></i>&nbsp;<span>18 分钟</span>
             </span>
         
         
@@ -473,7 +473,7 @@ mjx-container[display="true"] + br {
                 <div class="post-content keep-markdown-body code-block-unshrink">
                     
                         <div class="post-aging-tips"
-                             data-update-date="Wed Jan 01 2025 16:04:47 GMT+0800"
+                             data-update-date="Sun Feb 23 2025 10:50:59 GMT+0800"
                              data-aging-days=""
                         >
                             <i class="fa-solid fa-circle-exclamation"></i>本文距离上次更新已过去 <span class="days">0</span> 天，部分内容可能已经过时，请注意甄别。
@@ -802,6 +802,34 @@ header，类型为字典。所以，我们要创建一个包含 UA 信息的字�
 <code>https://cn.bing.com/search?q=原神</code> 的源代码。）<br>
 提示：<code>f-string</code> 用法：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="built_in">str</span> = <span class="string">'Miniworld'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="string">f'Hello <span class="subst">{<span class="built_in">str</span>}</span>'</span>  <span class="comment"># 替换变量</span></span><br><span class="line"><span class="string">'Hello Miniworld'</span></span><br></pre></td></tr></table></figure>
+<h1 id="典中典之百度翻译">5. 典中典之百度翻译</h1>
+<p>什么？我只了解了这么点就可以直接上手了？唔，我们分析一下整个翻译的流程：输入翻译内容→点翻译按钮→得到翻译内容。第一步需要我们用
+<code>post</code> 方法上传内容，获取翻译结果则需要 <code>get</code>
+方法。思路大概理清楚，就可以使用抓包工具去看看我们究竟要获得什么，得到什么啦！大家可以先自己找找。</p>
+<hr>
+<p>打开 <a class="link" target="_blank" rel="noopener" href="https://fanyi.baidu.com/">百度翻译<i class="fas fa-external-link-alt"></i></a>，按 F12
+打开抓包工具后，在翻译框中随便输入一个词，以找到
+<code>post</code>：<br>
+<img lazyload="" alt="figure_5.1" data-src="https://s1.imagehub.cc/images/2025/02/23/6c939afe5da66abb7e82e516135baa53.png"></p>
+<p>发现其中 <code>sug</code> 的请求方法是
+<code>post</code>，且负载里有我们提交的内容，返回的东西也正好是我们想要的。就把这个爬下来吧！</p>
+<p><img lazyload="" alt="figure5.2" data-src="https://s1.imagehub.cc/images/2025/02/23/37929b3758077fc0ffe842b13e161727.png"><br>
+<img lazyload="" alt="figure5.3" data-src="https://s1.imagehub.cc/images/2025/02/23/44aa380ce2d562424fe400eacf18ef6b.png"></p>
+<p>大概介绍一下 <code>request</code> 中 <code>post</code>
+的使用方法：</p>
+<p><code>requests.post(url, data={key: value}, args)</code></p>
+<p>其中，<code>url</code> 为请求 url，<code>data</code> 为发送到指定 url
+的字典，<code>args</code> 为其他参数，如 cookies
+等。负载中，中，<code>kw</code> 为我们要提交的内容，所以我们要建立一个有
+<code>kw</code> 的字典。尝试一下！</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line">url = <span class="string">"https://fanyi.baidu.com/sug"</span></span><br><span class="line"></span><br><span class="line">s = <span class="built_in">input</span>(<span class="string">""</span>)</span><br><span class="line">data = {</span><br><span class="line">    <span class="string">"kw"</span>: s</span><br><span class="line">}</span><br><span class="line">headers = {<span class="string">"User-Agent"</span>: <span class="string">"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/132.0.0.0 Safari/537.36"</span>}</span><br><span class="line">response = requests.post(url, data = data, headers = headers)</span><br><span class="line"><span class="built_in">print</span>(response.text)</span><br></pre></td></tr></table></figure>
+<p>唔，有乱码。观察给我们返回的内容，可以发现他是以 json
+的格式返回的。所以我们直接让程序返回 json 数据：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line">url = <span class="string">"https://fanyi.baidu.com/sug"</span></span><br><span class="line"></span><br><span class="line">s = <span class="built_in">input</span>(<span class="string">""</span>)</span><br><span class="line">data = {</span><br><span class="line">    <span class="string">"kw"</span>: s</span><br><span class="line">}</span><br><span class="line">headers = {<span class="string">"User-Agent"</span>: <span class="string">"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/132.0.0.0 Safari/537.36"</span>}</span><br><span class="line">response = requests.post(url, data = data, headers = headers)</span><br><span class="line"><span class="built_in">print</span>(response.json())</span><br></pre></td></tr></table></figure>
+<p>这下正常多了，发现直接返回一个字典。让我们把释义输出来吧：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line">url = <span class="string">"https://fanyi.baidu.com/sug"</span></span><br><span class="line"></span><br><span class="line">s = <span class="built_in">input</span>(<span class="string">""</span>)</span><br><span class="line">data = {</span><br><span class="line">    <span class="string">"kw"</span>: s</span><br><span class="line">}</span><br><span class="line">headers = {<span class="string">"User-Agent"</span>: <span class="string">"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/132.0.0.0 Safari/537.36"</span>}</span><br><span class="line">response = requests.post(url, data = data, headers = headers)</span><br><span class="line">trans = response.json()</span><br><span class="line"><span class="built_in">print</span>(trans[<span class="string">'data'</span>][<span class="number">0</span>][<span class="string">'v'</span>])</span><br></pre></td></tr></table></figure>
+<p>大功告成！<br>
+有同学会发现，这个简单的小程序只能翻译单词而不能翻译句子——这还需要我们掌握更多的技巧。下一节，我们来介绍一下正则表达式。</p>
 
                     
                 </div>
@@ -868,11 +896,7 @@ header，类型为字典。所以，我们要创建一个包含 UA 信息的字�
                             <ul class="post-tags-box border-box">
                                 
                                     <li class="tag-item border-box">
-                                        <i class="icon fas fa-hashtag"></i>&nbsp;<a href="/tags/Python/">Python</a>
-                                    </li>
-                                
-                                    <li class="tag-item border-box">
-                                        <i class="icon fas fa-hashtag"></i>&nbsp;<a href="/tags/%E7%88%AC%E8%99%AB/">爬虫</a>
+                                        <i class="icon fas fa-hashtag"></i>&nbsp;<a href="/tags/%E6%B0%B8%E4%B8%AD/">永中</a>
                                     </li>
                                 
                                     <li class="tag-item border-box">
@@ -880,7 +904,11 @@ header，类型为字典。所以，我们要创建一个包含 UA 信息的字�
                                     </li>
                                 
                                     <li class="tag-item border-box">
-                                        <i class="icon fas fa-hashtag"></i>&nbsp;<a href="/tags/%E6%B0%B8%E4%B8%AD/">永中</a>
+                                        <i class="icon fas fa-hashtag"></i>&nbsp;<a href="/tags/Python/">Python</a>
+                                    </li>
+                                
+                                    <li class="tag-item border-box">
+                                        <i class="icon fas fa-hashtag"></i>&nbsp;<a href="/tags/%E7%88%AC%E8%99%AB/">爬虫</a>
                                     </li>
                                 
                             </ul>
@@ -895,22 +923,6 @@ header，类型为字典。所以，我们要创建一个包含 UA 信息的字�
 
                 
                     <div class="post-nav border-box">
-                        
-                            <div class="prev-post">
-                                <a class="prev"
-                                   rel="prev"
-                                   href="/2025/01/01/nikki/"
-                                   title="日記"
-                                >
-                                    <span class="left arrow-icon flex-center">
-                                        <i class="fas fa-chevron-left"></i>
-                                    </span>
-                                    <span class="title flex-center">
-                                        <span class="post-nav-title-item text-ellipsis">日記</span>
-                                        <span class="post-nav-item">上一篇</span>
-                                    </span>
-                                </a>
-                            </div>
                         
                         
                             <div class="next-post">
@@ -1033,7 +1045,7 @@ header，类型为字典。所以，我们要创建一个包含 UA 信息的字�
         <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%BA%E5%95%A5%E8%A6%81%E5%AD%A6%E7%88%AC%E8%99%AB"><span class="nav-text">0. 为啥要学爬虫？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E7%88%AC%E8%99%AB"><span class="nav-text">1. 什么是爬虫？</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%82%A3%E6%88%91%E6%98%AF%E4%B8%8D%E6%98%AF%E5%95%A5%E9%83%BD%E8%83%BD%E7%88%AC%E5%8C%85%E6%8B%AC%E9%87%8D%E8%A6%81%E6%9C%BA%E5%AF%86%E9%82%A3%E7%A7%8D"><span class="nav-text">……那我是不是啥都能爬，包括重要机密那种？</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%BE%AE%E7%BC%96%E5%86%99%E4%B8%A4%E4%B8%AA%E5%B0%8F%E7%88%AC%E8%99%AB"><span class="nav-text">2. 微编写两个小爬虫</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#web-%E8%AF%B7%E6%B1%82%E8%BF%87%E7%A8%8B%E5%88%86%E6%9E%90%E4%B8%8E-https-%E5%8D%8F%E8%AE%AE"><span class="nav-text">3. Web 请求过程分析与 HTTPS
 协议</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#web-%E8%AF%B7%E6%B1%82%E8%BF%87%E7%A8%8B"><span class="nav-text">3.1 Web 请求过程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#http-%E5%8D%8F%E8%AE%AE"><span class="nav-text">3.2 HTTP 协议</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#http-%E8%AF%B7%E6%B1%82"><span class="nav-text">3.2.1 HTTP 请求</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#http-%E5%93%8D%E5%BA%94"><span class="nav-text">3.2.2 HTTP 响应</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E6%B5%8F%E8%A7%88%E5%99%A8%E6%8A%93%E5%8C%85%E5%B7%A5%E5%85%B7%E6%9F%A5%E7%9C%8B%E4%B8%8A%E8%BF%B0%E5%86%85%E5%AE%B9"><span class="nav-text">3.2.3
 使用浏览器抓包工具查看上述内容</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#requests-%E5%BA%93%E5%85%A5%E9%97%A8"><span class="nav-text">4. requests 库入门</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E6%96%B9%E6%B3%95%E4%B8%8E%E5%87%BD%E6%95%B0"><span class="nav-text">4.1 基本方法与函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%BA%E5%95%A5%E6%9C%89404%E6%88%96%E5%BC%82%E5%B8%B8%E8%AE%BF%E9%97%AE%E8%AF%B7%E6%B1%82"><span class="nav-text">4.2
-为啥有「404」或「异常访问请求」？</span></a></li></ol></li></ol>
+为啥有「404」或「异常访问请求」？</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%85%B8%E4%B8%AD%E5%85%B8%E4%B9%8B%E7%99%BE%E5%BA%A6%E7%BF%BB%E8%AF%91"><span class="nav-text">5. 典中典之百度翻译</span></a></li></ol>
     </div>
 </div>
 
@@ -1068,7 +1080,7 @@ header，类型为字典。所以，我们要创建一个包含 UA 信息的字�
             
                 <span class="count-item border-box word">
                     <span class="item-type border-box">总字数</span>
-                    <span class="item-value border-box word">10.1k</span>
+                    <span class="item-value border-box word">10.6k</span>
                 </span>
             
 
@@ -1223,7 +1235,7 @@ header，类型为字典。所以，我们要创建一个包含 UA 信息的字�
         <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%BA%E5%95%A5%E8%A6%81%E5%AD%A6%E7%88%AC%E8%99%AB"><span class="nav-text">0. 为啥要学爬虫？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E7%88%AC%E8%99%AB"><span class="nav-text">1. 什么是爬虫？</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%82%A3%E6%88%91%E6%98%AF%E4%B8%8D%E6%98%AF%E5%95%A5%E9%83%BD%E8%83%BD%E7%88%AC%E5%8C%85%E6%8B%AC%E9%87%8D%E8%A6%81%E6%9C%BA%E5%AF%86%E9%82%A3%E7%A7%8D"><span class="nav-text">……那我是不是啥都能爬，包括重要机密那种？</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%BE%AE%E7%BC%96%E5%86%99%E4%B8%A4%E4%B8%AA%E5%B0%8F%E7%88%AC%E8%99%AB"><span class="nav-text">2. 微编写两个小爬虫</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#web-%E8%AF%B7%E6%B1%82%E8%BF%87%E7%A8%8B%E5%88%86%E6%9E%90%E4%B8%8E-https-%E5%8D%8F%E8%AE%AE"><span class="nav-text">3. Web 请求过程分析与 HTTPS
 协议</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#web-%E8%AF%B7%E6%B1%82%E8%BF%87%E7%A8%8B"><span class="nav-text">3.1 Web 请求过程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#http-%E5%8D%8F%E8%AE%AE"><span class="nav-text">3.2 HTTP 协议</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#http-%E8%AF%B7%E6%B1%82"><span class="nav-text">3.2.1 HTTP 请求</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#http-%E5%93%8D%E5%BA%94"><span class="nav-text">3.2.2 HTTP 响应</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E6%B5%8F%E8%A7%88%E5%99%A8%E6%8A%93%E5%8C%85%E5%B7%A5%E5%85%B7%E6%9F%A5%E7%9C%8B%E4%B8%8A%E8%BF%B0%E5%86%85%E5%AE%B9"><span class="nav-text">3.2.3
 使用浏览器抓包工具查看上述内容</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#requests-%E5%BA%93%E5%85%A5%E9%97%A8"><span class="nav-text">4. requests 库入门</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E6%96%B9%E6%B3%95%E4%B8%8E%E5%87%BD%E6%95%B0"><span class="nav-text">4.1 基本方法与函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%BA%E5%95%A5%E6%9C%89404%E6%88%96%E5%BC%82%E5%B8%B8%E8%AE%BF%E9%97%AE%E8%AF%B7%E6%B1%82"><span class="nav-text">4.2
-为啥有「404」或「异常访问请求」？</span></a></li></ol></li></ol>
+为啥有「404」或「异常访问请求」？</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%85%B8%E4%B8%AD%E5%85%B8%E4%B9%8B%E7%99%BE%E5%BA%A6%E7%BF%BB%E8%AF%91"><span class="nav-text">5. 典中典之百度翻译</span></a></li></ol>
     </div>
 </div>
 
