@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 420" width="680" height="420" role="img" aria-label="梅涅劳斯定理示意图">
+  <title>梅涅劳斯定理：一条直线截 △ABC 的三边（或其延长线）于 L、M、N</title>
+  <desc>△ABC 中，直线与 BC 的延长线交于 L、与 CA 交于 M、与 AB 交于 N，则 AN/NB · BL/LC · CM/MA = 1。</desc>
+
+  <defs>
+    <style>
+      .tri    { fill: #eef4ff; stroke: #2f4f8f; stroke-width: 2.6; stroke-linejoin: round; }
+      .extbc  { stroke: #9fb0cc; stroke-width: 2.2; stroke-dasharray: 8 6; stroke-linecap: round; }
+      .trans  { stroke: #d94f4f; stroke-width: 2.6; stroke-linecap: round; }
+      .dot    { fill: #ffffff; stroke: #d94f4f; stroke-width: 2.4; }
+      .vdot   { fill: #2f4f8f; }
+      .lbl    { font-family: Georgia, "Times New Roman", "Songti SC", serif;
+                font-style: italic; font-size: 23px; fill: #1f3358; }
+      .lbld   { font-family: Georgia, "Times New Roman", "Songti SC", serif;
+                font-style: italic; font-size: 23px; fill: #c22f2f; }
+    </style>
+  </defs>
+
+  <rect width="680" height="420" rx="12" fill="#ffffff"/>
+
+  <!-- 三角形 ABC -->
+  <polygon class="tri" points="390,60 200,350 580,350"/>
+
+  <!-- BC 向左的延长线（L 落在这上面） -->
+  <line class="extbc" x1="143" y1="350" x2="200" y2="350"/>
+
+  <!-- 截线：L → N → M，并向 M 外侧再延伸一点 -->
+  <line class="trans" x1="165.5" y1="350" x2="468" y2="108"/>
+
+  <!-- 顶点 -->
+  <circle class="vdot" cx="390" cy="60"  r="4"/>
+  <circle class="vdot" cx="200" cy="350" r="4"/>
+  <circle class="vdot" cx="580" cy="350" r="4"/>
+
+  <!-- 三个交点 -->
+  <circle class="dot" cx="238"   cy="292"   r="5.5"/>
+  <circle class="dot" cx="437.5" cy="132.5" r="5.5"/>
+  <circle class="dot" cx="165.5" cy="350"   r="5.5"/>
+
+  <!-- 顶点标签 -->
+  <text class="lbl" x="390" y="40"  text-anchor="middle">A</text>
+  <text class="lbl" x="192" y="382" text-anchor="end"   >B</text>
+  <text class="lbl" x="592" y="382" text-anchor="start" >C</text>
+
+  <!-- 交点标签 -->
+  <text class="lbld" x="156" y="382" text-anchor="end"   >L</text>
+  <text class="lbld" x="437.5" y="110" text-anchor="middle">M</text>
+  <text class="lbld" x="216" y="266" text-anchor="end">N</text>
+</svg>
