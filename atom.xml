@@ -11,21 +11,21 @@
   <rights>All rights reserved 2026, Zera / 捷攎</rights>
   <subtitle>Keep writing and Keep loving.</subtitle>
   <title>Zera 的小博客</title>
-  <updated>2026-10-08T07:18:22.111Z</updated>
+  <updated>2026-10-08T07:37:48.011Z</updated>
   <entry>
     <author>
       <name>Zera / 捷攎</name>
     </author>
-    <category term="教程" scheme="https://zerablog.top/categories/%E6%95%99%E7%A8%8B/"/>
+    <category term="指北" scheme="https://zerablog.top/categories/%E6%8C%87%E5%8C%97/"/>
     <category term="串流" scheme="https://zerablog.top/tags/%E4%B8%B2%E6%B5%81/"/>
     <id>https://zerablog.top/2026/10/08/pad-streaming/</id>
     <link href="https://zerablog.top/2026/10/08/pad-streaming/"/>
     <published>2026-10-08T07:18:22.000Z</published>
     <summary>
-      <![CDATA[<p>在这里开始写正文。</p>]]>
+      <![CDATA[<h1 id="前言"><a class="markdownIt-Anchor" href="#前言"></a>]]>
     </summary>
     <title>在自习室里面优雅地远程使用电脑——Sunshine + Moonlight + Tailscale 平板串流</title>
-    <updated>2026-10-08T07:18:22.111Z</updated>
+    <updated>2026-10-08T07:37:48.011Z</updated>
   </entry>
   <entry>
     <author>
@@ -45,10 +45,10 @@
       <name>Zera / 捷攎</name>
     </author>
     <category term="指北" scheme="https://zerablog.top/categories/%E6%8C%87%E5%8C%97/"/>
-    <category term="永中" scheme="https://zerablog.top/tags/%E6%B0%B8%E4%B8%AD/"/>
-    <category term="计算机社" scheme="https://zerablog.top/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%A4%BE/"/>
     <category term="Python" scheme="https://zerablog.top/tags/Python/"/>
     <category term="爬虫" scheme="https://zerablog.top/tags/%E7%88%AC%E8%99%AB/"/>
+    <category term="计算机社" scheme="https://zerablog.top/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%A4%BE/"/>
+    <category term="永中" scheme="https://zerablog.top/tags/%E6%B0%B8%E4%B8%AD/"/>
     <id>https://zerablog.top/2024/12/01/Spider/</id>
     <link href="https://zerablog.top/2024/12/01/Spider/"/>
     <published>2024-12-01T13:29:49.000Z</published>
@@ -70,7 +70,7 @@
     <published>2024-09-30T11:54:08.000Z</published>
     <summary>HDU 5396 Expression 题解：区间 DP，关键是考虑运算符的运算顺序，用组合数合并左右方案。</summary>
     <title>HDU-5396 Expression 题解</title>
-    <updated>2026-10-08T01:21:51.040Z</updated>
+    <updated>2026-10-08T07:41:21.022Z</updated>
   </entry>
   <entry>
     <author>
@@ -155,8 +155,8 @@
       <name>Zera / 捷攎</name>
     </author>
     <category term="社团" scheme="https://zerablog.top/categories/%E7%A4%BE%E5%9B%A2/"/>
-    <category term="永中" scheme="https://zerablog.top/tags/%E6%B0%B8%E4%B8%AD/"/>
     <category term="计算机社" scheme="https://zerablog.top/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%A4%BE/"/>
+    <category term="永中" scheme="https://zerablog.top/tags/%E6%B0%B8%E4%B8%AD/"/>
     <id>https://zerablog.top/2024/09/15/YJZXCCReport/</id>
     <link href="https://zerablog.top/2024/09/15/YJZXCCReport/"/>
     <published>2024-09-15T13:15:14.000Z</published>
