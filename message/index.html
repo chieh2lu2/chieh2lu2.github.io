@@ -27,7 +27,7 @@
 <meta property="og:description" content="随便说点什么吧 —— 打声招呼、提个建议、或者单纯路过留个脚印。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2026-10-08T10:00:00.000Z">
-<meta property="article:modified_time" content="2026-10-08T13:26:15.956Z">
+<meta property="article:modified_time" content="2026-10-08T14:26:36.420Z">
 <meta property="article:author" content="Zera &#x2F; 捷攎">
 <meta property="article:tag" content="算法, 题解, Hexo, 博客">
 <meta name="twitter:card" content="summary_large_image">
@@ -500,7 +500,7 @@ mjx-container[display="true"] + br {
 
 <article class="page-content">
   <p>这里是我的<strong>留言板</strong>。</p>
-<p>不用注册、不用填邮箱，想说什么就说什么：</p>
+<p><strong>不用注册、不用登录任何账号</strong>，填个昵称就能说：</p>
 <ul>
 <li>路过打个招呼 👋</li>
 <li>对某篇文章有疑问</li>
@@ -509,10 +509,11 @@ mjx-container[display="true"] + br {
 <li>或者单纯吐个槽 😄</li>
 </ul>
 <blockquote>
-<p>留言用的是 GitHub Discussions（Giscus），<strong>第一次留言需要登录 GitHub 账号</strong>。<br>
-如果不想登录，也可以直接给我发邮件：<strong><a href="mailto:xiaocangxu@outlook.com">xiaocangxu@outlook.com</a></strong></p>
+<p>💬 邮箱和网址都是选填的 —— 填了的话，有人回复你时能看到头像；<br>
+不填也完全没关系。</p>
+<p>不想在这儿留，也可以直接发邮件：<strong><a href="mailto:xiaocangxu@outlook.com">xiaocangxu@outlook.com</a></strong></p>
 </blockquote>
-<p>留言我会看的，也会尽量回复。👇</p>
+<p>留言我会看的，也会尽量回复 👇</p>
 
 
   
@@ -520,40 +521,28 @@ mjx-container[display="true"] + br {
   
     <article id="comments" lazyload>
       
-    <div id="giscus" class="giscus"></div>
-    <script type="text/javascript">
-      Fluid.utils.loadComments('#giscus', function() {
-        var options = {"repo":"chieh2lu2/chieh2lu2.github.io","repo-id":"R_kgDOMx2mtQ","category":"Announcements","category-id":"DIC_kwDOMx2mtc4DHVr0","theme-light":"light","theme-dark":"dark","mapping":"pathname","reactions-enabled":1,"emit-metadata":0,"input-position":"top","lang":"zh-CN"};
-        var attributes = {};
-        for (let option in options) {
-          if (!option.startsWith('theme-')) {
-            var key = option.startsWith('data-') ? option : 'data-' + option;
-            attributes[key] = options[option];
+  <div id="waline"></div>
+  <script type="module">
+    Fluid.utils.loadComments('#waline', function() {
+      Fluid.utils.createCssLink('https://registry.npmmirror.com/@waline/client/3.16.0/files/dist/waline.css')
+      import('https://registry.npmmirror.com/@waline/client/3.16.0/files/dist/waline.js').then(({ init }) => {
+        var options = Object.assign(
+          {"serverURL":"https://comments.zerablog.top","path":"window.location.pathname","meta":["nick","mail","link"],"requiredMeta":["nick"],"lang":"zh-CN","emoji":["https://registry.npmmirror.com/@waline/emojis/1.4.0/files/weibo"],"dark":"html[data-user-color-scheme=\"dark\"]","wordLimit":0,"pageSize":10},
+          {
+            el: '#waline',
+            path: window.location.pathname
           }
-        }
-        var light = 'light';
-        var dark = 'dark';
-        window.GiscusThemeLight = light;
-        window.GiscusThemeDark = dark;
-        attributes['data-theme'] = document.documentElement.getAttribute('data-user-color-scheme') === 'dark' ? dark : light;
-        for (let attribute in attributes) {
-          var value = attributes[attribute];
-          if (value === undefined || value === null || value === '') {
-            delete attributes[attribute];
-          }
-        }
-        var s = document.createElement('script');
-        s.setAttribute('src', 'https://giscus.app/client.js');
-        s.setAttribute('crossorigin', 'anonymous');
-        for (let attribute in attributes) {
-          s.setAttribute(attribute, attributes[attribute]);
-        }
-        var ss = document.getElementsByTagName('script');
-        var e = ss.length > 0 ? ss[ss.length - 1] : document.head || document.documentElement;
-        e.parentNode.insertBefore(s, e.nextSibling);
+        )
+        init(options);
+        Fluid.utils.waitElementVisible('#waline .wl-content', () => {
+          var imgSelector = '#waline .wl-content img:not(.wl-emoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
       });
-    </script>
-    <noscript>Please enable JavaScript to view the comments</noscript>
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
 
 
     </article>
