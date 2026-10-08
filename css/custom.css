@@ -29,14 +29,14 @@
   margin: 0;
 }
 
-/* 宽公式：行内公式自己横向滚动。
-   MathJax 渲染出来的行内公式是固定宽度的 SVG，最宽能到 52ex（约 420px），
-   比手机屏幕还宽，而主题原本只给「独立公式」加了 overflow。 */
+/* 行内公式：只限制最大宽度，【绝对不能】加 overflow。
+   ⚠️ 踩过的坑（2026-10-08）：行内块元素一旦 overflow 不是 visible，
+   CSS 规定它的基线就变成「底边距边缘」而不是文字基线 ——
+   结果公式会整体上浮，看起来像上标，和正文完全对不齐。
+   宽公式的横向溢出交给外层处理（表格有 .table-wrap 滚动容器，
+   正文里极少出现超宽的行内公式）。 */
 #article-container mjx-container:not([display="true"]) {
-  display: inline-block;
   max-width: 100%;
-  overflow-x: auto;
-  overflow-y: hidden;
 }
 
 /* 兜底：图片、代码块、长链接都不许超出容器 */
