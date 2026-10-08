@@ -387,8 +387,8 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 2.2rem;
-  height: 2.2rem;
+  width: 2.45rem;
+  height: 2.45rem;
   margin: 0 !important;          /* 覆盖主题可能存在的零散 margin */
   border-radius: 50%;
   text-decoration: none;
@@ -406,18 +406,18 @@
 
 .about-icons .iconfont {
   line-height: 1;
-  font-size: 1.12rem;            /* 基准字号 */
+  font-size: 1.3rem;             /* 基准字号 */
   transition: color 0.25s ease;
 }
 
 /* 字形天生偏大的两个，缩小一点让视觉重量和其他对齐 */
 .about-icons .icon-bilibili-fill,
 .about-icons .icon-wechat-fill {
-  font-size: 1.0rem;
+  font-size: 1.16rem;
 }
 
 /* 字形偏小的补一点 */
 .about-icons .icon-qq-fill,
-.about-icons .icon-mail-fill {
-  font-size: 1.18rem;
+.about-icons .icon-mail {
+  font-size: 1.36rem;
 }

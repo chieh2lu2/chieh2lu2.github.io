@@ -656,6 +656,54 @@ mjx-container[display="true"] + br {
   
 
 <script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script data-zera-saying-guard>
+(function () {
+  var HOST = "uapis.cn";
+  var TIMEOUT_MS = 3000;
+  var ENT = { '&': '&amp;', '<': '&lt;', '>': '&gt;' };
+
+  /* 接口文字最终会进 innerHTML（typed.js 默认 contentType='html'），先转义 */
+  function escString(s) {
+    return String(s).replace(/[&<>]/g, function (c) { return ENT[c]; });
+  }
+  function escDeep(v, depth) {
+    if (typeof v === 'string') { return escString(v); }
+    if (!v || typeof v !== 'object' || depth > 6) { return v; }
+    if (Object.prototype.toString.call(v) === '[object Array]') {
+      for (var i = 0; i < v.length; i++) { v[i] = escDeep(v[i], depth + 1); }
+      return v;
+    }
+    for (var k in v) {
+      if (Object.prototype.hasOwnProperty.call(v, k)) { v[k] = escDeep(v[k], depth + 1); }
+    }
+    return v;
+  }
+
+  /* a) 超时 + b) 转义：只拦发往接口域名的请求 */
+  var jq = window.jQuery;
+  if (jq && jq.ajaxPrefilter) {
+    jq.ajaxPrefilter(function (s) {
+      if (String(s.url || '').indexOf(HOST) === -1) { return; }
+      s.timeout = TIMEOUT_MS;
+      var ok = s.success;
+      if (typeof ok !== 'function') { return; }
+      s.success = function (data, textStatus, jqXHR) {
+        try { data = escDeep(data, 0); } catch (e) {}
+        return ok.call(this, data, textStatus, jqXHR);
+      };
+    });
+  }
+
+  /* c) 打字机脚本没加载出来时的纯文本兜底（不依赖 jQuery） */
+  window.setTimeout(function () {
+    var el = document.getElementById('subtitle');
+    if (!el) { return; }
+    if (el.textContent.replace(/\s/g, '') || el.querySelector('.typed-cursor')) { return; }
+    if ('Typed' in window) { return; }   /* 打字机在，交给主题自己的流程 */
+    el.textContent = el.getAttribute('data-typed-text') || '';
+  }, TIMEOUT_MS + 1500);
+})();
+</script>
 <script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
 <script  src="/js/events.js" ></script>
 <script  src="/js/plugins.js" ></script>
@@ -671,7 +719,37 @@ mjx-container[display="true"] + br {
       }
       var text = subtitle.getAttribute('data-typed-text');
       
-        typing(text);
+        jQuery.ajax({
+          type: 'GET',
+          url: 'https://uapis.cn/api/v1/saying',
+          headers: {},
+          dataType: 'json',
+          success: function(result) {
+            var apiText;
+            if (result) {
+              var keys = 'text'.split(',');
+              if (result instanceof Array) {
+                result = result[0];
+              }
+              for (const k of keys) {
+                var value = result[k];
+                if (typeof value === 'string') {
+                  apiText = value;
+                  break;
+                } else if (value instanceof Object) {
+                  result = value;
+                }
+              }
+            }
+            apiText ? typing(apiText) : typing(text);
+          },
+          error: function(xhr, status, error) {
+            if (error) {
+              console.error('Failed to request https://uapis.cn/api/v1/saying:', error);
+            }
+            typing(text);
+          }
+        })
       
     })(window, document);
   </script>
