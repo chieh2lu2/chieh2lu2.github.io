@@ -168,30 +168,6 @@ Git: <a href="https://github.com/waylau/git-for-win">https://github.com/waylau/g
       </tags>
   </entry>
   <entry>
-    <title>P10511 题解</title>
-    <url>/2024/09/16/P10511/</url>
-    <content><![CDATA[<h2 id="思路"><a class="markdownIt-Anchor" href="#思路"></a> 思路</h2>
-<p>首先好像高一就学过 。但还是推一下：<br>
-令 ，则</p>
-<p></p>
-<p>也就是要维护区间平方和与区间和。这可以考虑用前缀和维护。考虑到有散块的可能，所以先把夹在  和  中间的整块求出来，再把  旁边的或  旁边的散块求出来。记得及时取膜。</p>
-<p>我们可以先把  和  所在的块的坐标求出来，再把指针各往中间移一块来计算整块。</p>
-<p><img src="/images/P10511-1.png" alt=""></p>
-<p>例如，想要求  所在的块编号，只要找到离它最近且大于等于它的  或小于它  即可。注意， 可以和  重合，但  不可以，如果重合的话  号块也可以算作被夹在中间的块了。代码写出来就是 <code>dx = lower_bound(r + 1, r + m + 1, x) - r; </code> 或 <code>dx = lower_bound(l + 1, l + m + 1, x) - l - 1</code>。 所在的编号也是差不多的求法。</p>
-<p>其他小细节在代码注释里。注意取膜哦！</p>
-<h2 id="代码"><a class="markdownIt-Anchor" href="#代码"></a> 代码</h2>
-<figure class="highlight cpp"><div class="table-wrap"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="keyword">using</span> ll = <span class="type">long</span> <span class="type">long</span>;</span><br><span class="line"></span><br><span class="line"><span class="type">const</span> ll M = <span class="number">2e5</span> + <span class="number">100</span>, mod = <span class="number">998244353</span>;</span><br><span class="line">ll n, m, q;</span><br><span class="line">ll l[M], r[M];</span><br><span class="line">ll s[M], qs[M], len[M], b[M];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">    cin &gt;&gt; n &gt;&gt; m &gt;&gt; q;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= m; i++)</span><br><span class="line">    {</span><br><span class="line">        cin &gt;&gt; l[i] &gt;&gt; r[i] &gt;&gt; b[i]; b[i] %= mod;</span><br><span class="line">        len[i] = (r[i] - l[i] + <span class="number">1</span>) % mod;  </span><br><span class="line">        s[i] = (len[i] * b[i]) % mod; </span><br><span class="line">        qs[i] = (s[i] * b[i]) % mod; </span><br><span class="line">        len[i] = (len[i - <span class="number">1</span>] + len[i]) % mod;</span><br><span class="line">        s[i] = (s[i - <span class="number">1</span>] + s[i]) % mod;</span><br><span class="line">        qs[i] = (qs[i - <span class="number">1</span>] + qs[i]) % mod;</span><br><span class="line">    }</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= q; i++)</span><br><span class="line">    {</span><br><span class="line">        <span class="comment">/* 一开始想先把离 x/y 右/左 边最近的 左/右 端点编号求出来的……但是实现起来有点麻烦（ */</span></span><br><span class="line">        </span><br><span class="line">        ll x, y, dx, dy <span class="comment">/* dx 为 x 所在的编号；dy 含义亦然 */</span>, S, QS, ans; cin &gt;&gt; x &gt;&gt; y;</span><br><span class="line">        dx = <span class="built_in">lower_bound</span>(l + <span class="number">1</span>, l + m + <span class="number">1</span>, x) - l - <span class="number">1</span>, <span class="comment">// 也就是 dx = lower_bound(r + 1, r + m + 1, x) - r;</span></span><br><span class="line">        dy = <span class="built_in">lower_bound</span>(r + <span class="number">1</span>, r + m + <span class="number">1</span>, y) - r;</span><br><span class="line">        <span class="keyword">if</span> (dx == dy) { cout &lt;&lt; <span class="number">0</span> &lt;&lt; endl; <span class="keyword">continue</span>; }</span><br><span class="line">        </span><br><span class="line"><span class="comment">//      S = S + (r[dx] - x + 1) * b[dx] + (y - l[dy] + 1) * b[dy];  </span></span><br><span class="line">        S = (r[dx] - x + <span class="number">1</span>) % mod * b[dx] % mod + (y - l[dy] + <span class="number">1</span>) % mod * b[dy] % mod;</span><br><span class="line">        QS = (r[dx] - x + <span class="number">1</span>) % mod * b[dx] % mod * b[dx] % mod + (y - l[dy] + <span class="number">1</span>) % mod* b[dy] % mod * b[dy] % mod;</span><br><span class="line">    </span><br><span class="line">        dx++, dy--; <span class="comment">// 移到里面夹着的整块</span></span><br><span class="line">        <span class="keyword">if</span> (dx &lt;= dy) <span class="comment">// 排除里面没夹着整块的情况</span></span><br><span class="line">        {</span><br><span class="line">            S = (S + s[dy] - s[dx - <span class="number">1</span>] + mod) % mod;</span><br><span class="line">            QS = (QS + qs[dy] - qs[dx - <span class="number">1</span>] + mod) % mod;</span><br><span class="line">        }</span><br><span class="line">        ans = ((y - x + <span class="number">1</span>) % mod * QS % mod - S * S % mod + mod) % mod;</span><br><span class="line">        cout &lt;&lt; (ans + mod) % mod &lt;&lt; endl;</span><br><span class="line">    }</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">}</span><br></pre></td></tr></table></div></figure>]]></content>
-      <categories>
-        <category>题解</category>
-      </categories>
-      <tags>
-        <tag>OI</tag>
-        <tag>洛谷</tag>
-        <tag>数学</tag>
-        <tag>C++</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>十二重计数法</title>
     <url>/2024/09/15/P5824/</url>
     <content><![CDATA[<hr>
@@ -358,6 +334,30 @@ Git: <a href="https://github.com/waylau/git-for-win">https://github.com/waylau/g
       </tags>
   </entry>
   <entry>
+    <title>P10511 题解</title>
+    <url>/2024/09/16/P10511/</url>
+    <content><![CDATA[<h2 id="思路"><a class="markdownIt-Anchor" href="#思路"></a> 思路</h2>
+<p>首先好像高一就学过 。但还是推一下：<br>
+令 ，则</p>
+<p></p>
+<p>也就是要维护区间平方和与区间和。这可以考虑用前缀和维护。考虑到有散块的可能，所以先把夹在  和  中间的整块求出来，再把  旁边的或  旁边的散块求出来。记得及时取膜。</p>
+<p>我们可以先把  和  所在的块的坐标求出来，再把指针各往中间移一块来计算整块。</p>
+<p><img src="/images/P10511-1.png" alt=""></p>
+<p>例如，想要求  所在的块编号，只要找到离它最近且大于等于它的  或小于它  即可。注意， 可以和  重合，但  不可以，如果重合的话  号块也可以算作被夹在中间的块了。代码写出来就是 <code>dx = lower_bound(r + 1, r + m + 1, x) - r; </code> 或 <code>dx = lower_bound(l + 1, l + m + 1, x) - l - 1</code>。 所在的编号也是差不多的求法。</p>
+<p>其他小细节在代码注释里。注意取膜哦！</p>
+<h2 id="代码"><a class="markdownIt-Anchor" href="#代码"></a> 代码</h2>
+<figure class="highlight cpp"><div class="table-wrap"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="keyword">using</span> ll = <span class="type">long</span> <span class="type">long</span>;</span><br><span class="line"></span><br><span class="line"><span class="type">const</span> ll M = <span class="number">2e5</span> + <span class="number">100</span>, mod = <span class="number">998244353</span>;</span><br><span class="line">ll n, m, q;</span><br><span class="line">ll l[M], r[M];</span><br><span class="line">ll s[M], qs[M], len[M], b[M];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">    cin &gt;&gt; n &gt;&gt; m &gt;&gt; q;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= m; i++)</span><br><span class="line">    {</span><br><span class="line">        cin &gt;&gt; l[i] &gt;&gt; r[i] &gt;&gt; b[i]; b[i] %= mod;</span><br><span class="line">        len[i] = (r[i] - l[i] + <span class="number">1</span>) % mod;  </span><br><span class="line">        s[i] = (len[i] * b[i]) % mod; </span><br><span class="line">        qs[i] = (s[i] * b[i]) % mod; </span><br><span class="line">        len[i] = (len[i - <span class="number">1</span>] + len[i]) % mod;</span><br><span class="line">        s[i] = (s[i - <span class="number">1</span>] + s[i]) % mod;</span><br><span class="line">        qs[i] = (qs[i - <span class="number">1</span>] + qs[i]) % mod;</span><br><span class="line">    }</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= q; i++)</span><br><span class="line">    {</span><br><span class="line">        <span class="comment">/* 一开始想先把离 x/y 右/左 边最近的 左/右 端点编号求出来的……但是实现起来有点麻烦（ */</span></span><br><span class="line">        </span><br><span class="line">        ll x, y, dx, dy <span class="comment">/* dx 为 x 所在的编号；dy 含义亦然 */</span>, S, QS, ans; cin &gt;&gt; x &gt;&gt; y;</span><br><span class="line">        dx = <span class="built_in">lower_bound</span>(l + <span class="number">1</span>, l + m + <span class="number">1</span>, x) - l - <span class="number">1</span>, <span class="comment">// 也就是 dx = lower_bound(r + 1, r + m + 1, x) - r;</span></span><br><span class="line">        dy = <span class="built_in">lower_bound</span>(r + <span class="number">1</span>, r + m + <span class="number">1</span>, y) - r;</span><br><span class="line">        <span class="keyword">if</span> (dx == dy) { cout &lt;&lt; <span class="number">0</span> &lt;&lt; endl; <span class="keyword">continue</span>; }</span><br><span class="line">        </span><br><span class="line"><span class="comment">//      S = S + (r[dx] - x + 1) * b[dx] + (y - l[dy] + 1) * b[dy];  </span></span><br><span class="line">        S = (r[dx] - x + <span class="number">1</span>) % mod * b[dx] % mod + (y - l[dy] + <span class="number">1</span>) % mod * b[dy] % mod;</span><br><span class="line">        QS = (r[dx] - x + <span class="number">1</span>) % mod * b[dx] % mod * b[dx] % mod + (y - l[dy] + <span class="number">1</span>) % mod* b[dy] % mod * b[dy] % mod;</span><br><span class="line">    </span><br><span class="line">        dx++, dy--; <span class="comment">// 移到里面夹着的整块</span></span><br><span class="line">        <span class="keyword">if</span> (dx &lt;= dy) <span class="comment">// 排除里面没夹着整块的情况</span></span><br><span class="line">        {</span><br><span class="line">            S = (S + s[dy] - s[dx - <span class="number">1</span>] + mod) % mod;</span><br><span class="line">            QS = (QS + qs[dy] - qs[dx - <span class="number">1</span>] + mod) % mod;</span><br><span class="line">        }</span><br><span class="line">        ans = ((y - x + <span class="number">1</span>) % mod * QS % mod - S * S % mod + mod) % mod;</span><br><span class="line">        cout &lt;&lt; (ans + mod) % mod &lt;&lt; endl;</span><br><span class="line">    }</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">}</span><br></pre></td></tr></table></div></figure>]]></content>
+      <categories>
+        <category>题解</category>
+      </categories>
+      <tags>
+        <tag>OI</tag>
+        <tag>洛谷</tag>
+        <tag>数学</tag>
+        <tag>C++</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>给你的 Windows 更换字体（包括微软雅黑和 Segoe UI！）</title>
     <url>/2024/09/16/PCFont/</url>
     <content><![CDATA[<div class="note danger flat"><p>所有字体、<strong>包括系统字体</strong>一定要做好备份！</p>
@@ -410,44 +410,6 @@ Git: <a href="https://github.com/waylau/git-for-win">https://github.com/waylau/g
       <tags>
         <tag>字体</tag>
         <tag>美化</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>永嘉中学计算机社活动内容设想报告</title>
-    <url>/2024/09/15/YJZXCCReport/</url>
-    <content><![CDATA[<h1 id="永嘉中学计算机社活动内容设想报告"><a class="markdownIt-Anchor" href="#永嘉中学计算机社活动内容设想报告"></a> 永嘉中学计算机社活动内容设想报告</h1>
-<h2 id="一-活动背景"><a class="markdownIt-Anchor" href="#一-活动背景"></a> 一、活动背景</h2>
-<p>为了提升社员的计算机使用水平、激发社员对研究计算机的兴趣爱好、提高社员计算机技术应用能力与实践水平、增强社员技术学科素养，计算机社将在本学期计划组织一系列有趣且富有挑战性的课程与活动。这些活动旨在为社员提供实践经验、促进知识交流，并激发他们的创新思维。</p>
-<h2 id="二-活动目标"><a class="markdownIt-Anchor" href="#二-活动目标"></a> 二、活动目标</h2>
-<ol>
-<li><strong>提升实践水平</strong>：通过实践项目和技术讲座，提升社员的计算机知识和编程技能。</li>
-<li><strong>促进合作沟通</strong>：通过团队活动与讨论，增强社员之间的合作与沟通能力。</li>
-<li><strong>增强学科素养</strong>：授课内容涉及课内又远超课内，提升社员的编程意识与学科素养。</li>
-</ol>
-<h2 id="三-活动内容"><a class="markdownIt-Anchor" href="#三-活动内容"></a> 三、活动内容：</h2>
-<ul>
-<li>Markdown 基本语法教学</li>
-<li>Python 基本语法教学以及怕爬虫入门</li>
-<li>Github 的基本使用以及博客托管</li>
-<li>计算机常识普及</li>
-<li>……</li>
-</ul>
-<h2 id="四-活动安排"><a class="markdownIt-Anchor" href="#四-活动安排"></a> 四、活动安排</h2>
-<h3 id="单节课时时间安排"><a class="markdownIt-Anchor" href="#单节课时时间安排"></a> 单节课时时间安排</h3>
-<p>将使用 20 分钟时间传递相关知识，并给社员们 20 分钟左右的实践时间。</p>
-<h3 id="课时活动内容安排"><a class="markdownIt-Anchor" href="#课时活动内容安排"></a> 课时活动内容安排</h3>
-<p>采用 2 节讲授课 +1 节实践课的循环。授课与实践内容以活动内容为准。</p>
-<h3 id="其他安排"><a class="markdownIt-Anchor" href="#其他安排"></a> 其他安排</h3>
-<p>将不定时举行小组项目设计活动，并参与社内评比。</p>
-<h2 id="五-结语"><a class="markdownIt-Anchor" href="#五-结语"></a> 五、结语</h2>
-<p>本学期活动旨在通过丰富的内容和多样的形式，为计算机社成员提供全面的成长机会。希望通过这些活动，不仅能够提升技术能力，还能增强社员之间的合作与沟通，为社团的发展注入新的活力。</p>
-]]></content>
-      <categories>
-        <category>社团</category>
-      </categories>
-      <tags>
-        <tag>永中</tag>
-        <tag>计算机社</tag>
       </tags>
   </entry>
   <entry>
@@ -678,10 +640,10 @@ Git: <a href="https://github.com/waylau/git-for-win">https://github.com/waylau/g
         <category>指北</category>
       </categories>
       <tags>
-        <tag>永中</tag>
-        <tag>计算机社</tag>
         <tag>Python</tag>
         <tag>爬虫</tag>
+        <tag>计算机社</tag>
+        <tag>永中</tag>
       </tags>
   </entry>
   <entry>
@@ -711,25 +673,41 @@ Git: <a href="https://github.com/waylau/git-for-win">https://github.com/waylau/g
       </tags>
   </entry>
   <entry>
-    <title>日記</title>
-    <url>/2025/01/01/nikki/</url>
-    <content><![CDATA[<div class="hbe hbe-container" id="hexo-blog-encrypt" data-wpm="Oh, this is an invalid password. Check and try again, please." data-whm="OOPS, these decrypted content may changed, but you can still have a look.">
-  <script id="hbeData" type="hbeData" data-hmacdigest="95da762b708be68b3ebff692185b582d780442e579a16e7332e306a7f34c0374">2e8069cb7e672a6dc51982fdeb527cdd1a8ffd8ad95e824346b7e639464e35d270b09d856212f178974d06f3c25f2e2b083bff2e8b713b5f8644c6e55de9aec6d27ab50722a9bcef2b45a1ca0c4a3b0b5f1aac51b860e1a6d0fbfae563a1d09e3eb670f9001dca6ae904606f78761189d94f5d61d0693dce6c7bc5c1e0b84ea7eedeb7d7615308a429773d100812eab82a1d4a7d9b72e8dcb349eeeb847645ffc8249c302928db31046e22a797a165d5c3f398a7d553c895dc25b299d055ed0504c9894365099daea9a5c734181162d8a5f1e4af80a2cefcecc2e4676247c566f974b678ce6e127487724f8828b9d1c7729569612c4d12b5a4292b73750691768c46fd6f55782ed83ae823a70bda1787dfd4cb6875a5a764a5a7cd535408a8be37a9f7a02e157a6e2b5d3df28159103464e3281c954118c872e1b494d1a7c90e2767675fd4af91ce01695d3c4c8da3499a075b32d15fcccc7f8690b5b35e485a260ad7a603d492158ae50e60a0a65ae9be2fbef0a0d132f2878aae59ce51bc461681d35a90e3c3286ae799ad0048e2507c1d923bb8532f9c41be835ef8a9468a5a4fcfee71c55d4bf1e116b2d17156fc4eca5b5671bd69077d868e1567dbda098a3f14c23e78572c638df9e0d693f1c739b84436920f456a1b4620322e146ee396e03246f59d9b4c6749540db1e665d5a0aba050f768f5d2a6cfaaa2bf0d2c152ddd6bbb7aa4e73be90cd3a37e1f53fa2a29296c32a9e80f4db244802dfd1690647a53691165a0c614cd34dac15e29955eae137c72a9ab1a0e7183185bf699ddffa8b24910cd84a2f106f076b147a447881cba915b0369c71a518fc210de96ca2965a632f5118c28e91480c9903fb276ac664617d921015695c2ad9fd6aefb7008fba0ce3237f815d9945632afe75f7ca311f0b78e820042ce3bec9a00ea9ddc0fd01b8799d1bf580c889f6f095a176dd87dce8f18492e7c36ac5a9f1552a3adde732554cf7cea3f07b30befa49ce58a6c847a2d092227fa4f9735e8f24d5ac9b3209bbe1e8e662b8495fc952c79a680d6c6d204369648e4114ffe23af037722ac9107d2fd09f6a1d4dcd0b9145a1c86c918dd5433800ca43d597e61c77109dfd6d5b6b6193b24a42768981e4681e987fd7ae8e5cc5f03e1c07343668301ed53b3aaf1315fb022190c0c19daac6825731fdf85de081685ee109ea8f3b8e3a0648828d5464dda01d0cf60d45281b2a1d5c90ea2fc2df1e38b5d4364c8ec45efdad43dd1ce5f3444197e5a6cd6677265648515924ac342ca28311cbeedc674f3f4ec74475d330e7844c6eec956db4d51d504dd2d15df8da00f17e39f24eb4bfcaafa6f1c25656fbcb8938a250478df6c68d40a3ebef971b2eb1943065309f5fe6b4c8e596fb0cecb57e30ef939d6221d9d28bf0b27f7d5d5ff1ec9af3c4c532ac765169ca92ee1225e02d1008a364b9014768a8a9c15ff87939a1b44e247ba95d9278a361a47c2225e77377ccfdc5ae679d31c5bd53a8fe1ee903f8b3c05991afb2e6f135c19152c49c89743ed7f13fd50282ad140455f5ae452bd8b3b448ab06b8a50d8009aa242b947fe1fc110139223815dfebe8887f1f0694d9cccff024895dbe51331bbea152fd0f5ae5dd392f3fc92a016320cc2b7b43ce6cb9d34ef38ebe48a49ef24bf128337d63aa656f6dfca1c104d01098f2d1b1ee024702efecc57b4a11cd664940ed7510da513e2f6c26f</script>
-  <div class="hbe hbe-content">
-    <div class="hbe hbe-input hbe-input-default">
-      <input class="hbe hbe-input-field hbe-input-field-default" type="password" id="hbePass">
-      <label class="hbe hbe-input-label hbe-input-label-default" for="hbePass">
-        <span class="hbe hbe-input-label-content hbe-input-label-content-default">请输入密码：</span>
-      </label>
-    </div>
-  </div>
-</div>
-<script data-pjax src="/lib/hbe.js"></script><link href="/css/hbe.style.css" rel="stylesheet" type="text/css">]]></content>
+    <title>永嘉中学计算机社活动内容设想报告</title>
+    <url>/2024/09/15/YJZXCCReport/</url>
+    <content><![CDATA[<h1 id="永嘉中学计算机社活动内容设想报告"><a class="markdownIt-Anchor" href="#永嘉中学计算机社活动内容设想报告"></a> 永嘉中学计算机社活动内容设想报告</h1>
+<h2 id="一-活动背景"><a class="markdownIt-Anchor" href="#一-活动背景"></a> 一、活动背景</h2>
+<p>为了提升社员的计算机使用水平、激发社员对研究计算机的兴趣爱好、提高社员计算机技术应用能力与实践水平、增强社员技术学科素养，计算机社将在本学期计划组织一系列有趣且富有挑战性的课程与活动。这些活动旨在为社员提供实践经验、促进知识交流，并激发他们的创新思维。</p>
+<h2 id="二-活动目标"><a class="markdownIt-Anchor" href="#二-活动目标"></a> 二、活动目标</h2>
+<ol>
+<li><strong>提升实践水平</strong>：通过实践项目和技术讲座，提升社员的计算机知识和编程技能。</li>
+<li><strong>促进合作沟通</strong>：通过团队活动与讨论，增强社员之间的合作与沟通能力。</li>
+<li><strong>增强学科素养</strong>：授课内容涉及课内又远超课内，提升社员的编程意识与学科素养。</li>
+</ol>
+<h2 id="三-活动内容"><a class="markdownIt-Anchor" href="#三-活动内容"></a> 三、活动内容：</h2>
+<ul>
+<li>Markdown 基本语法教学</li>
+<li>Python 基本语法教学以及怕爬虫入门</li>
+<li>Github 的基本使用以及博客托管</li>
+<li>计算机常识普及</li>
+<li>……</li>
+</ul>
+<h2 id="四-活动安排"><a class="markdownIt-Anchor" href="#四-活动安排"></a> 四、活动安排</h2>
+<h3 id="单节课时时间安排"><a class="markdownIt-Anchor" href="#单节课时时间安排"></a> 单节课时时间安排</h3>
+<p>将使用 20 分钟时间传递相关知识，并给社员们 20 分钟左右的实践时间。</p>
+<h3 id="课时活动内容安排"><a class="markdownIt-Anchor" href="#课时活动内容安排"></a> 课时活动内容安排</h3>
+<p>采用 2 节讲授课 +1 节实践课的循环。授课与实践内容以活动内容为准。</p>
+<h3 id="其他安排"><a class="markdownIt-Anchor" href="#其他安排"></a> 其他安排</h3>
+<p>将不定时举行小组项目设计活动，并参与社内评比。</p>
+<h2 id="五-结语"><a class="markdownIt-Anchor" href="#五-结语"></a> 五、结语</h2>
+<p>本学期活动旨在通过丰富的内容和多样的形式，为计算机社成员提供全面的成长机会。希望通过这些活动，不仅能够提升技术能力，还能增强社员之间的合作与沟通，为社团的发展注入新的活力。</p>
+]]></content>
       <categories>
-        <category>日記</category>
+        <category>社团</category>
       </categories>
       <tags>
-        <tag>日記</tag>
+        <tag>计算机社</tag>
+        <tag>永中</tag>
       </tags>
   </entry>
   <entry>
@@ -792,6 +770,28 @@ Git: <a href="https://github.com/waylau/git-for-win">https://github.com/waylau/g
         <tag>串流</tag>
         <tag>杭州电子科技大学</tag>
         <tag>校园网</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>日記</title>
+    <url>/2025/01/01/nikki/</url>
+    <content><![CDATA[<div class="hbe hbe-container" id="hexo-blog-encrypt" data-wpm="Oh, this is an invalid password. Check and try again, please." data-whm="OOPS, these decrypted content may changed, but you can still have a look.">
+  <script id="hbeData" type="hbeData" data-hmacdigest="95da762b708be68b3ebff692185b582d780442e579a16e7332e306a7f34c0374">2e8069cb7e672a6dc51982fdeb527cdd1a8ffd8ad95e824346b7e639464e35d270b09d856212f178974d06f3c25f2e2b083bff2e8b713b5f8644c6e55de9aec6d27ab50722a9bcef2b45a1ca0c4a3b0b5f1aac51b860e1a6d0fbfae563a1d09e3eb670f9001dca6ae904606f78761189d94f5d61d0693dce6c7bc5c1e0b84ea7eedeb7d7615308a429773d100812eab82a1d4a7d9b72e8dcb349eeeb847645ffc8249c302928db31046e22a797a165d5c3f398a7d553c895dc25b299d055ed0504c9894365099daea9a5c734181162d8a5f1e4af80a2cefcecc2e4676247c566f974b678ce6e127487724f8828b9d1c7729569612c4d12b5a4292b73750691768c46fd6f55782ed83ae823a70bda1787dfd4cb6875a5a764a5a7cd535408a8be37a9f7a02e157a6e2b5d3df28159103464e3281c954118c872e1b494d1a7c90e2767675fd4af91ce01695d3c4c8da3499a075b32d15fcccc7f8690b5b35e485a260ad7a603d492158ae50e60a0a65ae9be2fbef0a0d132f2878aae59ce51bc461681d35a90e3c3286ae799ad0048e2507c1d923bb8532f9c41be835ef8a9468a5a4fcfee71c55d4bf1e116b2d17156fc4eca5b5671bd69077d868e1567dbda098a3f14c23e78572c638df9e0d693f1c739b84436920f456a1b4620322e146ee396e03246f59d9b4c6749540db1e665d5a0aba050f768f5d2a6cfaaa2bf0d2c152ddd6bbb7aa4e73be90cd3a37e1f53fa2a29296c32a9e80f4db244802dfd1690647a53691165a0c614cd34dac15e29955eae137c72a9ab1a0e7183185bf699ddffa8b24910cd84a2f106f076b147a447881cba915b0369c71a518fc210de96ca2965a632f5118c28e91480c9903fb276ac664617d921015695c2ad9fd6aefb7008fba0ce3237f815d9945632afe75f7ca311f0b78e820042ce3bec9a00ea9ddc0fd01b8799d1bf580c889f6f095a176dd87dce8f18492e7c36ac5a9f1552a3adde732554cf7cea3f07b30befa49ce58a6c847a2d092227fa4f9735e8f24d5ac9b3209bbe1e8e662b8495fc952c79a680d6c6d204369648e4114ffe23af037722ac9107d2fd09f6a1d4dcd0b9145a1c86c918dd5433800ca43d597e61c77109dfd6d5b6b6193b24a42768981e4681e987fd7ae8e5cc5f03e1c07343668301ed53b3aaf1315fb022190c0c19daac6825731fdf85de081685ee109ea8f3b8e3a0648828d5464dda01d0cf60d45281b2a1d5c90ea2fc2df1e38b5d4364c8ec45efdad43dd1ce5f3444197e5a6cd6677265648515924ac342ca28311cbeedc674f3f4ec74475d330e7844c6eec956db4d51d504dd2d15df8da00f17e39f24eb4bfcaafa6f1c25656fbcb8938a250478df6c68d40a3ebef971b2eb1943065309f5fe6b4c8e596fb0cecb57e30ef939d6221d9d28bf0b27f7d5d5ff1ec9af3c4c532ac765169ca92ee1225e02d1008a364b9014768a8a9c15ff87939a1b44e247ba95d9278a361a47c2225e77377ccfdc5ae679d31c5bd53a8fe1ee903f8b3c05991afb2e6f135c19152c49c89743ed7f13fd50282ad140455f5ae452bd8b3b448ab06b8a50d8009aa242b947fe1fc110139223815dfebe8887f1f0694d9cccff024895dbe51331bbea152fd0f5ae5dd392f3fc92a016320cc2b7b43ce6cb9d34ef38ebe48a49ef24bf128337d63aa656f6dfca1c104d01098f2d1b1ee024702efecc57b4a11cd664940ed7510da513e2f6c26f</script>
+  <div class="hbe hbe-content">
+    <div class="hbe hbe-input hbe-input-default">
+      <input class="hbe hbe-input-field hbe-input-field-default" type="password" id="hbePass">
+      <label class="hbe hbe-input-label hbe-input-label-default" for="hbePass">
+        <span class="hbe hbe-input-label-content hbe-input-label-content-default">请输入密码：</span>
+      </label>
+    </div>
+  </div>
+</div>
+<script data-pjax src="/lib/hbe.js"></script><link href="/css/hbe.style.css" rel="stylesheet" type="text/css">]]></content>
+      <categories>
+        <category>日記</category>
+      </categories>
+      <tags>
+        <tag>日記</tag>
       </tags>
   </entry>
 </search>

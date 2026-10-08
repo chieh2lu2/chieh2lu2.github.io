@@ -54,10 +54,10 @@
       <name>Zera / 捷攎</name>
     </author>
     <category term="指北" scheme="https://zerablog.top/categories/%E6%8C%87%E5%8C%97/"/>
-    <category term="永中" scheme="https://zerablog.top/tags/%E6%B0%B8%E4%B8%AD/"/>
-    <category term="计算机社" scheme="https://zerablog.top/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%A4%BE/"/>
     <category term="Python" scheme="https://zerablog.top/tags/Python/"/>
     <category term="爬虫" scheme="https://zerablog.top/tags/%E7%88%AC%E8%99%AB/"/>
+    <category term="计算机社" scheme="https://zerablog.top/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%A4%BE/"/>
+    <category term="永中" scheme="https://zerablog.top/tags/%E6%B0%B8%E4%B8%AD/"/>
     <id>https://zerablog.top/2024/12/01/Spider/</id>
     <link href="https://zerablog.top/2024/12/01/Spider/"/>
     <published>2024-12-01T13:29:49.000Z</published>
@@ -164,8 +164,8 @@
       <name>Zera / 捷攎</name>
     </author>
     <category term="社团" scheme="https://zerablog.top/categories/%E7%A4%BE%E5%9B%A2/"/>
-    <category term="永中" scheme="https://zerablog.top/tags/%E6%B0%B8%E4%B8%AD/"/>
     <category term="计算机社" scheme="https://zerablog.top/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%A4%BE/"/>
+    <category term="永中" scheme="https://zerablog.top/tags/%E6%B0%B8%E4%B8%AD/"/>
     <id>https://zerablog.top/2024/09/15/YJZXCCReport/</id>
     <link href="https://zerablog.top/2024/09/15/YJZXCCReport/"/>
     <published>2024-09-15T13:15:14.000Z</published>
