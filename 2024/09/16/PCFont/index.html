@@ -26,14 +26,16 @@
 <meta property="og:site_name" content="Zera 的小博客">
 <meta property="og:description" content="给 Windows 更换系统字体（含微软雅黑和 Segoe UI）的完整操作记录，附备份与还原方法。">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://zerablog.top/2024/09/16/PCFont/images/Pasted%20image%2020261008215646.png">
+<meta property="og:image" content="https://zerablog.top/2024/09/16/PCFont/images/Pasted%20image%2020261008215504.png">
 <meta property="og:image" content="https://zerablog.top/2024/09/16/PCFont/images/Pasted%20image%2020261008215400.png">
 <meta property="article:published_time" content="2024-09-16T13:21:42.000Z">
-<meta property="article:modified_time" content="2026-10-08T13:54:02.235Z">
+<meta property="article:modified_time" content="2026-10-08T13:57:59.063Z">
 <meta property="article:author" content="Zera &#x2F; 捷攎">
 <meta property="article:tag" content="字体">
 <meta property="article:tag" content="美化">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://zerablog.top/2024/09/16/PCFont/images/Pasted%20image%2020261008215400.png">
+<meta name="twitter:image" content="https://zerablog.top/2024/09/16/PCFont/images/Pasted%20image%2020261008215646.png">
   
   
     <meta name="referrer" content="no-referrer-when-downgrade">
@@ -203,7 +205,7 @@ mjx-container[display="true"] + br {
   display: none;
 }
 </style><link rel="alternate" href="/atom.xml" title="Zera 的小博客" type="application/atom+xml">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"给你的 Windows 更换字体（包括微软雅黑和 Segoe UI！）","description":"给 Windows 更换系统字体（含微软雅黑和 Segoe UI）的完整操作记录，附备份与还原方法。","url":"https://zerablog.top/2024/09/16/PCFont/index.html","mainEntityOfPage":{"@type":"WebPage","@id":"https://zerablog.top/2024/09/16/PCFont/index.html"},"datePublished":"2024-09-16T13:21:42.000Z","dateModified":"2026-10-08T13:54:02.235Z","author":{"@type":"Person","name":"Zera / 捷攎","url":"https://zerablog.top/about/"},"publisher":{"@type":"Organization","name":"Zera 的小博客","logo":{"@type":"ImageObject","url":"https://zerablog.top/2024/09/16/PCFont/images/Pasted%20image%2020261008215400.png"}},"image":"https://zerablog.top/2024/09/16/PCFont/images/Pasted%20image%2020261008215400.png","inLanguage":"zh-CN","keywords":"字体, 美化","articleSection":"指北"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"给你的 Windows 更换字体（包括微软雅黑和 Segoe UI！）","description":"给 Windows 更换系统字体（含微软雅黑和 Segoe UI）的完整操作记录，附备份与还原方法。","url":"https://zerablog.top/2024/09/16/PCFont/index.html","mainEntityOfPage":{"@type":"WebPage","@id":"https://zerablog.top/2024/09/16/PCFont/index.html"},"datePublished":"2024-09-16T13:21:42.000Z","dateModified":"2026-10-08T13:57:59.063Z","author":{"@type":"Person","name":"Zera / 捷攎","url":"https://zerablog.top/about/"},"publisher":{"@type":"Organization","name":"Zera 的小博客","logo":{"@type":"ImageObject","url":"https://zerablog.top/2024/09/16/PCFont/images/Pasted%20image%2020261008215646.png"}},"image":"https://zerablog.top/2024/09/16/PCFont/images/Pasted%20image%2020261008215646.png","inLanguage":"zh-CN","keywords":"字体, 美化","articleSection":"指北"}</script>
 </head>
 
 
@@ -502,7 +504,7 @@ mjx-container[display="true"] + br {
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          997 字
+          982 字
         
       </span>
     
@@ -567,22 +569,11 @@ mjx-container[display="true"] + br {
 <h2 id="二-weifonts-的使用"><a class="markdownIt-Anchor" href="#二-weifonts-的使用"></a> 二、WeiFonts 的使用</h2>
 <p>下载发行包后，打开文件中的 <code>WeiFonts.exe</code> 就差不多会用了。对于 「Windows 中文」 选项卡里的内容我不是很会用，貌似是要先打包成 <code>.ttc</code> 再替换，有点麻烦 <s>（其实是我根本没了解啦）</s>。直接聚焦于「给定字体」选项卡即可。</p>
 <p>先讲讲中文字体：微软雅黑一共有三个字体要替换：<code>msyhl.ttc</code>、<code>msyh.ttc</code>、<code>msyhbd.ttc</code>，分别是 Light, Regular 和 Bold 字重。在「模板字体」一栏直接输入 <code>C:\Windows\Fonts\上述三个字体</code> 即可。（因为如果点右边的选择的话是找不到 Fonts 文件夹的，很奇怪）。<br>
-「输入字体」一栏直接找到你要替换的对应字重的字体的绝对地址即可。如果你的字体文件只有一个字重的话，或者你不在乎有几个字重，每次都用这一个文件即可。「保存为」一栏自定。如果 <code>.otf</code> 出了问题的话，尝试把它转化成 <code>.ttf</code> 文件。AFTools 提供了这一功能。<br>
-下图是使用阿里巴巴普惠体的例子。</p>
-<!-- 配图待补（读者看不到这行注释）
-     原图存在已停服的 picui.cn 图床上，且未被任何网页存档收录，无法找回。
-     补图：重新截图 → 放进 source\images\ → 用下面这行替换掉本注释：
-     ![](/images/你的文件名.png) -->
-<p>英文字体就比较搞了，这时候把字体打包成 <code>.ttc</code> 是比较方便的，但电脑里的 Segoe UI 并没有打包成 <code>.ttc</code>（亦或是我没找到打包或可变字体），所以需要一个一个字重去替换。这里我选择 Inter，一款非常像 SF Pro 的字体。以下是示例：</p>
-<!-- 配图待补（读者看不到这行注释）
-     原图存在已停服的 picui.cn 图床上，且未被任何网页存档收录，无法找回。
-     补图：重新截图 → 放进 source\images\ → 用下面这行替换掉本注释：
-     ![](/images/你的文件名.png) -->
-<p>工作量有点大，最后替换好应该得到了这么些文件：</p>
-<!-- 配图待补（读者看不到这行注释）
-     原图存在已停服的 picui.cn 图床上，且未被任何网页存档收录，无法找回。
-     补图：重新截图 → 放进 source\images\ → 用下面这行替换掉本注释：
-     ![](/images/你的文件名.png) -->
+「输入字体」一栏直接找到你要替换的对应字重的字体的绝对地址即可。如果你的字体文件只有一个字重的话，或者你不在乎有几个字重，每次都用这一个文件即可。「保存为」一栏自定。如果 <code>.otf</code> 出了问题的话，尝试把它转化成 <code>.ttf</code> 文件。AFTools 提供了这一功能。</p>
+<p><img src="https://fastly.jsdelivr.net/gh/chieh2lu2/chieh2lu2.github.io@main/images/Pasted%20image%2020261008215646.png" srcset="/images/l.svg" lazyload alt="" onerror="this.onerror=null;this.src='/images/Pasted%20image%2020261008215646.png'"><br>
+英文字体就比较搞了，这时候把字体打包成 <code>.ttc</code> 是比较方便的，但电脑里的 Segoe UI 并没有打包成 <code>.ttc</code>（亦或是我没找到打包或可变字体），所以需要一个一个字重去替换。这里我选择 Inter，一款非常像 SF Pro 的字体——<a target="_blank" rel="noopener" href="https://github.com/rsms/inter">Inter</a>。<br>
+工作量有点大，最后替换好应该得到了这么些文件：<br>
+<img src="https://fastly.jsdelivr.net/gh/chieh2lu2/chieh2lu2.github.io@main/images/Pasted%20image%2020261008215504.png" srcset="/images/l.svg" lazyload alt="" onerror="this.onerror=null;this.src='/images/Pasted%20image%2020261008215504.png'"></p>
 <div class="note note-danger">
             <p>替换前一定要注意字重是否对应哦！</p> 
           </div>
