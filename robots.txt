@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+
+# 站内搜索索引是给搜索框用的，不需要被搜索引擎收录
+Disallow: /search.xml
+
+# 站点地图（给搜索引擎用）
+Sitemap: https://chieh2lu2.github.io/sitemap.xml
