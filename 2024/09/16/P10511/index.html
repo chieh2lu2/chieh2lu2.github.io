@@ -698,8 +698,8 @@ mjx-container[display="true"] + br {
   <div id="waline"></div>
   <script type="module">
     Fluid.utils.loadComments('#waline', function() {
-      Fluid.utils.createCssLink('https://registry.npmmirror.com/@waline/client/3.16.0/files/dist/waline.css')
-      import('https://registry.npmmirror.com/@waline/client/3.16.0/files/dist/waline.js').then(({ init }) => {
+      Fluid.utils.createCssLink('/waline/waline.css')
+      import('/waline/waline.js').then(({ init }) => {
         var options = Object.assign(
           {"serverURL":"https://comments.zerablog.top","path":"window.location.pathname","meta":["nick","mail","link"],"requiredMeta":["nick"],"lang":"zh-CN","emoji":["https://registry.npmmirror.com/@waline/emojis/1.4.0/files/weibo"],"dark":"html[data-user-color-scheme=\"dark\"]","wordLimit":0,"pageSize":10},
           {
