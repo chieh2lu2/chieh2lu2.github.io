@@ -5,4 +5,4 @@ Allow: /
 Disallow: /search.xml
 
 # 站点地图（给搜索引擎用）
-Sitemap: https://chieh2lu2.github.io/sitemap.xml
+Sitemap: https://zerablog.top/sitemap.xml
