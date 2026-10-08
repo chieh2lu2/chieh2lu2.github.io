@@ -106,3 +106,118 @@
 .toc-content .toc-link:hover .toc-text {
   color: var(--anzhiyu-main);
 }
+
+
+/* ==========================================================================
+   4) 碎碎念时间线（source/moments/）
+   ========================================================================== */
+
+.moments-timeline {
+  list-style: none;
+  margin: 1.5rem 0 0;
+  padding: 0 0 0 1.6rem;
+  /* 竖线 */
+  border-left: 2px solid var(--fluid-theme-color, #3c92dc);
+  opacity: 0.98;
+}
+
+.moment-item {
+  position: relative;
+  margin: 0 0 1.75rem;
+  padding: 0;
+}
+
+/* 时间线上的小圆点 */
+.moment-dot {
+  position: absolute;
+  left: -2.28rem;
+  top: 0.75rem;
+  width: 0.72rem;
+  height: 0.72rem;
+  border-radius: 50%;
+  background: var(--fluid-theme-color, #3c92dc);
+  box-shadow: 0 0 0 4px var(--board-bg-color, #fff);
+}
+
+.moment-card {
+  background: rgba(128, 128, 128, 0.08);
+  border-radius: 8px;
+  padding: 0.85rem 1.05rem;
+  transition: background 0.2s ease;
+}
+
+.moment-card:hover {
+  background: rgba(128, 128, 128, 0.14);
+}
+
+.moment-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  font-size: 0.85rem;
+  color: #999;
+  margin-bottom: 0.35rem;
+}
+
+.moment-comment-link {
+  white-space: nowrap;
+  font-size: 0.82rem;
+  opacity: 0.75;
+}
+
+.moment-comment-link:hover {
+  opacity: 1;
+}
+
+.moment-title {
+  margin: 0.25rem 0 0.4rem;
+  font-size: 1.05rem;
+  font-weight: 600;
+}
+
+/* 碎碎念正文：比文章正文紧凑一点，但保留段落间距 */
+.moment-body > *:last-child {
+  margin-bottom: 0;
+}
+
+.moment-body p {
+  margin: 0.4rem 0;
+  line-height: 1.85;
+}
+
+.moment-body img {
+  max-width: 100%;
+  border-radius: 6px;
+  margin: 0.4rem 0;
+}
+
+.moments-empty {
+  text-align: center;
+  padding: 2.5rem 1rem;
+  color: #888;
+}
+
+.moments-empty-tip {
+  font-size: 0.9rem;
+  opacity: 0.8;
+}
+
+/* 窄屏：把左边距收窄一点，别让内容太挤 */
+@media (max-width: 767px) {
+  .moments-timeline {
+    padding-left: 1.15rem;
+  }
+  .moment-dot {
+    left: -1.83rem;
+    width: 0.6rem;
+    height: 0.6rem;
+  }
+  .moment-card {
+    padding: 0.7rem 0.85rem;
+  }
+  .moment-head {
+    font-size: 0.8rem;
+  }
+}
+
