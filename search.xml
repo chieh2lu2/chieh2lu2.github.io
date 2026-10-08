@@ -168,30 +168,6 @@ Git: <a href="https://github.com/waylau/git-for-win">https://github.com/waylau/g
       </tags>
   </entry>
   <entry>
-    <title>P10511 题解</title>
-    <url>/2024/09/16/P10511/</url>
-    <content><![CDATA[<h2 id="思路"><a class="markdownIt-Anchor" href="#思路"></a> 思路</h2>
-<p>首先好像高一就学过 。但还是推一下：<br>
-令 ，则</p>
-<p></p>
-<p>也就是要维护区间平方和与区间和。这可以考虑用前缀和维护。考虑到有散块的可能，所以先把夹在  和  中间的整块求出来，再把  旁边的或  旁边的散块求出来。记得及时取膜。</p>
-<p>我们可以先把  和  所在的块的坐标求出来，再把指针各往中间移一块来计算整块。</p>
-<p><img src="/images/P10511-1.png" alt=""></p>
-<p>例如，想要求  所在的块编号，只要找到离它最近且大于等于它的  或小于它  即可。注意， 可以和  重合，但  不可以，如果重合的话  号块也可以算作被夹在中间的块了。代码写出来就是 <code>dx = lower_bound(r + 1, r + m + 1, x) - r; </code> 或 <code>dx = lower_bound(l + 1, l + m + 1, x) - l - 1</code>。 所在的编号也是差不多的求法。</p>
-<p>其他小细节在代码注释里。注意取膜哦！</p>
-<h2 id="代码"><a class="markdownIt-Anchor" href="#代码"></a> 代码</h2>
-<figure class="highlight cpp"><div class="table-wrap"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="keyword">using</span> ll = <span class="type">long</span> <span class="type">long</span>;</span><br><span class="line"></span><br><span class="line"><span class="type">const</span> ll M = <span class="number">2e5</span> + <span class="number">100</span>, mod = <span class="number">998244353</span>;</span><br><span class="line">ll n, m, q;</span><br><span class="line">ll l[M], r[M];</span><br><span class="line">ll s[M], qs[M], len[M], b[M];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">    cin &gt;&gt; n &gt;&gt; m &gt;&gt; q;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= m; i++)</span><br><span class="line">    {</span><br><span class="line">        cin &gt;&gt; l[i] &gt;&gt; r[i] &gt;&gt; b[i]; b[i] %= mod;</span><br><span class="line">        len[i] = (r[i] - l[i] + <span class="number">1</span>) % mod;  </span><br><span class="line">        s[i] = (len[i] * b[i]) % mod; </span><br><span class="line">        qs[i] = (s[i] * b[i]) % mod; </span><br><span class="line">        len[i] = (len[i - <span class="number">1</span>] + len[i]) % mod;</span><br><span class="line">        s[i] = (s[i - <span class="number">1</span>] + s[i]) % mod;</span><br><span class="line">        qs[i] = (qs[i - <span class="number">1</span>] + qs[i]) % mod;</span><br><span class="line">    }</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= q; i++)</span><br><span class="line">    {</span><br><span class="line">        <span class="comment">/* 一开始想先把离 x/y 右/左 边最近的 左/右 端点编号求出来的……但是实现起来有点麻烦（ */</span></span><br><span class="line">        </span><br><span class="line">        ll x, y, dx, dy <span class="comment">/* dx 为 x 所在的编号；dy 含义亦然 */</span>, S, QS, ans; cin &gt;&gt; x &gt;&gt; y;</span><br><span class="line">        dx = <span class="built_in">lower_bound</span>(l + <span class="number">1</span>, l + m + <span class="number">1</span>, x) - l - <span class="number">1</span>, <span class="comment">// 也就是 dx = lower_bound(r + 1, r + m + 1, x) - r;</span></span><br><span class="line">        dy = <span class="built_in">lower_bound</span>(r + <span class="number">1</span>, r + m + <span class="number">1</span>, y) - r;</span><br><span class="line">        <span class="keyword">if</span> (dx == dy) { cout &lt;&lt; <span class="number">0</span> &lt;&lt; endl; <span class="keyword">continue</span>; }</span><br><span class="line">        </span><br><span class="line"><span class="comment">//      S = S + (r[dx] - x + 1) * b[dx] + (y - l[dy] + 1) * b[dy];  </span></span><br><span class="line">        S = (r[dx] - x + <span class="number">1</span>) % mod * b[dx] % mod + (y - l[dy] + <span class="number">1</span>) % mod * b[dy] % mod;</span><br><span class="line">        QS = (r[dx] - x + <span class="number">1</span>) % mod * b[dx] % mod * b[dx] % mod + (y - l[dy] + <span class="number">1</span>) % mod* b[dy] % mod * b[dy] % mod;</span><br><span class="line">    </span><br><span class="line">        dx++, dy--; <span class="comment">// 移到里面夹着的整块</span></span><br><span class="line">        <span class="keyword">if</span> (dx &lt;= dy) <span class="comment">// 排除里面没夹着整块的情况</span></span><br><span class="line">        {</span><br><span class="line">            S = (S + s[dy] - s[dx - <span class="number">1</span>] + mod) % mod;</span><br><span class="line">            QS = (QS + qs[dy] - qs[dx - <span class="number">1</span>] + mod) % mod;</span><br><span class="line">        }</span><br><span class="line">        ans = ((y - x + <span class="number">1</span>) % mod * QS % mod - S * S % mod + mod) % mod;</span><br><span class="line">        cout &lt;&lt; (ans + mod) % mod &lt;&lt; endl;</span><br><span class="line">    }</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">}</span><br></pre></td></tr></table></div></figure>]]></content>
-      <categories>
-        <category>题解</category>
-      </categories>
-      <tags>
-        <tag>OI</tag>
-        <tag>洛谷</tag>
-        <tag>数学</tag>
-        <tag>C++</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>十二重计数法</title>
     <url>/2024/09/15/P5824/</url>
     <content><![CDATA[<hr>
@@ -358,58 +334,27 @@ Git: <a href="https://github.com/waylau/git-for-win">https://github.com/waylau/g
       </tags>
   </entry>
   <entry>
-    <title>给你的 Windows 更换字体（包括微软雅黑和 Segoe UI！）</title>
-    <url>/2024/09/16/PCFont/</url>
-    <content><![CDATA[<div class="note danger flat"><p>所有字体、<strong>包括系统字体</strong>一定要做好备份！</p>
-</div>
-<p>在网络上经常看到更换电脑字体的教程，可大多教程都解决不了一个问题——更换系统的英文字体。Windows 下某些地方的英文字体使用的是 Segoe UI，个人觉得十分丑陋。这篇文章将以字体 Inter 为例解决这个痛点，并同时介绍替换中文字体的方法。</p>
-<hr>
-<h2 id="一-软件安装"><a class="markdownIt-Anchor" href="#一-软件安装"></a> 一、软件安装</h2>
-<p>我使用的软件是 <a href="https://github.com/GuiWonder/WeiFonts/">WeiFonts</a> 和 <a href="https://www.fishlee.net/soft/SysFontReplacer/">字体替换工具(Font Replace Utility)</a>。前一个软件能够将被替换字体文件的信息写到你要替换的字体上，并把字体打包成 <code>.ttc</code>。后一个软件能够替换掉系统字体。</p>
-<h2 id="二-weifonts-的使用"><a class="markdownIt-Anchor" href="#二-weifonts-的使用"></a> 二、WeiFonts 的使用</h2>
-<p>下载发行包后，打开文件中的 <code>WeiFonts.exe</code> 就差不多会用了。对于 「Windows 中文」 选项卡里的内容我不是很会用，貌似是要先打包成 <code>.ttc</code> 再替换，有点麻烦 <s>（其实是我根本没了解啦）</s>。直接聚焦于「给定字体」选项卡即可。</p>
-<p>先讲讲中文字体：微软雅黑一共有三个字体要替换：<code>msyhl.ttc</code>、<code>msyh.ttc</code>、<code>msyhbd.ttc</code>，分别是 Light, Regular 和 Bold 字重。在「模板字体」一栏直接输入 <code>C:\Windows\Fonts\上述三个字体</code> 即可。（因为如果点右边的选择的话是找不到 Fonts 文件夹的，很奇怪）。<br>
-「输入字体」一栏直接找到你要替换的对应字重的字体的绝对地址即可。如果你的字体文件只有一个字重的话，或者你不在乎有几个字重，每次都用这一个文件即可。「保存为」一栏自定。如果 <code>.otf</code> 出了问题的话，尝试把它转化成 <code>.ttf</code> 文件。AFTools 提供了这一功能。<br>
-下图是使用阿里巴巴普惠体的例子。</p>
-<!-- 配图待补（读者看不到这行注释）
-     原图存在已停服的 picui.cn 图床上，且未被任何网页存档收录，无法找回。
-     补图：重新截图 → 放进 source\images\ → 用下面这行替换掉本注释：
-     ![](/images/你的文件名.png) -->
-<p>英文字体就比较搞了，这时候把字体打包成 <code>.ttc</code> 是比较方便的，但电脑里的 Segoe UI 并没有打包成 <code>.ttc</code>（亦或是我没找到打包或可变字体），所以需要一个一个字重去替换。这里我选择 Inter，一款非常像 SF Pro 的字体。以下是示例：</p>
-<!-- 配图待补（读者看不到这行注释）
-     原图存在已停服的 picui.cn 图床上，且未被任何网页存档收录，无法找回。
-     补图：重新截图 → 放进 source\images\ → 用下面这行替换掉本注释：
-     ![](/images/你的文件名.png) -->
-<p>工作量有点大，最后替换好应该得到了这么些文件：</p>
-<!-- 配图待补（读者看不到这行注释）
-     原图存在已停服的 picui.cn 图床上，且未被任何网页存档收录，无法找回。
-     补图：重新截图 → 放进 source\images\ → 用下面这行替换掉本注释：
-     ![](/images/你的文件名.png) -->
-<div class="note danger flat"><p>替换前一定要注意字重是否对应哦！</p>
-</div>
-<h2 id="三-字体替换工具的使用"><a class="markdownIt-Anchor" href="#三-字体替换工具的使用"></a> 三、字体替换工具的使用</h2>
-<p>这更是一款傻瓜式软件：打开后直接把所有字体拖进去，然后点「开始执行任务」即可。</p>
-<!-- 配图待补（读者看不到这行注释）
-     原图存在已停服的 picui.cn 图床上，且未被任何网页存档收录，无法找回。
-     补图：重新截图 → 放进 source\images\ → 用下面这行替换掉本注释：
-     ![](/images/你的文件名.png) -->
-<p>如果没有备份而想回退到之前的字体，点「还原」并找到自动的备份即可。</p>
-<p>点「开始执行任务」后会提醒你有多少个字体替换成功，然后自动重启。如果有不成功的就多替换几次。</p>
-<hr>
-<p>自此，你的电脑就有了崭新的中英文字体啦！可喜可贺！</p>
-<!-- 配图待补（读者看不到这行注释）
-     原图存在已停服的 picui.cn 图床上，且未被任何网页存档收录，无法找回。
-     补图：重新截图 → 放进 source\images\ → 用下面这行替换掉本注释：
-     ![](/images/你的文件名.png) -->
-<p>看我博客文件的一角，是不是也有苹果的味道了呢（笑）</p>
-<p>用这个方法，还可以替换掉系统的「黑体」「宋体」之类。不过我是不推荐的。</p>
-]]></content>
+    <title>P10511 题解</title>
+    <url>/2024/09/16/P10511/</url>
+    <content><![CDATA[<h2 id="思路"><a class="markdownIt-Anchor" href="#思路"></a> 思路</h2>
+<p>首先好像高一就学过 。但还是推一下：<br>
+令 ，则</p>
+<p></p>
+<p>也就是要维护区间平方和与区间和。这可以考虑用前缀和维护。考虑到有散块的可能，所以先把夹在  和  中间的整块求出来，再把  旁边的或  旁边的散块求出来。记得及时取膜。</p>
+<p>我们可以先把  和  所在的块的坐标求出来，再把指针各往中间移一块来计算整块。</p>
+<p><img src="/images/P10511-1.png" alt=""></p>
+<p>例如，想要求  所在的块编号，只要找到离它最近且大于等于它的  或小于它  即可。注意， 可以和  重合，但  不可以，如果重合的话  号块也可以算作被夹在中间的块了。代码写出来就是 <code>dx = lower_bound(r + 1, r + m + 1, x) - r; </code> 或 <code>dx = lower_bound(l + 1, l + m + 1, x) - l - 1</code>。 所在的编号也是差不多的求法。</p>
+<p>其他小细节在代码注释里。注意取膜哦！</p>
+<h2 id="代码"><a class="markdownIt-Anchor" href="#代码"></a> 代码</h2>
+<figure class="highlight cpp"><div class="table-wrap"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="keyword">using</span> ll = <span class="type">long</span> <span class="type">long</span>;</span><br><span class="line"></span><br><span class="line"><span class="type">const</span> ll M = <span class="number">2e5</span> + <span class="number">100</span>, mod = <span class="number">998244353</span>;</span><br><span class="line">ll n, m, q;</span><br><span class="line">ll l[M], r[M];</span><br><span class="line">ll s[M], qs[M], len[M], b[M];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">    cin &gt;&gt; n &gt;&gt; m &gt;&gt; q;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= m; i++)</span><br><span class="line">    {</span><br><span class="line">        cin &gt;&gt; l[i] &gt;&gt; r[i] &gt;&gt; b[i]; b[i] %= mod;</span><br><span class="line">        len[i] = (r[i] - l[i] + <span class="number">1</span>) % mod;  </span><br><span class="line">        s[i] = (len[i] * b[i]) % mod; </span><br><span class="line">        qs[i] = (s[i] * b[i]) % mod; </span><br><span class="line">        len[i] = (len[i - <span class="number">1</span>] + len[i]) % mod;</span><br><span class="line">        s[i] = (s[i - <span class="number">1</span>] + s[i]) % mod;</span><br><span class="line">        qs[i] = (qs[i - <span class="number">1</span>] + qs[i]) % mod;</span><br><span class="line">    }</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= q; i++)</span><br><span class="line">    {</span><br><span class="line">        <span class="comment">/* 一开始想先把离 x/y 右/左 边最近的 左/右 端点编号求出来的……但是实现起来有点麻烦（ */</span></span><br><span class="line">        </span><br><span class="line">        ll x, y, dx, dy <span class="comment">/* dx 为 x 所在的编号；dy 含义亦然 */</span>, S, QS, ans; cin &gt;&gt; x &gt;&gt; y;</span><br><span class="line">        dx = <span class="built_in">lower_bound</span>(l + <span class="number">1</span>, l + m + <span class="number">1</span>, x) - l - <span class="number">1</span>, <span class="comment">// 也就是 dx = lower_bound(r + 1, r + m + 1, x) - r;</span></span><br><span class="line">        dy = <span class="built_in">lower_bound</span>(r + <span class="number">1</span>, r + m + <span class="number">1</span>, y) - r;</span><br><span class="line">        <span class="keyword">if</span> (dx == dy) { cout &lt;&lt; <span class="number">0</span> &lt;&lt; endl; <span class="keyword">continue</span>; }</span><br><span class="line">        </span><br><span class="line"><span class="comment">//      S = S + (r[dx] - x + 1) * b[dx] + (y - l[dy] + 1) * b[dy];  </span></span><br><span class="line">        S = (r[dx] - x + <span class="number">1</span>) % mod * b[dx] % mod + (y - l[dy] + <span class="number">1</span>) % mod * b[dy] % mod;</span><br><span class="line">        QS = (r[dx] - x + <span class="number">1</span>) % mod * b[dx] % mod * b[dx] % mod + (y - l[dy] + <span class="number">1</span>) % mod* b[dy] % mod * b[dy] % mod;</span><br><span class="line">    </span><br><span class="line">        dx++, dy--; <span class="comment">// 移到里面夹着的整块</span></span><br><span class="line">        <span class="keyword">if</span> (dx &lt;= dy) <span class="comment">// 排除里面没夹着整块的情况</span></span><br><span class="line">        {</span><br><span class="line">            S = (S + s[dy] - s[dx - <span class="number">1</span>] + mod) % mod;</span><br><span class="line">            QS = (QS + qs[dy] - qs[dx - <span class="number">1</span>] + mod) % mod;</span><br><span class="line">        }</span><br><span class="line">        ans = ((y - x + <span class="number">1</span>) % mod * QS % mod - S * S % mod + mod) % mod;</span><br><span class="line">        cout &lt;&lt; (ans + mod) % mod &lt;&lt; endl;</span><br><span class="line">    }</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">}</span><br></pre></td></tr></table></div></figure>]]></content>
       <categories>
-        <category>指北</category>
+        <category>题解</category>
       </categories>
       <tags>
-        <tag>字体</tag>
-        <tag>美化</tag>
+        <tag>OI</tag>
+        <tag>洛谷</tag>
+        <tag>数学</tag>
+        <tag>C++</tag>
       </tags>
   </entry>
   <entry>
@@ -647,6 +592,61 @@ Git: <a href="https://github.com/waylau/git-for-win">https://github.com/waylau/g
       </tags>
   </entry>
   <entry>
+    <title>给你的 Windows 更换字体（包括微软雅黑和 Segoe UI！）</title>
+    <url>/2024/09/16/PCFont/</url>
+    <content><![CDATA[<div class="note danger flat"><p>所有字体、<strong>包括系统字体</strong>一定要做好备份！</p>
+</div>
+<p>在网络上经常看到更换电脑字体的教程，可大多教程都解决不了一个问题——更换系统的英文字体。Windows 下某些地方的英文字体使用的是 Segoe UI，个人觉得十分丑陋。这篇文章将以字体 Inter 为例解决这个痛点，并同时介绍替换中文字体的方法。</p>
+<hr>
+<h2 id="一-软件安装"><a class="markdownIt-Anchor" href="#一-软件安装"></a> 一、软件安装</h2>
+<p>我使用的软件是 <a href="https://github.com/GuiWonder/WeiFonts/">WeiFonts</a> 和 <a href="https://www.fishlee.net/soft/SysFontReplacer/">字体替换工具(Font Replace Utility)</a>。前一个软件能够将被替换字体文件的信息写到你要替换的字体上，并把字体打包成 <code>.ttc</code>。后一个软件能够替换掉系统字体。</p>
+<h2 id="二-weifonts-的使用"><a class="markdownIt-Anchor" href="#二-weifonts-的使用"></a> 二、WeiFonts 的使用</h2>
+<p>下载发行包后，打开文件中的 <code>WeiFonts.exe</code> 就差不多会用了。对于 「Windows 中文」 选项卡里的内容我不是很会用，貌似是要先打包成 <code>.ttc</code> 再替换，有点麻烦 <s>（其实是我根本没了解啦）</s>。直接聚焦于「给定字体」选项卡即可。</p>
+<p>先讲讲中文字体：微软雅黑一共有三个字体要替换：<code>msyhl.ttc</code>、<code>msyh.ttc</code>、<code>msyhbd.ttc</code>，分别是 Light, Regular 和 Bold 字重。在「模板字体」一栏直接输入 <code>C:\Windows\Fonts\上述三个字体</code> 即可。（因为如果点右边的选择的话是找不到 Fonts 文件夹的，很奇怪）。<br>
+「输入字体」一栏直接找到你要替换的对应字重的字体的绝对地址即可。如果你的字体文件只有一个字重的话，或者你不在乎有几个字重，每次都用这一个文件即可。「保存为」一栏自定。如果 <code>.otf</code> 出了问题的话，尝试把它转化成 <code>.ttf</code> 文件。AFTools 提供了这一功能。<br>
+下图是使用阿里巴巴普惠体的例子。</p>
+<!-- 配图待补（读者看不到这行注释）
+     原图存在已停服的 picui.cn 图床上，且未被任何网页存档收录，无法找回。
+     补图：重新截图 → 放进 source\images\ → 用下面这行替换掉本注释：
+     ![](/images/你的文件名.png) -->
+<p>英文字体就比较搞了，这时候把字体打包成 <code>.ttc</code> 是比较方便的，但电脑里的 Segoe UI 并没有打包成 <code>.ttc</code>（亦或是我没找到打包或可变字体），所以需要一个一个字重去替换。这里我选择 Inter，一款非常像 SF Pro 的字体。以下是示例：</p>
+<!-- 配图待补（读者看不到这行注释）
+     原图存在已停服的 picui.cn 图床上，且未被任何网页存档收录，无法找回。
+     补图：重新截图 → 放进 source\images\ → 用下面这行替换掉本注释：
+     ![](/images/你的文件名.png) -->
+<p>工作量有点大，最后替换好应该得到了这么些文件：</p>
+<!-- 配图待补（读者看不到这行注释）
+     原图存在已停服的 picui.cn 图床上，且未被任何网页存档收录，无法找回。
+     补图：重新截图 → 放进 source\images\ → 用下面这行替换掉本注释：
+     ![](/images/你的文件名.png) -->
+<div class="note danger flat"><p>替换前一定要注意字重是否对应哦！</p>
+</div>
+<h2 id="三-字体替换工具的使用"><a class="markdownIt-Anchor" href="#三-字体替换工具的使用"></a> 三、字体替换工具的使用</h2>
+<p>这更是一款傻瓜式软件：打开后直接把所有字体拖进去，然后点「开始执行任务」即可。</p>
+<!-- 配图待补（读者看不到这行注释）
+     原图存在已停服的 picui.cn 图床上，且未被任何网页存档收录，无法找回。
+     补图：重新截图 → 放进 source\images\ → 用下面这行替换掉本注释：
+     ![](/images/你的文件名.png) -->
+<p>如果没有备份而想回退到之前的字体，点「还原」并找到自动的备份即可。</p>
+<p>点「开始执行任务」后会提醒你有多少个字体替换成功，然后自动重启。如果有不成功的就多替换几次。</p>
+<hr>
+<p>自此，你的电脑就有了崭新的中英文字体啦！可喜可贺！</p>
+<!-- 配图待补（读者看不到这行注释）
+     原图存在已停服的 picui.cn 图床上，且未被任何网页存档收录，无法找回。
+     补图：重新截图 → 放进 source\images\ → 用下面这行替换掉本注释：
+     ![](/images/你的文件名.png) -->
+<p>看我博客文件的一角，是不是也有苹果的味道了呢（笑）</p>
+<p>用这个方法，还可以替换掉系统的「黑体」「宋体」之类。不过我是不推荐的。</p>
+]]></content>
+      <categories>
+        <category>指北</category>
+      </categories>
+      <tags>
+        <tag>字体</tag>
+        <tag>美化</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>UVA11437 题解</title>
     <url>/2024/09/15/UVA11437/</url>
     <content><![CDATA[<p>这道题的难点在于求  和  之间的面积关系。题目给出了  三个顶点的坐标，我们可以用海伦公式求出它的面积：</p>
@@ -670,28 +670,6 @@ Git: <a href="https://github.com/waylau/git-for-win">https://github.com/waylau/g
         <tag>洛谷</tag>
         <tag>数学</tag>
         <tag>C++</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>日記</title>
-    <url>/2025/01/01/nikki/</url>
-    <content><![CDATA[<div class="hbe hbe-container" id="hexo-blog-encrypt" data-wpm="Oh, this is an invalid password. Check and try again, please." data-whm="OOPS, these decrypted content may changed, but you can still have a look.">
-  <script id="hbeData" type="hbeData" data-hmacdigest="341239515304aacfcb4dea65a6a4f80cf7f31ea31825c035b830e1aed03fa60c">b1df3e367478683d3ac69e8de851a96d5aa6d1bd552c38e3f41c6c1bf4e64978d1aa7a00b5486dd7ce5d7dd3a507b33dbbb522d72a229dcc1b92aedb3ae3b696c0e675797a0759321caed61cd73e0712262b51ca507ade27c724bd83cb76c3bf7e4930cd58d9a7e7bae2f8e4ac2e1c80f1daf0783cc58fed721c96c2ca3cdcc5a4ec9d941504c0b6911adc25fe5f753a69d053d488dcffcfe5030b74f3e83d6e4fc5b719ba3133f9e5782bfaabf056d485d86458330389a6eb6acf62b809745093ea1cbb981217f6f5117530583d2a217ad307f9a492ba6880b646afaf3d4fe2a8d24ffec4eb3e18fc3c0aac2cfe1d35d151150f9cbba85befe068bb920f3d52c0bb6d7f81577dc0f56bab9eb057e8b48d8532c00cb8735556d76a9c22bbefd0bddbdbbae8e4af8ca95d8f883aaad875d665a3c8302a3d3b5247687367f06d9880840150dbd1a43342e8653714e5ecbcee6d3fd81d10140cadc3d27a195bbd6346fa649d598b6cb2f22ef112388beb71653432a8f63c2b37d4f1cceaa1d848f9b6ef95fb8d456cb268bd173775cf057b0318dd9f85d8e177df35b4df7b9989bdfeb87750e70dda6db29b497a627155e015cf81b74e426499d70c45d70afa6a63a43e711f45e69cd9f7fd179d8cff032b94242e921e7ffc87339a663dfb1d4ac325f2f88deba961b8389dcfe5cef0e3377dc33168483a0e4be534ee8f04171817811fd7702f134223e368e3b3f8d2e003605bd821a1fd0483e5ef76c5cff8e9a26369fc59f478070bedaf2697ad0f733702c89650586b6a349b4a73e1574c441536335a6ee120ddcb968d4e4a51c125129ef08a8376d942573ccb6a03560f40e83f4606dd9794fad39ff3f1e173ea6f4fb9dd132742b821945ff9a2428872ad9484d04a4fe3017e483ca80d4de78910b06aa4987d7590f8ad19f57b0b6c748317ecd6c45906183654d190f587749c1c3adc2ced5fb605b7eceb04d4e59831cf38626fc60b8c74da846dcad676793af94fe78a53f8661877e664ee3db8292c27addd397c10ff3cf5e75275724fde0b459ae5a0630aade6d0076d744f512f72a1ed1e3970f607362c2bb4f60e64649416f57b4417844d31f7597ab577a6a4e633dac2bdef75f49cd5607e10b63d0be328a0588cf02266a7e12245cd09b88d090ffbe2a39188041fd73f66ede1f7fabaf0516cf77115eda4c43d4f299f3353a114575b0852146f78e5fd0802ecb3af45eb0b7334d18e6a3ffabcac2afbebc5e190fadf51741520f50f0a8c8d351200e9de3541375e4c41d15ad7fc792af8e8ef0291688ba794800c18f8c3f8c46bb1452d8ecd4edebadb8fac233a6ae31e237e36ddd88d3ad5ce618f0172eed39fed7ff0268daca07f4fe7cd3ecbb9de5cbf25073bfdc26edfe12638e5350c111f3de251577ce4ece417ce7d43eee8ada5a16f4432cce1ce5cd382d12ca8216ffb118ab681c9f0e03df20b8beee3381e6270793b394fabdb9e700973072af9efe882f9c060629864845ae33c45f085a4f27bc63443a83b03f4de73fa0a6f840be2ad542812b0f78a68c03e9e312a982d3e5c8886308ed985e9d16576be5236acc596d4eb6b4e316590b234232fac29167e91a7690ef3e8a73f542577d35ed560f5ed51e1f8df77780c093840f7a7ffa60ac23b38aed400631878505111ab71bac3dbaabe281932beb080f277ffdcb530ac1fb5b9681877d0f2631d62b5bfa1eba58734a549</script>
-  <div class="hbe hbe-content">
-    <div class="hbe hbe-input hbe-input-default">
-      <input class="hbe hbe-input-field hbe-input-field-default" type="password" id="hbePass">
-      <label class="hbe hbe-input-label hbe-input-label-default" for="hbePass">
-        <span class="hbe hbe-input-label-content hbe-input-label-content-default">请输入密码：</span>
-      </label>
-    </div>
-  </div>
-</div>
-<script data-pjax src="/lib/hbe.js"></script><link href="/css/hbe.style.css" rel="stylesheet" type="text/css">]]></content>
-      <categories>
-        <category>日記</category>
-      </categories>
-      <tags>
-        <tag>日記</tag>
       </tags>
   </entry>
   <entry>
@@ -730,6 +708,28 @@ Git: <a href="https://github.com/waylau/git-for-win">https://github.com/waylau/g
       <tags>
         <tag>计算机社</tag>
         <tag>永中</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>日記</title>
+    <url>/2025/01/01/nikki/</url>
+    <content><![CDATA[<div class="hbe hbe-container" id="hexo-blog-encrypt" data-wpm="Oh, this is an invalid password. Check and try again, please." data-whm="OOPS, these decrypted content may changed, but you can still have a look.">
+  <script id="hbeData" type="hbeData" data-hmacdigest="95da762b708be68b3ebff692185b582d780442e579a16e7332e306a7f34c0374">2e8069cb7e672a6dc51982fdeb527cdd1a8ffd8ad95e824346b7e639464e35d270b09d856212f178974d06f3c25f2e2b083bff2e8b713b5f8644c6e55de9aec6d27ab50722a9bcef2b45a1ca0c4a3b0b5f1aac51b860e1a6d0fbfae563a1d09e3eb670f9001dca6ae904606f78761189d94f5d61d0693dce6c7bc5c1e0b84ea7eedeb7d7615308a429773d100812eab82a1d4a7d9b72e8dcb349eeeb847645ffc8249c302928db31046e22a797a165d5c3f398a7d553c895dc25b299d055ed0504c9894365099daea9a5c734181162d8a5f1e4af80a2cefcecc2e4676247c566f974b678ce6e127487724f8828b9d1c7729569612c4d12b5a4292b73750691768c46fd6f55782ed83ae823a70bda1787dfd4cb6875a5a764a5a7cd535408a8be37a9f7a02e157a6e2b5d3df28159103464e3281c954118c872e1b494d1a7c90e2767675fd4af91ce01695d3c4c8da3499a075b32d15fcccc7f8690b5b35e485a260ad7a603d492158ae50e60a0a65ae9be2fbef0a0d132f2878aae59ce51bc461681d35a90e3c3286ae799ad0048e2507c1d923bb8532f9c41be835ef8a9468a5a4fcfee71c55d4bf1e116b2d17156fc4eca5b5671bd69077d868e1567dbda098a3f14c23e78572c638df9e0d693f1c739b84436920f456a1b4620322e146ee396e03246f59d9b4c6749540db1e665d5a0aba050f768f5d2a6cfaaa2bf0d2c152ddd6bbb7aa4e73be90cd3a37e1f53fa2a29296c32a9e80f4db244802dfd1690647a53691165a0c614cd34dac15e29955eae137c72a9ab1a0e7183185bf699ddffa8b24910cd84a2f106f076b147a447881cba915b0369c71a518fc210de96ca2965a632f5118c28e91480c9903fb276ac664617d921015695c2ad9fd6aefb7008fba0ce3237f815d9945632afe75f7ca311f0b78e820042ce3bec9a00ea9ddc0fd01b8799d1bf580c889f6f095a176dd87dce8f18492e7c36ac5a9f1552a3adde732554cf7cea3f07b30befa49ce58a6c847a2d092227fa4f9735e8f24d5ac9b3209bbe1e8e662b8495fc952c79a680d6c6d204369648e4114ffe23af037722ac9107d2fd09f6a1d4dcd0b9145a1c86c918dd5433800ca43d597e61c77109dfd6d5b6b6193b24a42768981e4681e987fd7ae8e5cc5f03e1c07343668301ed53b3aaf1315fb022190c0c19daac6825731fdf85de081685ee109ea8f3b8e3a0648828d5464dda01d0cf60d45281b2a1d5c90ea2fc2df1e38b5d4364c8ec45efdad43dd1ce5f3444197e5a6cd6677265648515924ac342ca28311cbeedc674f3f4ec74475d330e7844c6eec956db4d51d504dd2d15df8da00f17e39f24eb4bfcaafa6f1c25656fbcb8938a250478df6c68d40a3ebef971b2eb1943065309f5fe6b4c8e596fb0cecb57e30ef939d6221d9d28bf0b27f7d5d5ff1ec9af3c4c532ac765169ca92ee1225e02d1008a364b9014768a8a9c15ff87939a1b44e247ba95d9278a361a47c2225e77377ccfdc5ae679d31c5bd53a8fe1ee903f8b3c05991afb2e6f135c19152c49c89743ed7f13fd50282ad140455f5ae452bd8b3b448ab06b8a50d8009aa242b947fe1fc110139223815dfebe8887f1f0694d9cccff024895dbe51331bbea152fd0f5ae5dd392f3fc92a016320cc2b7b43ce6cb9d34ef38ebe48a49ef24bf128337d63aa656f6dfca1c104d01098f2d1b1ee024702efecc57b4a11cd664940ed7510da513e2f6c26f</script>
+  <div class="hbe hbe-content">
+    <div class="hbe hbe-input hbe-input-default">
+      <input class="hbe hbe-input-field hbe-input-field-default" type="password" id="hbePass">
+      <label class="hbe hbe-input-label hbe-input-label-default" for="hbePass">
+        <span class="hbe hbe-input-label-content hbe-input-label-content-default">请输入密码：</span>
+      </label>
+    </div>
+  </div>
+</div>
+<script data-pjax src="/lib/hbe.js"></script><link href="/css/hbe.style.css" rel="stylesheet" type="text/css">]]></content>
+      <categories>
+        <category>日記</category>
+      </categories>
+      <tags>
+        <tag>日記</tag>
       </tags>
   </entry>
 </search>
