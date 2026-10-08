@@ -11,7 +11,22 @@
   <rights>All rights reserved 2026, Zera / 捷攎</rights>
   <subtitle>Keep writing and Keep loving.</subtitle>
   <title>Zera 的小博客</title>
-  <updated>2026-10-08T01:30:01.312Z</updated>
+  <updated>2026-10-08T07:18:22.111Z</updated>
+  <entry>
+    <author>
+      <name>Zera / 捷攎</name>
+    </author>
+    <category term="教程" scheme="https://zerablog.top/categories/%E6%95%99%E7%A8%8B/"/>
+    <category term="串流" scheme="https://zerablog.top/tags/%E4%B8%B2%E6%B5%81/"/>
+    <id>https://zerablog.top/2026/10/08/pad-streaming/</id>
+    <link href="https://zerablog.top/2026/10/08/pad-streaming/"/>
+    <published>2026-10-08T07:18:22.000Z</published>
+    <summary>
+      <![CDATA[<p>在这里开始写正文。</p>]]>
+    </summary>
+    <title>在自习室里面优雅地远程使用电脑——Sunshine + Moonlight + Tailscale 平板串流</title>
+    <updated>2026-10-08T07:18:22.111Z</updated>
+  </entry>
   <entry>
     <author>
       <name>Zera / 捷攎</name>
@@ -30,10 +45,10 @@
       <name>Zera / 捷攎</name>
     </author>
     <category term="指北" scheme="https://zerablog.top/categories/%E6%8C%87%E5%8C%97/"/>
+    <category term="永中" scheme="https://zerablog.top/tags/%E6%B0%B8%E4%B8%AD/"/>
+    <category term="计算机社" scheme="https://zerablog.top/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%A4%BE/"/>
     <category term="Python" scheme="https://zerablog.top/tags/Python/"/>
     <category term="爬虫" scheme="https://zerablog.top/tags/%E7%88%AC%E8%99%AB/"/>
-    <category term="计算机社" scheme="https://zerablog.top/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%A4%BE/"/>
-    <category term="永中" scheme="https://zerablog.top/tags/%E6%B0%B8%E4%B8%AD/"/>
     <id>https://zerablog.top/2024/12/01/Spider/</id>
     <link href="https://zerablog.top/2024/12/01/Spider/"/>
     <published>2024-12-01T13:29:49.000Z</published>
@@ -93,15 +108,15 @@
     </author>
     <category term="题解" scheme="https://zerablog.top/categories/%E9%A2%98%E8%A7%A3/"/>
     <category term="OI" scheme="https://zerablog.top/tags/OI/"/>
+    <category term="洛谷" scheme="https://zerablog.top/tags/%E6%B4%9B%E8%B0%B7/"/>
     <category term="数学" scheme="https://zerablog.top/tags/%E6%95%B0%E5%AD%A6/"/>
     <category term="C++" scheme="https://zerablog.top/tags/C/"/>
-    <category term="洛谷" scheme="https://zerablog.top/tags/%E6%B4%9B%E8%B0%B7/"/>
     <id>https://zerablog.top/2024/09/16/P10511/</id>
     <link href="https://zerablog.top/2024/09/16/P10511/"/>
     <published>2024-09-16T01:41:10.000Z</published>
     <summary>洛谷 P10511 题解：用前缀和维护区间和与区间平方和，分整块与散块处理。</summary>
     <title>P10511 题解</title>
-    <updated>2026-10-08T01:21:51.039Z</updated>
+    <updated>2026-10-08T07:25:58.419Z</updated>
   </entry>
   <entry>
     <author>
@@ -109,9 +124,9 @@
     </author>
     <category term="题解" scheme="https://zerablog.top/categories/%E9%A2%98%E8%A7%A3/"/>
     <category term="OI" scheme="https://zerablog.top/tags/OI/"/>
+    <category term="洛谷" scheme="https://zerablog.top/tags/%E6%B4%9B%E8%B0%B7/"/>
     <category term="数学" scheme="https://zerablog.top/tags/%E6%95%B0%E5%AD%A6/"/>
     <category term="C++" scheme="https://zerablog.top/tags/C/"/>
-    <category term="洛谷" scheme="https://zerablog.top/tags/%E6%B4%9B%E8%B0%B7/"/>
     <id>https://zerablog.top/2024/09/16/P10252/</id>
     <link href="https://zerablog.top/2024/09/16/P10252/"/>
     <published>2024-09-16T01:40:09.000Z</published>
@@ -125,8 +140,8 @@
     </author>
     <category term="题解" scheme="https://zerablog.top/categories/%E9%A2%98%E8%A7%A3/"/>
     <category term="OI" scheme="https://zerablog.top/tags/OI/"/>
-    <category term="数学" scheme="https://zerablog.top/tags/%E6%95%B0%E5%AD%A6/"/>
     <category term="洛谷" scheme="https://zerablog.top/tags/%E6%B4%9B%E8%B0%B7/"/>
+    <category term="数学" scheme="https://zerablog.top/tags/%E6%95%B0%E5%AD%A6/"/>
     <category term="排列组合" scheme="https://zerablog.top/tags/%E6%8E%92%E5%88%97%E7%BB%84%E5%90%88/"/>
     <id>https://zerablog.top/2024/09/15/P5824/</id>
     <link href="https://zerablog.top/2024/09/15/P5824/"/>
@@ -140,8 +155,8 @@
       <name>Zera / 捷攎</name>
     </author>
     <category term="社团" scheme="https://zerablog.top/categories/%E7%A4%BE%E5%9B%A2/"/>
-    <category term="计算机社" scheme="https://zerablog.top/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%A4%BE/"/>
     <category term="永中" scheme="https://zerablog.top/tags/%E6%B0%B8%E4%B8%AD/"/>
+    <category term="计算机社" scheme="https://zerablog.top/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%A4%BE/"/>
     <id>https://zerablog.top/2024/09/15/YJZXCCReport/</id>
     <link href="https://zerablog.top/2024/09/15/YJZXCCReport/"/>
     <published>2024-09-15T13:15:14.000Z</published>
@@ -155,9 +170,9 @@
     </author>
     <category term="题解" scheme="https://zerablog.top/categories/%E9%A2%98%E8%A7%A3/"/>
     <category term="OI" scheme="https://zerablog.top/tags/OI/"/>
+    <category term="洛谷" scheme="https://zerablog.top/tags/%E6%B4%9B%E8%B0%B7/"/>
     <category term="数学" scheme="https://zerablog.top/tags/%E6%95%B0%E5%AD%A6/"/>
     <category term="C++" scheme="https://zerablog.top/tags/C/"/>
-    <category term="洛谷" scheme="https://zerablog.top/tags/%E6%B4%9B%E8%B0%B7/"/>
     <id>https://zerablog.top/2024/09/15/UVA11437/</id>
     <link href="https://zerablog.top/2024/09/15/UVA11437/"/>
     <published>2024-09-15T13:14:20.000Z</published>
