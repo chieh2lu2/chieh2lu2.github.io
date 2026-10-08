@@ -28,30 +28,6 @@
       </tags>
   </entry>
   <entry>
-    <title>P10511 题解</title>
-    <url>/2024/09/16/P10511/</url>
-    <content><![CDATA[<h2 id="思路"><a class="markdownIt-Anchor" href="#思路"></a> 思路</h2>
-<p>首先好像高一就学过 。但还是推一下：<br>
-令 ，则</p>
-<p></p>
-<p>也就是要维护区间平方和与区间和。这可以考虑用前缀和维护。考虑到有散块的可能，所以先把夹在  和  中间的整块求出来，再把  旁边的或  旁边的散块求出来。记得及时取膜。</p>
-<p>我们可以先把  和  所在的块的坐标求出来，再把指针各往中间移一块来计算整块。</p>
-<p><img src="/images/P10511-1.png" alt=""></p>
-<p>例如，想要求  所在的块编号，只要找到离它最近且大于等于它的  或小于它  即可。注意， 可以和  重合，但  不可以，如果重合的话  号块也可以算作被夹在中间的块了。代码写出来就是 <code>dx = lower_bound(r + 1, r + m + 1, x) - r; </code> 或 <code>dx = lower_bound(l + 1, l + m + 1, x) - l - 1</code>。 所在的编号也是差不多的求法。</p>
-<p>其他小细节在代码注释里。注意取膜哦！</p>
-<h2 id="代码"><a class="markdownIt-Anchor" href="#代码"></a> 代码</h2>
-<figure class="highlight cpp"><div class="table-wrap"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="keyword">using</span> ll = <span class="type">long</span> <span class="type">long</span>;</span><br><span class="line"></span><br><span class="line"><span class="type">const</span> ll M = <span class="number">2e5</span> + <span class="number">100</span>, mod = <span class="number">998244353</span>;</span><br><span class="line">ll n, m, q;</span><br><span class="line">ll l[M], r[M];</span><br><span class="line">ll s[M], qs[M], len[M], b[M];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">    cin &gt;&gt; n &gt;&gt; m &gt;&gt; q;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= m; i++)</span><br><span class="line">    {</span><br><span class="line">        cin &gt;&gt; l[i] &gt;&gt; r[i] &gt;&gt; b[i]; b[i] %= mod;</span><br><span class="line">        len[i] = (r[i] - l[i] + <span class="number">1</span>) % mod;  </span><br><span class="line">        s[i] = (len[i] * b[i]) % mod; </span><br><span class="line">        qs[i] = (s[i] * b[i]) % mod; </span><br><span class="line">        len[i] = (len[i - <span class="number">1</span>] + len[i]) % mod;</span><br><span class="line">        s[i] = (s[i - <span class="number">1</span>] + s[i]) % mod;</span><br><span class="line">        qs[i] = (qs[i - <span class="number">1</span>] + qs[i]) % mod;</span><br><span class="line">    }</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= q; i++)</span><br><span class="line">    {</span><br><span class="line">        <span class="comment">/* 一开始想先把离 x/y 右/左 边最近的 左/右 端点编号求出来的……但是实现起来有点麻烦（ */</span></span><br><span class="line">        </span><br><span class="line">        ll x, y, dx, dy <span class="comment">/* dx 为 x 所在的编号；dy 含义亦然 */</span>, S, QS, ans; cin &gt;&gt; x &gt;&gt; y;</span><br><span class="line">        dx = <span class="built_in">lower_bound</span>(l + <span class="number">1</span>, l + m + <span class="number">1</span>, x) - l - <span class="number">1</span>, <span class="comment">// 也就是 dx = lower_bound(r + 1, r + m + 1, x) - r;</span></span><br><span class="line">        dy = <span class="built_in">lower_bound</span>(r + <span class="number">1</span>, r + m + <span class="number">1</span>, y) - r;</span><br><span class="line">        <span class="keyword">if</span> (dx == dy) { cout &lt;&lt; <span class="number">0</span> &lt;&lt; endl; <span class="keyword">continue</span>; }</span><br><span class="line">        </span><br><span class="line"><span class="comment">//      S = S + (r[dx] - x + 1) * b[dx] + (y - l[dy] + 1) * b[dy];  </span></span><br><span class="line">        S = (r[dx] - x + <span class="number">1</span>) % mod * b[dx] % mod + (y - l[dy] + <span class="number">1</span>) % mod * b[dy] % mod;</span><br><span class="line">        QS = (r[dx] - x + <span class="number">1</span>) % mod * b[dx] % mod * b[dx] % mod + (y - l[dy] + <span class="number">1</span>) % mod* b[dy] % mod * b[dy] % mod;</span><br><span class="line">    </span><br><span class="line">        dx++, dy--; <span class="comment">// 移到里面夹着的整块</span></span><br><span class="line">        <span class="keyword">if</span> (dx &lt;= dy) <span class="comment">// 排除里面没夹着整块的情况</span></span><br><span class="line">        {</span><br><span class="line">            S = (S + s[dy] - s[dx - <span class="number">1</span>] + mod) % mod;</span><br><span class="line">            QS = (QS + qs[dy] - qs[dx - <span class="number">1</span>] + mod) % mod;</span><br><span class="line">        }</span><br><span class="line">        ans = ((y - x + <span class="number">1</span>) % mod * QS % mod - S * S % mod + mod) % mod;</span><br><span class="line">        cout &lt;&lt; (ans + mod) % mod &lt;&lt; endl;</span><br><span class="line">    }</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">}</span><br></pre></td></tr></table></div></figure>]]></content>
-      <categories>
-        <category>题解</category>
-      </categories>
-      <tags>
-        <tag>OI</tag>
-        <tag>数学</tag>
-        <tag>C++</tag>
-        <tag>洛谷</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Windows 下使用 Hexo + GitHub Pages 搭建自己的博客指北</title>
     <url>/2024/09/16/HexoI/</url>
     <content><![CDATA[<h2 id="〇-开始之前"><a class="markdownIt-Anchor" href="#〇-开始之前"></a> 〇、开始之前</h2>
@@ -158,6 +134,230 @@ Git: <a href="https://github.com/waylau/git-for-win">https://github.com/waylau/g
       </tags>
   </entry>
   <entry>
+    <title>P10252 题解</title>
+    <url>/2024/09/16/P10252/</url>
+    <content><![CDATA[<h1 id="p10252"><a class="markdownIt-Anchor" href="#p10252"></a> <a href="https://www.luogu.com.cn/problem/P10252">P10252</a> 题解</h1>
+<p>一直没有想到  可能等于 ，白交了好多发，好蠢……</p>
+<h2 id="题意"><a class="markdownIt-Anchor" href="#题意"></a> 题意</h2>
+<p>题面很清楚了。</p>
+<h2 id="解析"><a class="markdownIt-Anchor" href="#解析"></a> 解析</h2>
+<p>有一个很且显然的想法是：每次  变换后，如果变换后的 ，那么  在接下来的变换里只会越来越大；反之亦然。具体的下面会提及。</p>
+<p>找找规律：</p>
+<p>变换一次：。<br>
+变换两次：。<br>
+变换三次：。<br>
+变换  次：。</p>
+<p>嘶……没头绪。那看看每次  增加的量是多少：</p>
+<p></p>
+<p>可以看见  这个数是第一次变换后， 与  的差值。 的增加与否与前面的  无关（），只跟  有关，而  是一个定值。这也说明了开头猜想的正确性。</p>
+<p>从这里我们可以发现一种特殊情况：如果 ，那么  变换后不可能变小，一开始的  就是最小值。这种情况直接输出  即可。</p>
+<p>现在来考虑  的一般情况。我们要求记的毕竟不是增加量，而是想求出它每一次变换后  的大小。使用上面的差值求和试试看？记  为 ，设  为变换次数，那么变换  次后：</p>
+<p><br>
+那么只要枚举 ，判断这个能在右边的式子是否小于  即可。 中的  增长速度很快（），不用二分就能过（或许可能数据太水了 = =）。</p>
+<p>注意，这里的  为分母，<strong>需要特判  的情况</strong>。答案易知是 。还有一种特殊情况：当  或  时，直接输出  即可。</p>
+<h2 id="代码"><a class="markdownIt-Anchor" href="#代码"></a> 代码</h2>
+<figure class="highlight cpp"><div class="table-wrap"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="type">long</span> <span class="type">long</span> ll;</span><br><span class="line">ll T, x, a, b;</span><br><span class="line"></span><br><span class="line"><span class="function">ll <span class="title">qpow</span><span class="params">(ll a, ll b)</span> <span class="comment">// 快速幂 </span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">	ll res = <span class="number">1</span>;</span><br><span class="line">	<span class="keyword">while</span> (b)</span><br><span class="line">	{</span><br><span class="line">		<span class="keyword">if</span> (b &amp; <span class="number">1</span>) res *= a;</span><br><span class="line">		a *= a, b /= <span class="number">2</span>;</span><br><span class="line">	}</span><br><span class="line">	<span class="keyword">return</span> res;</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">solve</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">	cin &gt;&gt; x &gt;&gt; a &gt;&gt; b;</span><br><span class="line">	<span class="keyword">if</span> (a * x - b &gt;= x)</span><br><span class="line">	{</span><br><span class="line">		cout &lt;&lt; x &lt;&lt; endl;</span><br><span class="line">		<span class="keyword">return</span> ;</span><br><span class="line">	}</span><br><span class="line">	<span class="keyword">if</span> (a == <span class="number">0</span> || x == <span class="number">0</span>)</span><br><span class="line">	{</span><br><span class="line">		cout &lt;&lt; -b &lt;&lt; endl;</span><br><span class="line">		<span class="keyword">return</span> ;</span><br><span class="line">	}</span><br><span class="line">	<span class="keyword">if</span> (a == <span class="number">1</span>)</span><br><span class="line">	{</span><br><span class="line">		cout &lt;&lt; x - (x / b + <span class="number">1</span>) * b &lt;&lt; endl;</span><br><span class="line">		<span class="keyword">return</span> ;</span><br><span class="line">	}</span><br><span class="line">	ll d = a * x - b - x;</span><br><span class="line">	<span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; ; i++)</span><br><span class="line">	{</span><br><span class="line">		<span class="keyword">if</span> (x + d * (<span class="built_in">qpow</span>(a, i) - <span class="number">1</span>) / (a - <span class="number">1</span>) &lt; <span class="number">0</span>)</span><br><span class="line">		{</span><br><span class="line">			cout &lt;&lt; x + d * (<span class="built_in">ksm</span>(a, i) - <span class="number">1</span>) / (a - <span class="number">1</span>) &lt;&lt; endl;</span><br><span class="line">			<span class="keyword">break</span>;</span><br><span class="line">		}</span><br><span class="line">	}</span><br><span class="line">	<span class="keyword">return</span> ;</span><br><span class="line">	</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">	cin &gt;&gt; T;</span><br><span class="line">	<span class="keyword">while</span> (T--)</span><br><span class="line">		<span class="built_in">solve</span>();</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">}</span><br></pre></td></tr></table></div></figure>]]></content>
+      <categories>
+        <category>题解</category>
+      </categories>
+      <tags>
+        <tag>OI</tag>
+        <tag>洛谷</tag>
+        <tag>数学</tag>
+        <tag>C++</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>P10511 题解</title>
+    <url>/2024/09/16/P10511/</url>
+    <content><![CDATA[<h2 id="思路"><a class="markdownIt-Anchor" href="#思路"></a> 思路</h2>
+<p>首先好像高一就学过 。但还是推一下：<br>
+令 ，则</p>
+<p></p>
+<p>也就是要维护区间平方和与区间和。这可以考虑用前缀和维护。考虑到有散块的可能，所以先把夹在  和  中间的整块求出来，再把  旁边的或  旁边的散块求出来。记得及时取膜。</p>
+<p>我们可以先把  和  所在的块的坐标求出来，再把指针各往中间移一块来计算整块。</p>
+<p><img src="/images/P10511-1.png" alt=""></p>
+<p>例如，想要求  所在的块编号，只要找到离它最近且大于等于它的  或小于它  即可。注意， 可以和  重合，但  不可以，如果重合的话  号块也可以算作被夹在中间的块了。代码写出来就是 <code>dx = lower_bound(r + 1, r + m + 1, x) - r; </code> 或 <code>dx = lower_bound(l + 1, l + m + 1, x) - l - 1</code>。 所在的编号也是差不多的求法。</p>
+<p>其他小细节在代码注释里。注意取膜哦！</p>
+<h2 id="代码"><a class="markdownIt-Anchor" href="#代码"></a> 代码</h2>
+<figure class="highlight cpp"><div class="table-wrap"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="keyword">using</span> ll = <span class="type">long</span> <span class="type">long</span>;</span><br><span class="line"></span><br><span class="line"><span class="type">const</span> ll M = <span class="number">2e5</span> + <span class="number">100</span>, mod = <span class="number">998244353</span>;</span><br><span class="line">ll n, m, q;</span><br><span class="line">ll l[M], r[M];</span><br><span class="line">ll s[M], qs[M], len[M], b[M];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">    cin &gt;&gt; n &gt;&gt; m &gt;&gt; q;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= m; i++)</span><br><span class="line">    {</span><br><span class="line">        cin &gt;&gt; l[i] &gt;&gt; r[i] &gt;&gt; b[i]; b[i] %= mod;</span><br><span class="line">        len[i] = (r[i] - l[i] + <span class="number">1</span>) % mod;  </span><br><span class="line">        s[i] = (len[i] * b[i]) % mod; </span><br><span class="line">        qs[i] = (s[i] * b[i]) % mod; </span><br><span class="line">        len[i] = (len[i - <span class="number">1</span>] + len[i]) % mod;</span><br><span class="line">        s[i] = (s[i - <span class="number">1</span>] + s[i]) % mod;</span><br><span class="line">        qs[i] = (qs[i - <span class="number">1</span>] + qs[i]) % mod;</span><br><span class="line">    }</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= q; i++)</span><br><span class="line">    {</span><br><span class="line">        <span class="comment">/* 一开始想先把离 x/y 右/左 边最近的 左/右 端点编号求出来的……但是实现起来有点麻烦（ */</span></span><br><span class="line">        </span><br><span class="line">        ll x, y, dx, dy <span class="comment">/* dx 为 x 所在的编号；dy 含义亦然 */</span>, S, QS, ans; cin &gt;&gt; x &gt;&gt; y;</span><br><span class="line">        dx = <span class="built_in">lower_bound</span>(l + <span class="number">1</span>, l + m + <span class="number">1</span>, x) - l - <span class="number">1</span>, <span class="comment">// 也就是 dx = lower_bound(r + 1, r + m + 1, x) - r;</span></span><br><span class="line">        dy = <span class="built_in">lower_bound</span>(r + <span class="number">1</span>, r + m + <span class="number">1</span>, y) - r;</span><br><span class="line">        <span class="keyword">if</span> (dx == dy) { cout &lt;&lt; <span class="number">0</span> &lt;&lt; endl; <span class="keyword">continue</span>; }</span><br><span class="line">        </span><br><span class="line"><span class="comment">//      S = S + (r[dx] - x + 1) * b[dx] + (y - l[dy] + 1) * b[dy];  </span></span><br><span class="line">        S = (r[dx] - x + <span class="number">1</span>) % mod * b[dx] % mod + (y - l[dy] + <span class="number">1</span>) % mod * b[dy] % mod;</span><br><span class="line">        QS = (r[dx] - x + <span class="number">1</span>) % mod * b[dx] % mod * b[dx] % mod + (y - l[dy] + <span class="number">1</span>) % mod* b[dy] % mod * b[dy] % mod;</span><br><span class="line">    </span><br><span class="line">        dx++, dy--; <span class="comment">// 移到里面夹着的整块</span></span><br><span class="line">        <span class="keyword">if</span> (dx &lt;= dy) <span class="comment">// 排除里面没夹着整块的情况</span></span><br><span class="line">        {</span><br><span class="line">            S = (S + s[dy] - s[dx - <span class="number">1</span>] + mod) % mod;</span><br><span class="line">            QS = (QS + qs[dy] - qs[dx - <span class="number">1</span>] + mod) % mod;</span><br><span class="line">        }</span><br><span class="line">        ans = ((y - x + <span class="number">1</span>) % mod * QS % mod - S * S % mod + mod) % mod;</span><br><span class="line">        cout &lt;&lt; (ans + mod) % mod &lt;&lt; endl;</span><br><span class="line">    }</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">}</span><br></pre></td></tr></table></div></figure>]]></content>
+      <categories>
+        <category>题解</category>
+      </categories>
+      <tags>
+        <tag>OI</tag>
+        <tag>洛谷</tag>
+        <tag>数学</tag>
+        <tag>C++</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>十二重计数法</title>
+    <url>/2024/09/15/P5824/</url>
+    <content><![CDATA[<hr>
+<p><s>复赛完了再写这篇文章是不是太迟了？</s></p>
+<p>闲话：我只是为了初赛练练组合数学而做的，没有多少 OI 内容（<s>可能复赛时会考虑添加？</s> 复赛寄的太彻底，不加了）。</p>
+<p>我们教练说：初赛时排列组合的题目不会做就大力递推。虽然 CSP 初赛中数学题目越来越简单了，但这并不妨碍我仍然害怕着排练组合的题目。于是他让我来做这道题，并不是码，而是把递推式列出来。这方法确实很有用——于是我就写了这篇文章。</p>
+<p>这篇文章是为我自己而写，也是为不会组合数学的人写的。所以很多理所当然的过程都写了上去，请多包含。</p>
+<p>另附一些符号约定：</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th style="text-align:center">符号</th>
+<th style="text-align:center">意义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center">集合  的并集，</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center">集合  的交集，</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center">即 </td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center">下降阶乘幂，</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+</tr>
+</tbody>
+</table></div>
+<hr>
+<h2 id="p5824-十二重计数法"><a class="markdownIt-Anchor" href="#p5824-十二重计数法"></a> <a href="https://www.luogu.com.cn/problem/P5824">P5824 十二重计数法</a></h2>
+<p>有  个球和  个盒子，要全部装进盒子里。<br>
+还有一些限制条件，那么有多少种方法放球？（与放的先后顺序无关）</p>
+<p>限制条件分别如下：</p>
+<p>：球之间互不相同，盒子之间互不相同。<br>
+：球之间互不相同，盒子之间互不相同，每个盒子至多装一个球。<br>
+：球之间互不相同，盒子之间互不相同，每个盒子至少装一个球。</p>
+<p>：球之间互不相同，盒子全部相同。<br>
+：球之间互不相同，盒子全部相同，每个盒子至多装一个球。<br>
+：球之间互不相同，盒子全部相同，每个盒子至少装一个球。</p>
+<p>：球全部相同，盒子之间互不相同。<br>
+：球全部相同，盒子之间互不相同，每个盒子至多装一个球。<br>
+：球全部相同，盒子之间互不相同，每个盒子至少装一个球。</p>
+<p>：球全部相同，盒子全部相同。<br>
+：球全部相同，盒子全部相同，每个盒子至多装一个球。<br>
+：球全部相同，盒子全部相同，每个盒子至少装一个球。</p>
+<hr>
+<h1 id="想法"><a class="markdownIt-Anchor" href="#想法"></a> 想法</h1>
+<hr>
+<h1 id="i"><span class="math-heading-text">I</span><a class="markdownIt-Anchor" href="#i"></a> </h1>
+<p>每个球都有  种方案数。答案即为<br>
+</p>
+<h1 id="ii"><span class="math-heading-text">II</span><a class="markdownIt-Anchor" href="#ii"></a> </h1>
+<p>依次取球放进盒子，每次放球后方案数都会少一种，乘起来答案为<br>
+</p>
+<h1 id="iii"><span class="math-heading-text">III</span><a class="markdownIt-Anchor" href="#iii"></a> </h1>
+<p>可以考虑先参考 。<br>
+那么考虑盒子的排列，一种很显然的答案就是<br>
+</p>
+<p>当然了，我们也可以考虑容斥：枚举空着的盒子的个数，不限制放置个数的方案总数 减去 有  个盒子空着时方案的总数 即为我们求的答案。<br>
+设全集  是所有放球的方法构成的集合（容易注意到 ）， 为能满足  个盒子为空的放法构成的集合。即求 。<br>
+容斥得<br>
+<br>
+前面的系数  可以归纳证明。 表示选  个作为空盒子， 的情景和  相同。</p>
+<p>所以答案就是</p>
+<p></p>
+<p>这个时候我们可以再次回看 。</p>
+<h1 id="iv"><span class="math-heading-text">IV</span><a class="markdownIt-Anchor" href="#iv"></a> </h1>
+<p>先参考 。<br>
+与  不同的是没有了个数的限制。枚举非空盒子个数，所以是<br>
+</p>
+<h1 id="v"><span class="math-heading-text">V</span><a class="markdownIt-Anchor" href="#v"></a> </h1>
+<p>最简单的一集！由于盒子相同且最多放一个球，无论怎么装，都可以交换盒子顺序额得到同一种方案，所以答案为：<br>
+<br>
+顺带去看看 。</p>
+<h1 id="vi"><span class="math-heading-text">VI</span><a class="markdownIt-Anchor" href="#vi"></a> </h1>
+<p>我会递推！<br>
+设  为  个球， 个盒子的方案数。<br>
+考虑新加进来一个球：</p>
+<ul>
+<li>可以再拿一个盒子，盒子数目也就从  个变成了  个。那就从  转移过来；</li>
+<li>可以放在之前任意一个盒子里，有  个盒子可选，即从  转移。<br>
+所以递推式为：<br>
+<br>
+实际上，这就是 <a href="https://oi.wiki/math/combinatorics/stirling/#%E7%AC%AC%E4%BA%8C%E7%B1%BB%E6%96%AF%E7%89%B9%E6%9E%97%E6%95%B0stirling-number">第二类斯特林数 </a> 。<br>
+解决  后，我们发现 。而 ，于是最后理所应当地得到了</li>
+</ul>
+<p><br>
+非常神奇呢。</p>
+<h1 id="vii"><span class="math-heading-text">VII</span><a class="markdownIt-Anchor" href="#vii"></a> </h1>
+<p>我会递推！<br>
+设  为  个球， 个盒子的方案数。<br>
+考虑<strong>这一个球 不放而让新开的盒子空着 还是 在之前的盒子里放多个</strong>：</p>
+<ul>
+<li>可以不放这个球而让盒子空着，小球数目仍然为  个。拿过来了一个新的盒子，即从  转移。</li>
+<li>在之前的盒子里放多个，盒子数目仍然为  个。即从  转移。</li>
+</ul>
+<p>所以递推式为：<br>
+</p>
+<p>也可以从插板的角度考虑：</p>
+<blockquote>
+<p>先往每个盒子里塞一个球，最后把这个球拿走就行了。换言之，先求「将  个相同小球，放入到  个不同盒子，盒子至少装一球」的方案数，对于每个这个问题的划分方案，将每个盒子抽掉一个球，就是  的方案。因此该问答案即为</p>
+<p></p>
+<p><em>引用自 <a href="https://www.luogu.com.cn/article/2hb00cd4">囧仙</a></em></p>
+</blockquote>
+<h1 id="viii"><span class="math-heading-text">VIII</span><a class="markdownIt-Anchor" href="#viii"></a> </h1>
+<p>我会递推！<br>
+设  为  个球， 个盒子的方案数。<br>
+考虑<strong>这一个球 再开一个盒子放一个 还是 不放而让新开的盒子空着</strong>：</p>
+<ul>
+<li>再开一个盒子放一个，盒子数目也就从  个变成了  个。那就从  转移过来；</li>
+<li>可以不放这个球而让盒子空着，小球数目仍然为  个。拿过来了一个新的盒子，即从  转移。</li>
+</ul>
+<p>所以递推式为：<br>
+<br>
+实际上，这就是 <a href="https://oi.wiki/math/combinatorics/combination/#%E7%BB%84%E5%90%88%E6%95%B0">组合数 </a> 。<br>
+也可以直接考虑选  个盒子装球，那答案也是一样的。</p>
+<h1 id="ix"><span class="math-heading-text">IX</span><a class="markdownIt-Anchor" href="#ix"></a> </h1>
+<p>我会递推！<br>
+设  为  个球， 个盒子的方案数。<br>
+考虑<strong>这一个球 再开一个盒子放一个 还是 在之前的盒子里放多个</strong>：</p>
+<ul>
+<li>再开一个盒子放一个，盒子数目也就从  个变成了  个。那就从  转移过来；</li>
+<li>在之前的盒子里放多个，盒子数目仍然为  个。即从  转移。</li>
+</ul>
+<p>所以递推式为：<br>
+</p>
+<p>也可以从插板的角度考虑，是最平凡的插板法。答案为<br>
+</p>
+<h1 id="x"><span class="math-heading-text">X</span><a class="markdownIt-Anchor" href="#x"></a> </h1>
+<p>我会递推！<br>
+设  为  个球， 个盒子的方案数。可以发现，在所谓「第一个盒子里装一个球、第三个盒子里装三个球」是和「第一个盒子里装三个球、第三个盒子里装一个球」无异的。一种比较讨巧的做法是这样的：将盒子按照球的数量从小到大排序。这样的话，两种方案相同，仅当两种方案排序后的序列相同。所以可以：</p>
+<ul>
+<li>在这个序列  开头加一个空盒子，盒子数目也就从  个变成了  个。那就从  转移过来；</li>
+<li>让所有盒子里都加一个球，也就从  转移过来；</li>
+</ul>
+<p>可以证明以上的转移方案是正确的。所以递推式为：</p>
+<p></p>
+<p>这个东西其实就是 <a href="https://oi-wiki.org/math/combinatorics/partition/">划分数</a>。</p>
+<h1 id="xi"><span class="math-heading-text">XI</span><a class="markdownIt-Anchor" href="#xi"></a> </h1>
+<p>最简单的一集！<br>
+</p>
+<h1 id="xii"><span class="math-heading-text">XII</span><a class="markdownIt-Anchor" href="#xii"></a> </h1>
+<p>与  的唯一差别是每个盒子里都至少要一个球——那就先往盒子里都放一个球就好了。答案就是<br>
+</p>
+]]></content>
+      <categories>
+        <category>题解</category>
+      </categories>
+      <tags>
+        <tag>OI</tag>
+        <tag>洛谷</tag>
+        <tag>数学</tag>
+        <tag>排列组合</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>给你的 Windows 更换字体（包括微软雅黑和 Segoe UI！）</title>
     <url>/2024/09/16/PCFont/</url>
     <content><![CDATA[<div class="note danger flat"><p>所有字体、<strong>包括系统字体</strong>一定要做好备份！</p>
@@ -210,126 +410,6 @@ Git: <a href="https://github.com/waylau/git-for-win">https://github.com/waylau/g
       <tags>
         <tag>字体</tag>
         <tag>美化</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>UVA11437 题解</title>
-    <url>/2024/09/15/UVA11437/</url>
-    <content><![CDATA[<p>这道题的难点在于求  和  之间的面积关系。题目给出了  三个顶点的坐标，我们可以用海伦公式求出它的面积：</p>
-<p></p>
-<p>其中  为三角形三边的长，。</p>
-<p>求  和  之间的面积关系，我们可以用梅涅劳斯定理：如果一直线与  的边  或其延长线分别交于 ，则有：</p>
-<p></p>
-<p>图例：</p>
-<p><img src="/images/UVA11437-menelaus.svg" alt="梅涅劳斯定理示意图"></p>
-<p>对题目中的  使用梅涅劳斯定理，可得 ，则 。</p>
-<p>同理，。</p>
-<p>设 ，由  可得 ，。</p>
-<p>，即 。</p>
-<p>关键的两个问题求完了，代码应该就能很轻松地写出来。只要把  的面积除以  就好了。注意输入是小数，输出不是小数。代码：</p>
-<figure class="highlight cpp"><div class="table-wrap"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">	<span class="type">int</span> t;</span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;t);</span><br><span class="line">	<span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= t; i++)</span><br><span class="line">	{</span><br><span class="line">		<span class="type">double</span> xa, ya, xb, yb, xc, yc;</span><br><span class="line">		<span class="built_in">scanf</span>(<span class="string">"%lf%lf%lf%lf%lf%lf"</span>, &amp;xa, &amp;ya, &amp;xb, &amp;yb, &amp;xc, &amp;yc);</span><br><span class="line">		<span class="type">double</span> x, y, z;</span><br><span class="line">		x = <span class="built_in">sqrt</span>((yb - ya) * (yb - ya) + (xb - xa) * (xb - xa));</span><br><span class="line">		y = <span class="built_in">sqrt</span>((yc - ya) * (yc - ya) + (xc - xa) * (xc - xa));</span><br><span class="line">		z = <span class="built_in">sqrt</span>((yc - yb) * (yc - yb) + (xc - xb) * (xc - xb));</span><br><span class="line">		<span class="type">double</span> s, p;</span><br><span class="line">		p = (x + y + z) / <span class="number">2</span>;</span><br><span class="line">		s = <span class="built_in">sqrt</span>(p * (p - x) * (p - y) * (p - z));</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"%.0lf\n"</span>, s / <span class="number">7</span>);</span><br><span class="line">	}</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">}</span><br><span class="line"></span><br></pre></td></tr></table></div></figure>]]></content>
-      <categories>
-        <category>题解</category>
-      </categories>
-      <tags>
-        <tag>OI</tag>
-        <tag>数学</tag>
-        <tag>C++</tag>
-        <tag>洛谷</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>P10252 题解</title>
-    <url>/2024/09/16/P10252/</url>
-    <content><![CDATA[<h1 id="p10252"><a class="markdownIt-Anchor" href="#p10252"></a> <a href="https://www.luogu.com.cn/problem/P10252">P10252</a> 题解</h1>
-<p>一直没有想到  可能等于 ，白交了好多发，好蠢……</p>
-<h2 id="题意"><a class="markdownIt-Anchor" href="#题意"></a> 题意</h2>
-<p>题面很清楚了。</p>
-<h2 id="解析"><a class="markdownIt-Anchor" href="#解析"></a> 解析</h2>
-<p>有一个很且显然的想法是：每次  变换后，如果变换后的 ，那么  在接下来的变换里只会越来越大；反之亦然。具体的下面会提及。</p>
-<p>找找规律：</p>
-<p>变换一次：。<br>
-变换两次：。<br>
-变换三次：。<br>
-变换  次：。</p>
-<p>嘶……没头绪。那看看每次  增加的量是多少：</p>
-<p></p>
-<p>可以看见  这个数是第一次变换后， 与  的差值。 的增加与否与前面的  无关（），只跟  有关，而  是一个定值。这也说明了开头猜想的正确性。</p>
-<p>从这里我们可以发现一种特殊情况：如果 ，那么  变换后不可能变小，一开始的  就是最小值。这种情况直接输出  即可。</p>
-<p>现在来考虑  的一般情况。我们要求记的毕竟不是增加量，而是想求出它每一次变换后  的大小。使用上面的差值求和试试看？记  为 ，设  为变换次数，那么变换  次后：</p>
-<p><br>
-那么只要枚举 ，判断这个能在右边的式子是否小于  即可。 中的  增长速度很快（），不用二分就能过（或许可能数据太水了 = =）。</p>
-<p>注意，这里的  为分母，<strong>需要特判  的情况</strong>。答案易知是 。还有一种特殊情况：当  或  时，直接输出  即可。</p>
-<h2 id="代码"><a class="markdownIt-Anchor" href="#代码"></a> 代码</h2>
-<figure class="highlight cpp"><div class="table-wrap"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="type">long</span> <span class="type">long</span> ll;</span><br><span class="line">ll T, x, a, b;</span><br><span class="line"></span><br><span class="line"><span class="function">ll <span class="title">qpow</span><span class="params">(ll a, ll b)</span> <span class="comment">// 快速幂 </span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">	ll res = <span class="number">1</span>;</span><br><span class="line">	<span class="keyword">while</span> (b)</span><br><span class="line">	{</span><br><span class="line">		<span class="keyword">if</span> (b &amp; <span class="number">1</span>) res *= a;</span><br><span class="line">		a *= a, b /= <span class="number">2</span>;</span><br><span class="line">	}</span><br><span class="line">	<span class="keyword">return</span> res;</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">solve</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">	cin &gt;&gt; x &gt;&gt; a &gt;&gt; b;</span><br><span class="line">	<span class="keyword">if</span> (a * x - b &gt;= x)</span><br><span class="line">	{</span><br><span class="line">		cout &lt;&lt; x &lt;&lt; endl;</span><br><span class="line">		<span class="keyword">return</span> ;</span><br><span class="line">	}</span><br><span class="line">	<span class="keyword">if</span> (a == <span class="number">0</span> || x == <span class="number">0</span>)</span><br><span class="line">	{</span><br><span class="line">		cout &lt;&lt; -b &lt;&lt; endl;</span><br><span class="line">		<span class="keyword">return</span> ;</span><br><span class="line">	}</span><br><span class="line">	<span class="keyword">if</span> (a == <span class="number">1</span>)</span><br><span class="line">	{</span><br><span class="line">		cout &lt;&lt; x - (x / b + <span class="number">1</span>) * b &lt;&lt; endl;</span><br><span class="line">		<span class="keyword">return</span> ;</span><br><span class="line">	}</span><br><span class="line">	ll d = a * x - b - x;</span><br><span class="line">	<span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; ; i++)</span><br><span class="line">	{</span><br><span class="line">		<span class="keyword">if</span> (x + d * (<span class="built_in">qpow</span>(a, i) - <span class="number">1</span>) / (a - <span class="number">1</span>) &lt; <span class="number">0</span>)</span><br><span class="line">		{</span><br><span class="line">			cout &lt;&lt; x + d * (<span class="built_in">ksm</span>(a, i) - <span class="number">1</span>) / (a - <span class="number">1</span>) &lt;&lt; endl;</span><br><span class="line">			<span class="keyword">break</span>;</span><br><span class="line">		}</span><br><span class="line">	}</span><br><span class="line">	<span class="keyword">return</span> ;</span><br><span class="line">	</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">	cin &gt;&gt; T;</span><br><span class="line">	<span class="keyword">while</span> (T--)</span><br><span class="line">		<span class="built_in">solve</span>();</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">}</span><br></pre></td></tr></table></div></figure>]]></content>
-      <categories>
-        <category>题解</category>
-      </categories>
-      <tags>
-        <tag>OI</tag>
-        <tag>数学</tag>
-        <tag>C++</tag>
-        <tag>洛谷</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>日記</title>
-    <url>/2025/01/01/nikki/</url>
-    <content><![CDATA[<div class="hbe hbe-container" id="hexo-blog-encrypt" data-wpm="Oh, this is an invalid password. Check and try again, please." data-whm="OOPS, these decrypted content may changed, but you can still have a look.">
-  <script id="hbeData" type="hbeData" data-hmacdigest="341239515304aacfcb4dea65a6a4f80cf7f31ea31825c035b830e1aed03fa60c">b1df3e367478683d3ac69e8de851a96d5aa6d1bd552c38e3f41c6c1bf4e64978d1aa7a00b5486dd7ce5d7dd3a507b33dbbb522d72a229dcc1b92aedb3ae3b696c0e675797a0759321caed61cd73e0712262b51ca507ade27c724bd83cb76c3bf7e4930cd58d9a7e7bae2f8e4ac2e1c80f1daf0783cc58fed721c96c2ca3cdcc5a4ec9d941504c0b6911adc25fe5f753a69d053d488dcffcfe5030b74f3e83d6e4fc5b719ba3133f9e5782bfaabf056d485d86458330389a6eb6acf62b809745093ea1cbb981217f6f5117530583d2a217ad307f9a492ba6880b646afaf3d4fe2a8d24ffec4eb3e18fc3c0aac2cfe1d35d151150f9cbba85befe068bb920f3d52c0bb6d7f81577dc0f56bab9eb057e8b48d8532c00cb8735556d76a9c22bbefd0bddbdbbae8e4af8ca95d8f883aaad875d665a3c8302a3d3b5247687367f06d9880840150dbd1a43342e8653714e5ecbcee6d3fd81d10140cadc3d27a195bbd6346fa649d598b6cb2f22ef112388beb71653432a8f63c2b37d4f1cceaa1d848f9b6ef95fb8d456cb268bd173775cf057b0318dd9f85d8e177df35b4df7b9989bdfeb87750e70dda6db29b497a627155e015cf81b74e426499d70c45d70afa6a63a43e711f45e69cd9f7fd179d8cff032b94242e921e7ffc87339a663dfb1d4ac325f2f88deba961b8389dcfe5cef0e3377dc33168483a0e4be534ee8f04171817811fd7702f134223e368e3b3f8d2e003605bd821a1fd0483e5ef76c5cff8e9a26369fc59f478070bedaf2697ad0f733702c89650586b6a349b4a73e1574c441536335a6ee120ddcb968d4e4a51c125129ef08a8376d942573ccb6a03560f40e83f4606dd9794fad39ff3f1e173ea6f4fb9dd132742b821945ff9a2428872ad9484d04a4fe3017e483ca80d4de78910b06aa4987d7590f8ad19f57b0b6c748317ecd6c45906183654d190f587749c1c3adc2ced5fb605b7eceb04d4e59831cf38626fc60b8c74da846dcad676793af94fe78a53f8661877e664ee3db8292c27addd397c10ff3cf5e75275724fde0b459ae5a0630aade6d0076d744f512f72a1ed1e3970f607362c2bb4f60e64649416f57b4417844d31f7597ab577a6a4e633dac2bdef75f49cd5607e10b63d0be328a0588cf02266a7e12245cd09b88d090ffbe2a39188041fd73f66ede1f7fabaf0516cf77115eda4c43d4f299f3353a114575b0852146f78e5fd0802ecb3af45eb0b7334d18e6a3ffabcac2afbebc5e190fadf51741520f50f0a8c8d351200e9de3541375e4c41d15ad7fc792af8e8ef0291688ba794800c18f8c3f8c46bb1452d8ecd4edebadb8fac233a6ae31e237e36ddd88d3ad5ce618f0172eed39fed7ff0268daca07f4fe7cd3ecbb9de5cbf25073bfdc26edfe12638e5350c111f3de251577ce4ece417ce7d43eee8ada5a16f4432cce1ce5cd382d12ca8216ffb118ab681c9f0e03df20b8beee3381e6270793b394fabdb9e700973072af9efe882f9c060629864845ae33c45f085a4f27bc63443a83b03f4de73fa0a6f840be2ad542812b0f78a68c03e9e312a982d3e5c8886308ed985e9d16576be5236acc596d4eb6b4e316590b234232fac29167e91a7690ef3e8a73f542577d35ed560f5ed51e1f8df77780c093840f7a7ffa60ac23b38aed400631878505111ab71bac3dbaabe281932beb080f277ffdcb530ac1fb5b9681877d0f2631d62b5bfa1eba58734a549</script>
-  <div class="hbe hbe-content">
-    <div class="hbe hbe-input hbe-input-default">
-      <input class="hbe hbe-input-field hbe-input-field-default" type="password" id="hbePass">
-      <label class="hbe hbe-input-label hbe-input-label-default" for="hbePass">
-        <span class="hbe hbe-input-label-content hbe-input-label-content-default">请输入密码：</span>
-      </label>
-    </div>
-  </div>
-</div>
-<script data-pjax src="/lib/hbe.js"></script><link href="/css/hbe.style.css" rel="stylesheet" type="text/css">]]></content>
-      <categories>
-        <category>日記</category>
-      </categories>
-      <tags>
-        <tag>日記</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>永嘉中学计算机社活动内容设想报告</title>
-    <url>/2024/09/15/YJZXCCReport/</url>
-    <content><![CDATA[<h1 id="永嘉中学计算机社活动内容设想报告"><a class="markdownIt-Anchor" href="#永嘉中学计算机社活动内容设想报告"></a> 永嘉中学计算机社活动内容设想报告</h1>
-<h2 id="一-活动背景"><a class="markdownIt-Anchor" href="#一-活动背景"></a> 一、活动背景</h2>
-<p>为了提升社员的计算机使用水平、激发社员对研究计算机的兴趣爱好、提高社员计算机技术应用能力与实践水平、增强社员技术学科素养，计算机社将在本学期计划组织一系列有趣且富有挑战性的课程与活动。这些活动旨在为社员提供实践经验、促进知识交流，并激发他们的创新思维。</p>
-<h2 id="二-活动目标"><a class="markdownIt-Anchor" href="#二-活动目标"></a> 二、活动目标</h2>
-<ol>
-<li><strong>提升实践水平</strong>：通过实践项目和技术讲座，提升社员的计算机知识和编程技能。</li>
-<li><strong>促进合作沟通</strong>：通过团队活动与讨论，增强社员之间的合作与沟通能力。</li>
-<li><strong>增强学科素养</strong>：授课内容涉及课内又远超课内，提升社员的编程意识与学科素养。</li>
-</ol>
-<h2 id="三-活动内容"><a class="markdownIt-Anchor" href="#三-活动内容"></a> 三、活动内容：</h2>
-<ul>
-<li>Markdown 基本语法教学</li>
-<li>Python 基本语法教学以及怕爬虫入门</li>
-<li>Github 的基本使用以及博客托管</li>
-<li>计算机常识普及</li>
-<li>……</li>
-</ul>
-<h2 id="四-活动安排"><a class="markdownIt-Anchor" href="#四-活动安排"></a> 四、活动安排</h2>
-<h3 id="单节课时时间安排"><a class="markdownIt-Anchor" href="#单节课时时间安排"></a> 单节课时时间安排</h3>
-<p>将使用 20 分钟时间传递相关知识，并给社员们 20 分钟左右的实践时间。</p>
-<h3 id="课时活动内容安排"><a class="markdownIt-Anchor" href="#课时活动内容安排"></a> 课时活动内容安排</h3>
-<p>采用 2 节讲授课 +1 节实践课的循环。授课与实践内容以活动内容为准。</p>
-<h3 id="其他安排"><a class="markdownIt-Anchor" href="#其他安排"></a> 其他安排</h3>
-<p>将不定时举行小组项目设计活动，并参与社内评比。</p>
-<h2 id="五-结语"><a class="markdownIt-Anchor" href="#五-结语"></a> 五、结语</h2>
-<p>本学期活动旨在通过丰富的内容和多样的形式，为计算机社成员提供全面的成长机会。希望通过这些活动，不仅能够提升技术能力，还能增强社员之间的合作与沟通，为社团的发展注入新的活力。</p>
-]]></content>
-      <categories>
-        <category>社团</category>
-      </categories>
-      <tags>
-        <tag>永中</tag>
-        <tag>计算机社</tag>
       </tags>
   </entry>
   <entry>
@@ -560,176 +640,96 @@ Git: <a href="https://github.com/waylau/git-for-win">https://github.com/waylau/g
         <category>指北</category>
       </categories>
       <tags>
-        <tag>永中</tag>
-        <tag>计算机社</tag>
         <tag>Python</tag>
         <tag>爬虫</tag>
+        <tag>计算机社</tag>
+        <tag>永中</tag>
       </tags>
   </entry>
   <entry>
-    <title>十二重计数法</title>
-    <url>/2024/09/15/P5824/</url>
-    <content><![CDATA[<hr>
-<p><s>复赛完了再写这篇文章是不是太迟了？</s></p>
-<p>闲话：我只是为了初赛练练组合数学而做的，没有多少 OI 内容（<s>可能复赛时会考虑添加？</s> 复赛寄的太彻底，不加了）。</p>
-<p>我们教练说：初赛时排列组合的题目不会做就大力递推。虽然 CSP 初赛中数学题目越来越简单了，但这并不妨碍我仍然害怕着排练组合的题目。于是他让我来做这道题，并不是码，而是把递推式列出来。这方法确实很有用——于是我就写了这篇文章。</p>
-<p>这篇文章是为我自己而写，也是为不会组合数学的人写的。所以很多理所当然的过程都写了上去，请多包含。</p>
-<p>另附一些符号约定：</p>
-<div class="table-wrap"><table>
-<thead>
-<tr>
-<th style="text-align:center">符号</th>
-<th style="text-align:center">意义</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">集合  的并集，</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">集合  的交集，</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">即 </td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">下降阶乘幂，</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center"></td>
-</tr>
-</tbody>
-</table></div>
-<hr>
-<h2 id="p5824-十二重计数法"><a class="markdownIt-Anchor" href="#p5824-十二重计数法"></a> <a href="https://www.luogu.com.cn/problem/P5824">P5824 十二重计数法</a></h2>
-<p>有  个球和  个盒子，要全部装进盒子里。<br>
-还有一些限制条件，那么有多少种方法放球？（与放的先后顺序无关）</p>
-<p>限制条件分别如下：</p>
-<p>：球之间互不相同，盒子之间互不相同。<br>
-：球之间互不相同，盒子之间互不相同，每个盒子至多装一个球。<br>
-：球之间互不相同，盒子之间互不相同，每个盒子至少装一个球。</p>
-<p>：球之间互不相同，盒子全部相同。<br>
-：球之间互不相同，盒子全部相同，每个盒子至多装一个球。<br>
-：球之间互不相同，盒子全部相同，每个盒子至少装一个球。</p>
-<p>：球全部相同，盒子之间互不相同。<br>
-：球全部相同，盒子之间互不相同，每个盒子至多装一个球。<br>
-：球全部相同，盒子之间互不相同，每个盒子至少装一个球。</p>
-<p>：球全部相同，盒子全部相同。<br>
-：球全部相同，盒子全部相同，每个盒子至多装一个球。<br>
-：球全部相同，盒子全部相同，每个盒子至少装一个球。</p>
-<hr>
-<h1 id="想法"><a class="markdownIt-Anchor" href="#想法"></a> 想法</h1>
-<hr>
-<h1 id="i"><span class="math-heading-text">I</span><a class="markdownIt-Anchor" href="#i"></a> </h1>
-<p>每个球都有  种方案数。答案即为<br>
-</p>
-<h1 id="ii"><span class="math-heading-text">II</span><a class="markdownIt-Anchor" href="#ii"></a> </h1>
-<p>依次取球放进盒子，每次放球后方案数都会少一种，乘起来答案为<br>
-</p>
-<h1 id="iii"><span class="math-heading-text">III</span><a class="markdownIt-Anchor" href="#iii"></a> </h1>
-<p>可以考虑先参考 。<br>
-那么考虑盒子的排列，一种很显然的答案就是<br>
-</p>
-<p>当然了，我们也可以考虑容斥：枚举空着的盒子的个数，不限制放置个数的方案总数 减去 有  个盒子空着时方案的总数 即为我们求的答案。<br>
-设全集  是所有放球的方法构成的集合（容易注意到 ）， 为能满足  个盒子为空的放法构成的集合。即求 。<br>
-容斥得<br>
-<br>
-前面的系数  可以归纳证明。 表示选  个作为空盒子， 的情景和  相同。</p>
-<p>所以答案就是</p>
+    <title>UVA11437 题解</title>
+    <url>/2024/09/15/UVA11437/</url>
+    <content><![CDATA[<p>这道题的难点在于求  和  之间的面积关系。题目给出了  三个顶点的坐标，我们可以用海伦公式求出它的面积：</p>
 <p></p>
-<p>这个时候我们可以再次回看 。</p>
-<h1 id="iv"><span class="math-heading-text">IV</span><a class="markdownIt-Anchor" href="#iv"></a> </h1>
-<p>先参考 。<br>
-与  不同的是没有了个数的限制。枚举非空盒子个数，所以是<br>
-</p>
-<h1 id="v"><span class="math-heading-text">V</span><a class="markdownIt-Anchor" href="#v"></a> </h1>
-<p>最简单的一集！由于盒子相同且最多放一个球，无论怎么装，都可以交换盒子顺序额得到同一种方案，所以答案为：<br>
-<br>
-顺带去看看 。</p>
-<h1 id="vi"><span class="math-heading-text">VI</span><a class="markdownIt-Anchor" href="#vi"></a> </h1>
-<p>我会递推！<br>
-设  为  个球， 个盒子的方案数。<br>
-考虑新加进来一个球：</p>
-<ul>
-<li>可以再拿一个盒子，盒子数目也就从  个变成了  个。那就从  转移过来；</li>
-<li>可以放在之前任意一个盒子里，有  个盒子可选，即从  转移。<br>
-所以递推式为：<br>
-<br>
-实际上，这就是 <a href="https://oi.wiki/math/combinatorics/stirling/#%E7%AC%AC%E4%BA%8C%E7%B1%BB%E6%96%AF%E7%89%B9%E6%9E%97%E6%95%B0stirling-number">第二类斯特林数 </a> 。<br>
-解决  后，我们发现 。而 ，于是最后理所应当地得到了</li>
-</ul>
-<p><br>
-非常神奇呢。</p>
-<h1 id="vii"><span class="math-heading-text">VII</span><a class="markdownIt-Anchor" href="#vii"></a> </h1>
-<p>我会递推！<br>
-设  为  个球， 个盒子的方案数。<br>
-考虑<strong>这一个球 不放而让新开的盒子空着 还是 在之前的盒子里放多个</strong>：</p>
-<ul>
-<li>可以不放这个球而让盒子空着，小球数目仍然为  个。拿过来了一个新的盒子，即从  转移。</li>
-<li>在之前的盒子里放多个，盒子数目仍然为  个。即从  转移。</li>
-</ul>
-<p>所以递推式为：<br>
-</p>
-<p>也可以从插板的角度考虑：</p>
-<blockquote>
-<p>先往每个盒子里塞一个球，最后把这个球拿走就行了。换言之，先求「将  个相同小球，放入到  个不同盒子，盒子至少装一球」的方案数，对于每个这个问题的划分方案，将每个盒子抽掉一个球，就是  的方案。因此该问答案即为</p>
+<p>其中  为三角形三边的长，。</p>
+<p>求  和  之间的面积关系，我们可以用梅涅劳斯定理：如果一直线与  的边  或其延长线分别交于 ，则有：</p>
 <p></p>
-<p><em>引用自 <a href="https://www.luogu.com.cn/article/2hb00cd4">囧仙</a></em></p>
-</blockquote>
-<h1 id="viii"><span class="math-heading-text">VIII</span><a class="markdownIt-Anchor" href="#viii"></a> </h1>
-<p>我会递推！<br>
-设  为  个球， 个盒子的方案数。<br>
-考虑<strong>这一个球 再开一个盒子放一个 还是 不放而让新开的盒子空着</strong>：</p>
-<ul>
-<li>再开一个盒子放一个，盒子数目也就从  个变成了  个。那就从  转移过来；</li>
-<li>可以不放这个球而让盒子空着，小球数目仍然为  个。拿过来了一个新的盒子，即从  转移。</li>
-</ul>
-<p>所以递推式为：<br>
-<br>
-实际上，这就是 <a href="https://oi.wiki/math/combinatorics/combination/#%E7%BB%84%E5%90%88%E6%95%B0">组合数 </a> 。<br>
-也可以直接考虑选  个盒子装球，那答案也是一样的。</p>
-<h1 id="ix"><span class="math-heading-text">IX</span><a class="markdownIt-Anchor" href="#ix"></a> </h1>
-<p>我会递推！<br>
-设  为  个球， 个盒子的方案数。<br>
-考虑<strong>这一个球 再开一个盒子放一个 还是 在之前的盒子里放多个</strong>：</p>
-<ul>
-<li>再开一个盒子放一个，盒子数目也就从  个变成了  个。那就从  转移过来；</li>
-<li>在之前的盒子里放多个，盒子数目仍然为  个。即从  转移。</li>
-</ul>
-<p>所以递推式为：<br>
-</p>
-<p>也可以从插板的角度考虑，是最平凡的插板法。答案为<br>
-</p>
-<h1 id="x"><span class="math-heading-text">X</span><a class="markdownIt-Anchor" href="#x"></a> </h1>
-<p>我会递推！<br>
-设  为  个球， 个盒子的方案数。可以发现，在所谓「第一个盒子里装一个球、第三个盒子里装三个球」是和「第一个盒子里装三个球、第三个盒子里装一个球」无异的。一种比较讨巧的做法是这样的：将盒子按照球的数量从小到大排序。这样的话，两种方案相同，仅当两种方案排序后的序列相同。所以可以：</p>
-<ul>
-<li>在这个序列  开头加一个空盒子，盒子数目也就从  个变成了  个。那就从  转移过来；</li>
-<li>让所有盒子里都加一个球，也就从  转移过来；</li>
-</ul>
-<p>可以证明以上的转移方案是正确的。所以递推式为：</p>
-<p></p>
-<p>这个东西其实就是 <a href="https://oi-wiki.org/math/combinatorics/partition/">划分数</a>。</p>
-<h1 id="xi"><span class="math-heading-text">XI</span><a class="markdownIt-Anchor" href="#xi"></a> </h1>
-<p>最简单的一集！<br>
-</p>
-<h1 id="xii"><span class="math-heading-text">XII</span><a class="markdownIt-Anchor" href="#xii"></a> </h1>
-<p>与  的唯一差别是每个盒子里都至少要一个球——那就先往盒子里都放一个球就好了。答案就是<br>
-</p>
-]]></content>
+<p>图例：</p>
+<p><img src="/images/UVA11437-menelaus.svg" alt="梅涅劳斯定理示意图"></p>
+<p>对题目中的  使用梅涅劳斯定理，可得 ，则 。</p>
+<p>同理，。</p>
+<p>设 ，由  可得 ，。</p>
+<p>，即 。</p>
+<p>关键的两个问题求完了，代码应该就能很轻松地写出来。只要把  的面积除以  就好了。注意输入是小数，输出不是小数。代码：</p>
+<figure class="highlight cpp"><div class="table-wrap"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">	<span class="type">int</span> t;</span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;t);</span><br><span class="line">	<span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= t; i++)</span><br><span class="line">	{</span><br><span class="line">		<span class="type">double</span> xa, ya, xb, yb, xc, yc;</span><br><span class="line">		<span class="built_in">scanf</span>(<span class="string">"%lf%lf%lf%lf%lf%lf"</span>, &amp;xa, &amp;ya, &amp;xb, &amp;yb, &amp;xc, &amp;yc);</span><br><span class="line">		<span class="type">double</span> x, y, z;</span><br><span class="line">		x = <span class="built_in">sqrt</span>((yb - ya) * (yb - ya) + (xb - xa) * (xb - xa));</span><br><span class="line">		y = <span class="built_in">sqrt</span>((yc - ya) * (yc - ya) + (xc - xa) * (xc - xa));</span><br><span class="line">		z = <span class="built_in">sqrt</span>((yc - yb) * (yc - yb) + (xc - xb) * (xc - xb));</span><br><span class="line">		<span class="type">double</span> s, p;</span><br><span class="line">		p = (x + y + z) / <span class="number">2</span>;</span><br><span class="line">		s = <span class="built_in">sqrt</span>(p * (p - x) * (p - y) * (p - z));</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"%.0lf\n"</span>, s / <span class="number">7</span>);</span><br><span class="line">	}</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">}</span><br><span class="line"></span><br></pre></td></tr></table></div></figure>]]></content>
       <categories>
         <category>题解</category>
       </categories>
       <tags>
         <tag>OI</tag>
-        <tag>数学</tag>
         <tag>洛谷</tag>
-        <tag>排列组合</tag>
+        <tag>数学</tag>
+        <tag>C++</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>日記</title>
+    <url>/2025/01/01/nikki/</url>
+    <content><![CDATA[<div class="hbe hbe-container" id="hexo-blog-encrypt" data-wpm="Oh, this is an invalid password. Check and try again, please." data-whm="OOPS, these decrypted content may changed, but you can still have a look.">
+  <script id="hbeData" type="hbeData" data-hmacdigest="341239515304aacfcb4dea65a6a4f80cf7f31ea31825c035b830e1aed03fa60c">b1df3e367478683d3ac69e8de851a96d5aa6d1bd552c38e3f41c6c1bf4e64978d1aa7a00b5486dd7ce5d7dd3a507b33dbbb522d72a229dcc1b92aedb3ae3b696c0e675797a0759321caed61cd73e0712262b51ca507ade27c724bd83cb76c3bf7e4930cd58d9a7e7bae2f8e4ac2e1c80f1daf0783cc58fed721c96c2ca3cdcc5a4ec9d941504c0b6911adc25fe5f753a69d053d488dcffcfe5030b74f3e83d6e4fc5b719ba3133f9e5782bfaabf056d485d86458330389a6eb6acf62b809745093ea1cbb981217f6f5117530583d2a217ad307f9a492ba6880b646afaf3d4fe2a8d24ffec4eb3e18fc3c0aac2cfe1d35d151150f9cbba85befe068bb920f3d52c0bb6d7f81577dc0f56bab9eb057e8b48d8532c00cb8735556d76a9c22bbefd0bddbdbbae8e4af8ca95d8f883aaad875d665a3c8302a3d3b5247687367f06d9880840150dbd1a43342e8653714e5ecbcee6d3fd81d10140cadc3d27a195bbd6346fa649d598b6cb2f22ef112388beb71653432a8f63c2b37d4f1cceaa1d848f9b6ef95fb8d456cb268bd173775cf057b0318dd9f85d8e177df35b4df7b9989bdfeb87750e70dda6db29b497a627155e015cf81b74e426499d70c45d70afa6a63a43e711f45e69cd9f7fd179d8cff032b94242e921e7ffc87339a663dfb1d4ac325f2f88deba961b8389dcfe5cef0e3377dc33168483a0e4be534ee8f04171817811fd7702f134223e368e3b3f8d2e003605bd821a1fd0483e5ef76c5cff8e9a26369fc59f478070bedaf2697ad0f733702c89650586b6a349b4a73e1574c441536335a6ee120ddcb968d4e4a51c125129ef08a8376d942573ccb6a03560f40e83f4606dd9794fad39ff3f1e173ea6f4fb9dd132742b821945ff9a2428872ad9484d04a4fe3017e483ca80d4de78910b06aa4987d7590f8ad19f57b0b6c748317ecd6c45906183654d190f587749c1c3adc2ced5fb605b7eceb04d4e59831cf38626fc60b8c74da846dcad676793af94fe78a53f8661877e664ee3db8292c27addd397c10ff3cf5e75275724fde0b459ae5a0630aade6d0076d744f512f72a1ed1e3970f607362c2bb4f60e64649416f57b4417844d31f7597ab577a6a4e633dac2bdef75f49cd5607e10b63d0be328a0588cf02266a7e12245cd09b88d090ffbe2a39188041fd73f66ede1f7fabaf0516cf77115eda4c43d4f299f3353a114575b0852146f78e5fd0802ecb3af45eb0b7334d18e6a3ffabcac2afbebc5e190fadf51741520f50f0a8c8d351200e9de3541375e4c41d15ad7fc792af8e8ef0291688ba794800c18f8c3f8c46bb1452d8ecd4edebadb8fac233a6ae31e237e36ddd88d3ad5ce618f0172eed39fed7ff0268daca07f4fe7cd3ecbb9de5cbf25073bfdc26edfe12638e5350c111f3de251577ce4ece417ce7d43eee8ada5a16f4432cce1ce5cd382d12ca8216ffb118ab681c9f0e03df20b8beee3381e6270793b394fabdb9e700973072af9efe882f9c060629864845ae33c45f085a4f27bc63443a83b03f4de73fa0a6f840be2ad542812b0f78a68c03e9e312a982d3e5c8886308ed985e9d16576be5236acc596d4eb6b4e316590b234232fac29167e91a7690ef3e8a73f542577d35ed560f5ed51e1f8df77780c093840f7a7ffa60ac23b38aed400631878505111ab71bac3dbaabe281932beb080f277ffdcb530ac1fb5b9681877d0f2631d62b5bfa1eba58734a549</script>
+  <div class="hbe hbe-content">
+    <div class="hbe hbe-input hbe-input-default">
+      <input class="hbe hbe-input-field hbe-input-field-default" type="password" id="hbePass">
+      <label class="hbe hbe-input-label hbe-input-label-default" for="hbePass">
+        <span class="hbe hbe-input-label-content hbe-input-label-content-default">请输入密码：</span>
+      </label>
+    </div>
+  </div>
+</div>
+<script data-pjax src="/lib/hbe.js"></script><link href="/css/hbe.style.css" rel="stylesheet" type="text/css">]]></content>
+      <categories>
+        <category>日記</category>
+      </categories>
+      <tags>
+        <tag>日記</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>永嘉中学计算机社活动内容设想报告</title>
+    <url>/2024/09/15/YJZXCCReport/</url>
+    <content><![CDATA[<h1 id="永嘉中学计算机社活动内容设想报告"><a class="markdownIt-Anchor" href="#永嘉中学计算机社活动内容设想报告"></a> 永嘉中学计算机社活动内容设想报告</h1>
+<h2 id="一-活动背景"><a class="markdownIt-Anchor" href="#一-活动背景"></a> 一、活动背景</h2>
+<p>为了提升社员的计算机使用水平、激发社员对研究计算机的兴趣爱好、提高社员计算机技术应用能力与实践水平、增强社员技术学科素养，计算机社将在本学期计划组织一系列有趣且富有挑战性的课程与活动。这些活动旨在为社员提供实践经验、促进知识交流，并激发他们的创新思维。</p>
+<h2 id="二-活动目标"><a class="markdownIt-Anchor" href="#二-活动目标"></a> 二、活动目标</h2>
+<ol>
+<li><strong>提升实践水平</strong>：通过实践项目和技术讲座，提升社员的计算机知识和编程技能。</li>
+<li><strong>促进合作沟通</strong>：通过团队活动与讨论，增强社员之间的合作与沟通能力。</li>
+<li><strong>增强学科素养</strong>：授课内容涉及课内又远超课内，提升社员的编程意识与学科素养。</li>
+</ol>
+<h2 id="三-活动内容"><a class="markdownIt-Anchor" href="#三-活动内容"></a> 三、活动内容：</h2>
+<ul>
+<li>Markdown 基本语法教学</li>
+<li>Python 基本语法教学以及怕爬虫入门</li>
+<li>Github 的基本使用以及博客托管</li>
+<li>计算机常识普及</li>
+<li>……</li>
+</ul>
+<h2 id="四-活动安排"><a class="markdownIt-Anchor" href="#四-活动安排"></a> 四、活动安排</h2>
+<h3 id="单节课时时间安排"><a class="markdownIt-Anchor" href="#单节课时时间安排"></a> 单节课时时间安排</h3>
+<p>将使用 20 分钟时间传递相关知识，并给社员们 20 分钟左右的实践时间。</p>
+<h3 id="课时活动内容安排"><a class="markdownIt-Anchor" href="#课时活动内容安排"></a> 课时活动内容安排</h3>
+<p>采用 2 节讲授课 +1 节实践课的循环。授课与实践内容以活动内容为准。</p>
+<h3 id="其他安排"><a class="markdownIt-Anchor" href="#其他安排"></a> 其他安排</h3>
+<p>将不定时举行小组项目设计活动，并参与社内评比。</p>
+<h2 id="五-结语"><a class="markdownIt-Anchor" href="#五-结语"></a> 五、结语</h2>
+<p>本学期活动旨在通过丰富的内容和多样的形式，为计算机社成员提供全面的成长机会。希望通过这些活动，不仅能够提升技术能力，还能增强社员之间的合作与沟通，为社团的发展注入新的活力。</p>
+]]></content>
+      <categories>
+        <category>社团</category>
+      </categories>
+      <tags>
+        <tag>计算机社</tag>
+        <tag>永中</tag>
       </tags>
   </entry>
 </search>

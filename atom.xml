@@ -11,7 +11,7 @@
   <rights>All rights reserved 2026, Zera / 捷攎</rights>
   <subtitle>Keep writing and Keep loving.</subtitle>
   <title>Zera 的小博客</title>
-  <updated>2026-10-07T15:21:09.700Z</updated>
+  <updated>2026-10-08T01:21:51.035Z</updated>
   <entry>
     <author>
       <name>Zera / 捷攎</name>
@@ -21,29 +21,25 @@
     <id>https://chieh2lu2.github.io/2025/01/01/nikki/</id>
     <link href="https://chieh2lu2.github.io/2025/01/01/nikki/"/>
     <published>2025-01-01T08:36:57.000Z</published>
-    <summary>这篇文章被加密了，请输入密码查看。</summary>
+    <summary>个人日记，已加密。</summary>
     <title>日記</title>
-    <updated>2026-10-07T15:21:09.700Z</updated>
+    <updated>2026-10-08T01:21:51.035Z</updated>
   </entry>
   <entry>
     <author>
       <name>Zera / 捷攎</name>
     </author>
     <category term="指北" scheme="https://chieh2lu2.github.io/categories/%E6%8C%87%E5%8C%97/"/>
-    <category term="永中" scheme="https://chieh2lu2.github.io/tags/%E6%B0%B8%E4%B8%AD/"/>
-    <category term="计算机社" scheme="https://chieh2lu2.github.io/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%A4%BE/"/>
     <category term="Python" scheme="https://chieh2lu2.github.io/tags/Python/"/>
     <category term="爬虫" scheme="https://chieh2lu2.github.io/tags/%E7%88%AC%E8%99%AB/"/>
+    <category term="计算机社" scheme="https://chieh2lu2.github.io/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%A4%BE/"/>
+    <category term="永中" scheme="https://chieh2lu2.github.io/tags/%E6%B0%B8%E4%B8%AD/"/>
     <id>https://chieh2lu2.github.io/2024/12/01/Spider/</id>
     <link href="https://chieh2lu2.github.io/2024/12/01/Spider/"/>
     <published>2024-12-01T13:29:49.000Z</published>
-    <summary>
-      <![CDATA[<h1 id="0-为啥要学爬虫"><a class="markdownIt-Anchor" href="#0-为啥要学爬虫"></a> 0. 为啥要学爬虫？</h1>
-<p>有无在网站上手动一张一张下载图片时感到麻烦？<br>
-可否好奇过网上所谓的 <a href="https://www.bilibili.com/video/BV1Y94y1e7g3/">绘板活动</a>]]>
-    </summary>
+    <summary>从零开始的 Python 爬虫指北：服务器渲染与客户端渲染的区别、抓包方法、requests 库入门。</summary>
     <title>从零开始的爬虫指北</title>
-    <updated>2026-10-08T00:46:47.789Z</updated>
+    <updated>2026-10-08T01:21:51.010Z</updated>
   </entry>
   <entry>
     <author>
@@ -57,12 +53,9 @@
     <id>https://chieh2lu2.github.io/2024/09/30/HDU-5396/</id>
     <link href="https://chieh2lu2.github.io/2024/09/30/HDU-5396/"/>
     <published>2024-09-30T11:54:08.000Z</published>
-    <summary>
-      <![CDATA[<p><a href="https://vjudge.net/problem/HDU-5396#author=GPT_zh">HDU 5396 Expression</a></p>
-<p>看到 <mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.025ex;" xmlns="http://www.w3.org/2000/svg" width="1.357ex" height="1.025ex" role="img" focusable="false" viewBox="0 -442 600]]>
-    </summary>
+    <summary>HDU 5396 Expression 题解：区间 DP，关键是考虑运算符的运算顺序，用组合数合并左右方案。</summary>
     <title>HDU-5396 Expression 题解</title>
-    <updated>2026-10-07T15:21:09.697Z</updated>
+    <updated>2026-10-08T01:21:51.040Z</updated>
   </entry>
   <entry>
     <author>
@@ -74,15 +67,9 @@
     <id>https://chieh2lu2.github.io/2024/09/16/PCFont/</id>
     <link href="https://chieh2lu2.github.io/2024/09/16/PCFont/"/>
     <published>2024-09-16T13:21:42.000Z</published>
-    <summary>
-      <![CDATA[<div class="note danger flat"><p>所有字体、<strong>包括系统字体</strong>一定要做好备份！</p>
-</div>
-<p>在网络上经常看到更换电脑字体的教程，可大多教程都解决不了一个问题——更换系统的英文字体。Windows 下某些地方的英文字体使用的是 Segoe UI，个人觉得十分丑陋。这篇文章将以字体 Inter 为例解决这个痛点，并同时介绍替换中文字体的方法。</p>
-<hr>
-<h2 id="一-软件安装"><a class="markdownIt-Anchor" href="#一-软件安装"></a>]]>
-    </summary>
+    <summary>给 Windows 更换系统字体（含微软雅黑和 Segoe UI）的完整操作记录，附备份与还原方法。</summary>
     <title>给你的 Windows 更换字体（包括微软雅黑和 Segoe UI！）</title>
-    <updated>2026-10-07T15:46:00.655Z</updated>
+    <updated>2026-10-08T01:21:51.036Z</updated>
   </entry>
   <entry>
     <author>
@@ -96,19 +83,9 @@
     <id>https://chieh2lu2.github.io/2024/09/16/HexoI/</id>
     <link href="https://chieh2lu2.github.io/2024/09/16/HexoI/"/>
     <published>2024-09-16T03:07:14.000Z</published>
-    <summary>
-      <![CDATA[<h2 id="〇-开始之前"><a class="markdownIt-Anchor" href="#〇-开始之前"></a> 〇、开始之前</h2>
-<div class="note primary flat"><p>这篇文章可能用于计算机社博客搭建教学。</p>
-</div>
-<p>在开始之前，你需要有：</p>
-<ul>
-<li>一个健康的搜索引擎（遇到问题自己搜啊喂）</li>
-<li>一个 GitHub 账号</li>
-</ul>
-<div class="note primary flat"><p>如果上不去 Github 可以考虑尝试 <a]]>
-    </summary>
+    <summary>在 Windows 上用 Hexo + GitHub Pages 从零搭建个人博客的完整指北：装环境、配 SSH、部署、备份。</summary>
     <title>Windows 下使用 Hexo + GitHub Pages 搭建自己的博客指北</title>
-    <updated>2026-10-07T15:46:00.667Z</updated>
+    <updated>2026-10-08T01:21:51.034Z</updated>
   </entry>
   <entry>
     <author>
@@ -116,18 +93,15 @@
     </author>
     <category term="题解" scheme="https://chieh2lu2.github.io/categories/%E9%A2%98%E8%A7%A3/"/>
     <category term="OI" scheme="https://chieh2lu2.github.io/tags/OI/"/>
+    <category term="洛谷" scheme="https://chieh2lu2.github.io/tags/%E6%B4%9B%E8%B0%B7/"/>
     <category term="数学" scheme="https://chieh2lu2.github.io/tags/%E6%95%B0%E5%AD%A6/"/>
     <category term="C++" scheme="https://chieh2lu2.github.io/tags/C/"/>
-    <category term="洛谷" scheme="https://chieh2lu2.github.io/tags/%E6%B4%9B%E8%B0%B7/"/>
     <id>https://chieh2lu2.github.io/2024/09/16/P10511/</id>
     <link href="https://chieh2lu2.github.io/2024/09/16/P10511/"/>
     <published>2024-09-16T01:41:10.000Z</published>
-    <summary>
-      <![CDATA[<h2 id="思路"><a class="markdownIt-Anchor" href="#思路"></a> 思路</h2>
-<p>首先好像高一就学过 <mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.798ex;" xmlns="http://www.w3.org/2000/svg" width="17.299ex" height="2.963ex" role="img" focusable="false" viewBox="0 -957 7646.3 1309.8"><g]]>
-    </summary>
+    <summary>洛谷 P10511 题解：用前缀和维护区间和与区间平方和，分整块与散块处理。</summary>
     <title>P10511 题解</title>
-    <updated>2026-10-07T15:34:36.548Z</updated>
+    <updated>2026-10-08T01:21:51.039Z</updated>
   </entry>
   <entry>
     <author>
@@ -135,35 +109,45 @@
     </author>
     <category term="题解" scheme="https://chieh2lu2.github.io/categories/%E9%A2%98%E8%A7%A3/"/>
     <category term="OI" scheme="https://chieh2lu2.github.io/tags/OI/"/>
+    <category term="洛谷" scheme="https://chieh2lu2.github.io/tags/%E6%B4%9B%E8%B0%B7/"/>
     <category term="数学" scheme="https://chieh2lu2.github.io/tags/%E6%95%B0%E5%AD%A6/"/>
     <category term="C++" scheme="https://chieh2lu2.github.io/tags/C/"/>
-    <category term="洛谷" scheme="https://chieh2lu2.github.io/tags/%E6%B4%9B%E8%B0%B7/"/>
     <id>https://chieh2lu2.github.io/2024/09/16/P10252/</id>
     <link href="https://chieh2lu2.github.io/2024/09/16/P10252/"/>
     <published>2024-09-16T01:40:09.000Z</published>
-    <summary>
-      <![CDATA[<h1 id="p10252"><a class="markdownIt-Anchor" href="#p10252"></a> <a href="https://www.luogu.com.cn/problem/P10252">P10252</a> 题解</h1>
-<p>一直没有想到 <mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.023ex;" xmlns="http://www.w3.org/2000/svg" width="1.197ex" height="1.02ex"]]>
-    </summary>
+    <summary>洛谷 P10252 题解：分析变换的单调性，再分情况讨论求解。</summary>
     <title>P10252 题解</title>
-    <updated>2026-10-07T15:21:09.698Z</updated>
+    <updated>2026-10-08T01:21:51.040Z</updated>
+  </entry>
+  <entry>
+    <author>
+      <name>Zera / 捷攎</name>
+    </author>
+    <category term="题解" scheme="https://chieh2lu2.github.io/categories/%E9%A2%98%E8%A7%A3/"/>
+    <category term="OI" scheme="https://chieh2lu2.github.io/tags/OI/"/>
+    <category term="洛谷" scheme="https://chieh2lu2.github.io/tags/%E6%B4%9B%E8%B0%B7/"/>
+    <category term="数学" scheme="https://chieh2lu2.github.io/tags/%E6%95%B0%E5%AD%A6/"/>
+    <category term="排列组合" scheme="https://chieh2lu2.github.io/tags/%E6%8E%92%E5%88%97%E7%BB%84%E5%90%88/"/>
+    <id>https://chieh2lu2.github.io/2024/09/15/P5824/</id>
+    <link href="https://chieh2lu2.github.io/2024/09/15/P5824/"/>
+    <published>2024-09-15T13:15:14.000Z</published>
+    <summary>洛谷 P5824「十二重计数法」题解：用递推与组合数学推出 12 种限制下的计数式，附完整推导。</summary>
+    <title>十二重计数法</title>
+    <updated>2026-10-08T01:21:51.023Z</updated>
   </entry>
   <entry>
     <author>
       <name>Zera / 捷攎</name>
     </author>
     <category term="社团" scheme="https://chieh2lu2.github.io/categories/%E7%A4%BE%E5%9B%A2/"/>
-    <category term="永中" scheme="https://chieh2lu2.github.io/tags/%E6%B0%B8%E4%B8%AD/"/>
     <category term="计算机社" scheme="https://chieh2lu2.github.io/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%A4%BE/"/>
+    <category term="永中" scheme="https://chieh2lu2.github.io/tags/%E6%B0%B8%E4%B8%AD/"/>
     <id>https://chieh2lu2.github.io/2024/09/15/YJZXCCReport/</id>
     <link href="https://chieh2lu2.github.io/2024/09/15/YJZXCCReport/"/>
     <published>2024-09-15T13:15:14.000Z</published>
-    <summary>
-      <![CDATA[<h1 id="永嘉中学计算机社活动内容设想报告"><a class="markdownIt-Anchor" href="#永嘉中学计算机社活动内容设想报告"></a> 永嘉中学计算机社活动内容设想报告</h1>
-<h2 id="一-活动背景"><a class="markdownIt-Anchor" href="#一-活动背景"></a>]]>
-    </summary>
+    <summary>永嘉中学计算机社一学期的活动内容设想，含活动背景、目标与具体安排。</summary>
     <title>永嘉中学计算机社活动内容设想报告</title>
-    <updated>2026-10-07T15:21:09.699Z</updated>
+    <updated>2026-10-08T01:21:51.041Z</updated>
   </entry>
   <entry>
     <author>
@@ -171,37 +155,14 @@
     </author>
     <category term="题解" scheme="https://chieh2lu2.github.io/categories/%E9%A2%98%E8%A7%A3/"/>
     <category term="OI" scheme="https://chieh2lu2.github.io/tags/OI/"/>
-    <category term="数学" scheme="https://chieh2lu2.github.io/tags/%E6%95%B0%E5%AD%A6/"/>
     <category term="洛谷" scheme="https://chieh2lu2.github.io/tags/%E6%B4%9B%E8%B0%B7/"/>
-    <category term="排列组合" scheme="https://chieh2lu2.github.io/tags/%E6%8E%92%E5%88%97%E7%BB%84%E5%90%88/"/>
-    <id>https://chieh2lu2.github.io/2024/09/15/P5824/</id>
-    <link href="https://chieh2lu2.github.io/2024/09/15/P5824/"/>
-    <published>2024-09-15T13:15:14.000Z</published>
-    <summary>
-      <![CDATA[<hr>
-<p><s>复赛完了再写这篇文章是不是太迟了？</s></p>
-<p>闲话：我只是为了初赛练练组合数学而做的，没有多少 OI 内容（<s>可能复赛时会考虑添加？</s> 复赛寄的太彻底，不加了）。</p>
-<p>我们教练说：初赛时排列组合的题目不会做就大力递推。虽然 CSP]]>
-    </summary>
-    <title>十二重计数法</title>
-    <updated>2026-10-07T15:21:09.698Z</updated>
-  </entry>
-  <entry>
-    <author>
-      <name>Zera / 捷攎</name>
-    </author>
-    <category term="题解" scheme="https://chieh2lu2.github.io/categories/%E9%A2%98%E8%A7%A3/"/>
-    <category term="OI" scheme="https://chieh2lu2.github.io/tags/OI/"/>
     <category term="数学" scheme="https://chieh2lu2.github.io/tags/%E6%95%B0%E5%AD%A6/"/>
     <category term="C++" scheme="https://chieh2lu2.github.io/tags/C/"/>
-    <category term="洛谷" scheme="https://chieh2lu2.github.io/tags/%E6%B4%9B%E8%B0%B7/"/>
     <id>https://chieh2lu2.github.io/2024/09/15/UVA11437/</id>
     <link href="https://chieh2lu2.github.io/2024/09/15/UVA11437/"/>
     <published>2024-09-15T13:14:20.000Z</published>
-    <summary>
-      <![CDATA[<p>这道题的难点在于求 <mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.05ex;" xmlns="http://www.w3.org/2000/svg" width="7.145ex" height="1.67ex" role="img" focusable="false" viewBox="0 -716 3158 738"><g stroke="currentColor" fill="currentColor" stroke-width="0"]]>
-    </summary>
+    <summary>UVA11437 题解：海伦公式求面积 + 梅涅劳斯定理，推出 △ABC 与 △PQR 的面积比为 7:1。</summary>
     <title>UVA11437 题解</title>
-    <updated>2026-10-08T00:32:29.605Z</updated>
+    <updated>2026-10-08T01:22:07.828Z</updated>
   </entry>
 </feed>
