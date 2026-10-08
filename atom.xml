@@ -148,22 +148,6 @@
       <name>Zera / 捷攎</name>
     </author>
     <category term="过去的花" scheme="https://zerablog.top/categories/%E8%BF%87%E5%8E%BB%E7%9A%84%E8%8A%B1/"/>
-    <category term="OI" scheme="https://zerablog.top/tags/OI/"/>
-    <category term="洛谷" scheme="https://zerablog.top/tags/%E6%B4%9B%E8%B0%B7/"/>
-    <category term="排列组合" scheme="https://zerablog.top/tags/%E6%8E%92%E5%88%97%E7%BB%84%E5%90%88/"/>
-    <category term="数学" scheme="https://zerablog.top/tags/%E6%95%B0%E5%AD%A6/"/>
-    <id>https://zerablog.top/2024/09/15/P5824/</id>
-    <link href="https://zerablog.top/2024/09/15/P5824/"/>
-    <published>2024-09-15T13:15:14.000Z</published>
-    <summary>洛谷 P5824「十二重计数法」题解：用递推与组合数学推出 12 种限制下的计数式，附完整推导。</summary>
-    <title>十二重计数法</title>
-    <updated>2026-10-08T13:07:27.576Z</updated>
-  </entry>
-  <entry>
-    <author>
-      <name>Zera / 捷攎</name>
-    </author>
-    <category term="过去的花" scheme="https://zerablog.top/categories/%E8%BF%87%E5%8E%BB%E7%9A%84%E8%8A%B1/"/>
     <category term="永中" scheme="https://zerablog.top/tags/%E6%B0%B8%E4%B8%AD/"/>
     <category term="计算机社" scheme="https://zerablog.top/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%A4%BE/"/>
     <id>https://zerablog.top/2024/09/15/YJZXCCReport/</id>
@@ -172,6 +156,22 @@
     <summary>永嘉中学计算机社一学期的活动内容设想，含活动背景、目标与具体安排。</summary>
     <title>永嘉中学计算机社活动内容设想报告</title>
     <updated>2026-10-08T13:06:16.897Z</updated>
+  </entry>
+  <entry>
+    <author>
+      <name>Zera / 捷攎</name>
+    </author>
+    <category term="过去的花" scheme="https://zerablog.top/categories/%E8%BF%87%E5%8E%BB%E7%9A%84%E8%8A%B1/"/>
+    <category term="OI" scheme="https://zerablog.top/tags/OI/"/>
+    <category term="洛谷" scheme="https://zerablog.top/tags/%E6%B4%9B%E8%B0%B7/"/>
+    <category term="数学" scheme="https://zerablog.top/tags/%E6%95%B0%E5%AD%A6/"/>
+    <category term="排列组合" scheme="https://zerablog.top/tags/%E6%8E%92%E5%88%97%E7%BB%84%E5%90%88/"/>
+    <id>https://zerablog.top/2024/09/15/P5824/</id>
+    <link href="https://zerablog.top/2024/09/15/P5824/"/>
+    <published>2024-09-15T13:15:14.000Z</published>
+    <summary>洛谷 P5824「十二重计数法」题解：用递推与组合数学推出 12 种限制下的计数式，附完整推导。</summary>
+    <title>十二重计数法</title>
+    <updated>2026-10-08T13:07:27.576Z</updated>
   </entry>
   <entry>
     <author>

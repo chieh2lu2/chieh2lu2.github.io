@@ -362,3 +362,62 @@
     font-size: 0.8rem;
   }
 }
+
+
+/* ==========================================================================
+   6) 关于页的联系图标对齐
+   ==========================================================================
+   主题【完全没有】给 .about-icons 写样式，所以那 5 个图标用的是浏览器默认排版：
+     · 靠 <a> 的行内间距挤在一起，左右不等
+     · 不同图标字形的"视觉重量"差别很大 —— B站 和 微信 的字形天生比 GitHub/QQ 大一圈
+   这里给每个图标一个【固定大小的盒子】居中放置，间距用 gap 统一，
+   再按字形大小微调字号，看起来就齐了。
+   ========================================================================== */
+
+.about-icons {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 0.85rem;
+  margin-top: 1.15rem;
+}
+
+.about-icons a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.2rem;
+  height: 2.2rem;
+  margin: 0 !important;          /* 覆盖主题可能存在的零散 margin */
+  border-radius: 50%;
+  text-decoration: none;
+  transition: background-color 0.25s ease, transform 0.25s ease;
+}
+
+.about-icons a:hover {
+  background-color: var(--link-hover-color);
+  transform: translateY(-3px);
+}
+
+.about-icons a:hover .iconfont {
+  color: #fff;
+}
+
+.about-icons .iconfont {
+  line-height: 1;
+  font-size: 1.12rem;            /* 基准字号 */
+  transition: color 0.25s ease;
+}
+
+/* 字形天生偏大的两个，缩小一点让视觉重量和其他对齐 */
+.about-icons .icon-bilibili-fill,
+.about-icons .icon-wechat-fill {
+  font-size: 1.0rem;
+}
+
+/* 字形偏小的补一点 */
+.about-icons .icon-qq-fill,
+.about-icons .icon-mail-fill {
+  font-size: 1.18rem;
+}

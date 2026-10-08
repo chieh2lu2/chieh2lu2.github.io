@@ -89,7 +89,7 @@
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
     Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"zerablog.top","root":"/","version":"1.9.9","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":false,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"expand_all":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0,"expand":false},"lazyload":{"enable":true,"loading_img":"/images/l.svg","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"openkounter":{"server_url":"https://open-kounter.mintimate.cn","path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/search.xml","include_content_in_search":true};
+    var CONFIG = {"hostname":"zerablog.top","root":"/","version":"1.9.9","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":false,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"expand_all":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0,"expand":false},"lazyload":{"enable":true,"loading_img":"/images/placeholder.svg","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"openkounter":{"server_url":"https://open-kounter.mintimate.cn","path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/search.xml","include_content_in_search":true};
 
     if (CONFIG.web_analytics.follow_dnt) {
       var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
@@ -690,15 +690,15 @@ mjx-container[display="true"] + br {
 <p>渲染一个网页有<strong>服务器渲染</strong>和<strong>客户端渲染</strong>两种方式。具体过程不做过多介绍。<br>
 简单来说，服务器渲染，就是服务端把 HTML 和数据整合在一起发送给客户端；客户端渲染，就是服务端先把 HTML 的「框架」发送给客户端，在客户端再次请求获取数据后，动态地生成网页内容。其中，页面的渲染过程主要由客户端的浏览器完成，因而得名。</p>
 <p>什么意思呢？以在百度搜索内容的过程举例。比方说我搜「迷你世界」：</p>
-<p><img src="https://fastly.jsdelivr.net/gh/chieh2lu2/chieh2lu2.github.io@main/images/3.1.1.webp" srcset="/images/l.svg" lazyload alt="figure_3.1.1" onerror="this.onerror=null;this.src='/images/3.1.1.webp'"></p>
+<p><img src="https://fastly.jsdelivr.net/gh/chieh2lu2/chieh2lu2.github.io@main/images/3.1.1.webp" srcset="/images/placeholder.svg" lazyload alt="figure_3.1.1" onerror="this.onerror=null;this.src='/images/3.1.1.webp'"></p>
 <p>我们 右键 → 查看页面源代码 来查看页面的 HTML 源代码。在其中搜索「迷你世界」，出现了大量匹配。可见，服务器将我们请求关于「迷你世界」的相关数据写进了 HTML 中，再把这个 HTML 返回给了我们。这属于服务器渲染。</p>
-<p><img src="https://fastly.jsdelivr.net/gh/chieh2lu2/chieh2lu2.github.io@main/images/3.1.2.webp" srcset="/images/l.svg" lazyload alt="figure_3.1.2" onerror="this.onerror=null;this.src='/images/3.1.2.webp'"></p>
+<p><img src="https://fastly.jsdelivr.net/gh/chieh2lu2/chieh2lu2.github.io@main/images/3.1.2.webp" srcset="/images/placeholder.svg" lazyload alt="figure_3.1.2" onerror="this.onerror=null;this.src='/images/3.1.2.webp'"></p>
 <p>客户端渲染的一个例子是 B 站首页。B 站首页有许多系统推荐的视频，算是客户端索取的数据。然而，我们查看 B 站首页源代码，会发现他空空如也：</p>
-<p><img src="https://fastly.jsdelivr.net/gh/chieh2lu2/chieh2lu2.github.io@main/images/3.1.3.webp" srcset="/images/l.svg" lazyload alt="figure_3.1.3" onerror="this.onerror=null;this.src='/images/3.1.3.webp'"></p>
-<p><img src="https://fastly.jsdelivr.net/gh/chieh2lu2/chieh2lu2.github.io@main/images/3.1.4.png" srcset="/images/l.svg" lazyload alt="figure_3.1.4" onerror="this.onerror=null;this.src='/images/3.1.4.png'"></p>
+<p><img src="https://fastly.jsdelivr.net/gh/chieh2lu2/chieh2lu2.github.io@main/images/3.1.3.webp" srcset="/images/placeholder.svg" lazyload alt="figure_3.1.3" onerror="this.onerror=null;this.src='/images/3.1.3.webp'"></p>
+<p><img src="https://fastly.jsdelivr.net/gh/chieh2lu2/chieh2lu2.github.io@main/images/3.1.4.png" srcset="/images/placeholder.svg" lazyload alt="figure_3.1.4" onerror="this.onerror=null;this.src='/images/3.1.4.png'"></p>
 <p>这种就属于客户端渲染。</p>
 <p>对于第一种情况我们可以直接爬取网页源代码后再处理源代码；但如果我们面对的是第二种情况呢？这就需要我们使用浏览器的<strong>抓包工具</strong>。按下 F12，选择网络（Network），就可以看到每个网络操作的相关信息，包括详细的耗时数据、HTTP 请求与响应标头和 Cookie。在名称（Name）一栏的第一个就是客户端先收到的 HTML 框架；后面就是客户端陆陆续续渲染的数据了。选择标头（Headers），第一行就是这个数据所在的 URL。</p>
-<p><img src="https://fastly.jsdelivr.net/gh/chieh2lu2/chieh2lu2.github.io@main/images/3.1.5.webp" srcset="/images/l.svg" lazyload alt="figure_3.1.5" onerror="this.onerror=null;this.src='/images/3.1.5.webp'"></p>
+<p><img src="https://fastly.jsdelivr.net/gh/chieh2lu2/chieh2lu2.github.io@main/images/3.1.5.webp" srcset="/images/placeholder.svg" lazyload alt="figure_3.1.5" onerror="this.onerror=null;this.src='/images/3.1.5.webp'"></p>
 <p>关于 Web 请求过程我们就先讲这么多，主要是了解了解抓包的过程。</p>
 <h2 id="32-http-协议"><a class="markdownIt-Anchor" href="#32-http-协议"></a> 3.2 HTTP 协议</h2>
 <p>HTTP 协议，Hypertext Transfer Protocol（超文本传输协议）的简写。浏览器和服务器间的数据交互遵守的就是HTTP 协议。</p>
@@ -766,7 +766,7 @@ mjx-container[display="true"] + br {
 <p>emm……不像人话。那我们来具体输出一下，看看这都是什么东西。</p>
 <figure class="highlight python"><div class="table-wrap"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> requests <span class="hljs-comment"># 导入 requests 包</span><br><br>re = requests.get(<span class="hljs-string">'https://www.mini1.cn/'</span>)<br><span class="hljs-built_in">print</span>(re)<br><span class="hljs-built_in">print</span>(re.status_code)<br><span class="hljs-built_in">print</span>(re.content)<br><span class="hljs-built_in">print</span>(re.text)<br><span class="hljs-built_in">print</span>(re.apparent_encoding)<br><span class="hljs-built_in">print</span>(re.encoding)<br><span class="hljs-built_in">print</span>(re.ok)<br></code></pre></td></tr></table></div></figure>
 <p>输出来的内容是这样的：<br>
-<img src="https://fastly.jsdelivr.net/gh/chieh2lu2/chieh2lu2.github.io@main/images/4.1.1.png" srcset="/images/l.svg" lazyload alt="4.1.1" onerror="this.onerror=null;this.src='/images/4.1.1.png'"></p>
+<img src="https://fastly.jsdelivr.net/gh/chieh2lu2/chieh2lu2.github.io@main/images/4.1.1.png" srcset="/images/placeholder.svg" lazyload alt="4.1.1" onerror="this.onerror=null;this.src='/images/4.1.1.png'"></p>
 <p>我们一块一块解释。<br>
 <strong><code>status_code</code></strong> 表示状态码，200 就代表获取成功了。当然我们也可以使用 <strong><code>ok</code></strong> 来判断自己是否访问成功（即最下面一行的 <code>True</code> 表示成功）。</p>
 <p><strong><code>content</code></strong> 返回的是响应内容的二进制形式。我们可以发现开头有一个 b 字母，还有一些类似 <code>\xe7\x99</code> 的乱码。这是字节字符串的标志。</p>
@@ -779,7 +779,7 @@ mjx-container[display="true"] + br {
 <p>怎么返回了 403？这是<a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Status#%E5%AE%A2%E6%88%B7%E7%AB%AF%E9%94%99%E8%AF%AF%E5%93%8D%E5%BA%94">「服务器拒绝提供请求的资源」</a>的意思！这该如何解决？</p>
 <p>上次说到，请求头（header）中的 User-Agent(UA) 表明了客户端的相关信息。服务器就是通过这个判断你是人还是爬虫。这已是最简单的反爬机制。所以说，我们要通过修改 UA 来把自己的浏览器「伪装成人」。</p>
 <p>首先，我们获取一个正常点的 UA。通过上回说到的浏览器抓包工具找到了一个正常的 UA：<br>
-<img src="https://fastly.jsdelivr.net/gh/chieh2lu2/chieh2lu2.github.io@main/images/4.2.1.webp" srcset="/images/l.svg" lazyload alt="figure_4.2.1" onerror="this.onerror=null;this.src='/images/4.2.1.webp'"><br>
+<img src="https://fastly.jsdelivr.net/gh/chieh2lu2/chieh2lu2.github.io@main/images/4.2.1.webp" srcset="/images/placeholder.svg" lazyload alt="figure_4.2.1" onerror="this.onerror=null;this.src='/images/4.2.1.webp'"><br>
 把他复制下来。</p>
 <p><code>get()</code> 中不仅可以传入网址，还可以传入 header，类型为字典。所以，我们要创建一个包含 UA 信息的字典：</p>
 <figure class="highlight python"><div class="table-wrap"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">headers = {<span class="hljs-string">"User-Agent"</span>: <span class="hljs-string">"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/132.0.0.0 Safari/537.36"</span>}<br></code></pre></td></tr></table></div></figure>
