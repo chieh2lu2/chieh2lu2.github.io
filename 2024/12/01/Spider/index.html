@@ -98,8 +98,7 @@
 
 
   
-<meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="/atom.xml" title="Zera 的小博客" type="application/atom+xml">
-<style>mjx-container[jax="SVG"] {
+<meta name="generator" content="Hexo 7.3.0"><style>mjx-container[jax="SVG"] {
   direction: ltr;
 }
 
@@ -211,7 +210,8 @@ mjx-container[display="true"] {
 mjx-container[display="true"] + br {
   display: none;
 }
-</style><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"从零开始的爬虫指北","description":"从零开始的 Python 爬虫指北：服务器渲染与客户端渲染的区别、抓包方法、requests 库入门。","url":"https://zerablog.top/2024/12/01/Spider/index.html","mainEntityOfPage":{"@type":"WebPage","@id":"https://zerablog.top/2024/12/01/Spider/index.html"},"datePublished":"2024-12-01T13:29:49.000Z","dateModified":"2026-10-08T13:07:04.852Z","author":{"@type":"Person","name":"Zera / 捷攎","url":"https://zerablog.top/about/"},"publisher":{"@type":"Organization","name":"Zera 的小博客","logo":{"@type":"ImageObject","url":"https://zerablog.top/images/3.1.1.webp"}},"image":"https://zerablog.top/images/3.1.1.webp","inLanguage":"zh-CN","keywords":"Python, 爬虫, 计算机社, 永中","articleSection":"过去的花"}</script>
+</style><link rel="alternate" href="/atom.xml" title="Zera 的小博客" type="application/atom+xml">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"从零开始的爬虫指北","description":"从零开始的 Python 爬虫指北：服务器渲染与客户端渲染的区别、抓包方法、requests 库入门。","url":"https://zerablog.top/2024/12/01/Spider/index.html","mainEntityOfPage":{"@type":"WebPage","@id":"https://zerablog.top/2024/12/01/Spider/index.html"},"datePublished":"2024-12-01T13:29:49.000Z","dateModified":"2026-10-08T13:07:04.852Z","author":{"@type":"Person","name":"Zera / 捷攎","url":"https://zerablog.top/about/"},"publisher":{"@type":"Organization","name":"Zera 的小博客","logo":{"@type":"ImageObject","url":"https://zerablog.top/images/3.1.1.webp"}},"image":"https://zerablog.top/images/3.1.1.webp","inLanguage":"zh-CN","keywords":"Python, 爬虫, 计算机社, 永中","articleSection":"过去的花"}</script>
 </head>
 
 
@@ -877,6 +877,50 @@ mjx-container[display="true"] + br {
             </div>
 
             
+  
+  
+    <article id="comments" lazyload>
+      
+    <div id="giscus" class="giscus"></div>
+    <script type="text/javascript">
+      Fluid.utils.loadComments('#giscus', function() {
+        var options = {"repo":"chieh2lu2/chieh2lu2.github.io","repo-id":"R_kgDOMx2mtQ","category":"Announcements","category-id":"DIC_kwDOMx2mtc4DHVr0","theme-light":"light","theme-dark":"dark","mapping":"pathname","reactions-enabled":1,"emit-metadata":0,"input-position":"top","lang":"zh-CN"};
+        var attributes = {};
+        for (let option in options) {
+          if (!option.startsWith('theme-')) {
+            var key = option.startsWith('data-') ? option : 'data-' + option;
+            attributes[key] = options[option];
+          }
+        }
+        var light = 'light';
+        var dark = 'dark';
+        window.GiscusThemeLight = light;
+        window.GiscusThemeDark = dark;
+        attributes['data-theme'] = document.documentElement.getAttribute('data-user-color-scheme') === 'dark' ? dark : light;
+        for (let attribute in attributes) {
+          var value = attributes[attribute];
+          if (value === undefined || value === null || value === '') {
+            delete attributes[attribute];
+          }
+        }
+        var s = document.createElement('script');
+        s.setAttribute('src', 'https://giscus.app/client.js');
+        s.setAttribute('crossorigin', 'anonymous');
+        for (let attribute in attributes) {
+          s.setAttribute(attribute, attributes[attribute]);
+        }
+        var ss = document.getElementsByTagName('script');
+        var e = ss.length > 0 ? ss[ss.length - 1] : document.head || document.documentElement;
+        e.parentNode.insertBefore(s, e.nextSibling);
+      });
+    </script>
+    <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
           </article>
         </div>
       </div>
