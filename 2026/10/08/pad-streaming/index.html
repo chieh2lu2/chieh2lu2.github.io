@@ -85,7 +85,7 @@
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
     Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"zerablog.top","root":"/","version":"1.9.9","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":false,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"expand_all":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0,"expand":false},"lazyload":{"enable":true,"loading_img":"/images/placeholder.svg","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"openkounter":{"server_url":"https://open-kounter.mintimate.cn","path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/search.xml","include_content_in_search":true};
+    var CONFIG = {"hostname":"zerablog.top","root":"/","version":"1.9.9","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":false,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"expand_all":false,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/images/placeholder.svg","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"openkounter":{"server_url":"https://open-kounter.mintimate.cn","path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/search.xml","include_content_in_search":true};
 
     if (CONFIG.web_analytics.follow_dnt) {
       var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
@@ -582,13 +582,13 @@ mjx-container[display="true"] + br {
 <h1 id="i-tailscale"><a class="markdownIt-Anchor" href="#i-tailscale"></a> Ⅰ Tailscale</h1>
 <h3 id="教室别用-4g用校园网-wifi"><a class="markdownIt-Anchor" href="#教室别用-4g用校园网-wifi"></a> 教室别用 4G，用校园网 WiFi</h3>
 <p><strong>这是我踩的最大的一个坑。</strong> 我一开始的想法是：教室用手机 4G 热点串流。结果：</p>
-<figure class="highlight dns"><div class="table-wrap"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs dns">手机 <span class="hljs-number">4</span>G → 寝室笔记本： relay<span class="hljs-punctuation">(</span>DERP sfo<span class="hljs-punctuation">)</span>  <span class="hljs-number">320m</span>s  ❌<br></code></pre></td></tr></table></div></figure>
+<div class="code-wrapper"><pre><code class="hljs dns">手机 <span class="hljs-number">4</span>G → 寝室笔记本： relay<span class="hljs-punctuation">(</span>DERP sfo<span class="hljs-punctuation">)</span>  <span class="hljs-number">320m</span>s  ❌</code></pre></div>
 <p><strong>320ms 是什么概念</strong>：一次握手来回要 640ms。Moonlight 的握手有好几个来回，直接超时报错：</p>
 <blockquote>
 <p><code>Connection Error: Your network connection isn't performing well. Reduce your video bitrate setting or try a faster connection.</code></p>
 </blockquote>
 <p><strong>注意这个报错的误导性</strong>——它让你去降码率，但<strong>跟码率一点关系都没有</strong>。我的上传带宽有 75 Mbps，是延迟的问题。<strong>改成校园网 WiFi 之后</strong>：</p>
-<figure class="highlight css"><div class="table-wrap"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs css">平板连 <span class="hljs-selector-tag">i</span>-HDU → 寝室笔记本： direct（直连）  ✅ 流畅<br></code></pre></td></tr></table></div></figure>
+<div class="code-wrapper"><pre><code class="hljs css">平板连 <span class="hljs-selector-tag">i</span>-HDU → 寝室笔记本： direct（直连）  ✅ 流畅</code></pre></div>
 <p>因为两端都在杭电的校园网里，直接就走通了。</p>
 <h3 id="安装"><a class="markdownIt-Anchor" href="#安装"></a> 安装</h3>
 <p>Windows 端下载：<a target="_blank" rel="noopener" href="https://tailscale.com/download/windows">https://tailscale.com/download/windows</a><br>
