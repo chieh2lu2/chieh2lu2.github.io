@@ -1,0 +1,52 @@
+/* ============================================================================
+   移动端排版修复
+   ============================================================================
+   这个文件通过 _config.anzhiyu.yml 的 inject.head 注入到每个页面的 <head>。
+
+   解决两个会把手机屏幕「撑破」的问题：
+     1. 宽表格（题解里的「符号 | 意义」表）没有横向滚动容器，
+        会把整个页面撑宽，表现为正文右侧被切掉
+        —— 容器由 scripts/04-wrap-tables.js 补上，这里只管样式
+     2. MathJax 的行内公式是固定宽度的 SVG，最宽的能到 52ex（约 420px），
+        比手机屏幕还宽，而行内 mjx-container 原本没有任何溢出处理
+   ============================================================================ */
+
+/* ---------- 1) 宽表格：自己横向滚动，不撑破页面 ---------- */
+#article-container .table-wrap {
+  max-width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+#article-container .table-wrap > table {
+  margin: 0;
+}
+
+/* ---------- 2) 宽公式：行内公式自己横向滚动 ---------- */
+#article-container mjx-container:not([display="true"]) {
+  display: inline-block;
+  max-width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
+/* ---------- 3) 兜底：图片、代码块、长链接都不许超出容器 ---------- */
+#article-container img {
+  max-width: 100%;
+  height: auto;
+}
+
+#article-container pre {
+  max-width: 100%;
+  overflow-x: auto;
+}
+
+#article-container a {
+  word-break: break-word;
+}
+
+/* 正文里的超长英文单词/URL 也允许断行 */
+#article-container p,
+#article-container li {
+  overflow-wrap: break-word;
+}

@@ -1,40 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>P10252 题解</title>
-    <url>/2024/09/16/P10252/</url>
-    <content><![CDATA[<h1 id="p10252"><a class="markdownIt-Anchor" href="#p10252"></a> <a href="https://www.luogu.com.cn/problem/P10252">P10252</a> 题解</h1>
-<p>一直没有想到  可能等于 ，白交了好多发，好蠢……</p>
-<h2 id="题意"><a class="markdownIt-Anchor" href="#题意"></a> 题意</h2>
-<p>题面很清楚了。</p>
-<h2 id="解析"><a class="markdownIt-Anchor" href="#解析"></a> 解析</h2>
-<p>有一个很且显然的想法是：每次  变换后，如果变换后的 ，那么  在接下来的变换里只会越来越大；反之亦然。具体的下面会提及。</p>
-<p>找找规律：</p>
-<p>变换一次：。<br>
-变换两次：。<br>
-变换三次：。<br>
-变换  次：。</p>
-<p>嘶……没头绪。那看看每次  增加的量是多少：</p>
-<p></p>
-<p>可以看见  这个数是第一次变换后， 与  的差值。 的增加与否与前面的  无关（），只跟  有关，而  是一个定值。这也说明了开头猜想的正确性。</p>
-<p>从这里我们可以发现一种特殊情况：如果 ，那么  变换后不可能变小，一开始的  就是最小值。这种情况直接输出  即可。</p>
-<p>现在来考虑  的一般情况。我们要求记的毕竟不是增加量，而是想求出它每一次变换后  的大小。使用上面的差值求和试试看？记  为 ，设  为变换次数，那么变换  次后：</p>
-<p><br>
-那么只要枚举 ，判断这个能在右边的式子是否小于  即可。 中的  增长速度很快（），不用二分就能过（或许可能数据太水了 = =）。</p>
-<p>注意，这里的  为分母，<strong>需要特判  的情况</strong>。答案易知是 。还有一种特殊情况：当  或  时，直接输出  即可。</p>
-<h2 id="代码"><a class="markdownIt-Anchor" href="#代码"></a> 代码</h2>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="type">long</span> <span class="type">long</span> ll;</span><br><span class="line">ll T, x, a, b;</span><br><span class="line"></span><br><span class="line"><span class="function">ll <span class="title">qpow</span><span class="params">(ll a, ll b)</span> <span class="comment">// 快速幂 </span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">	ll res = <span class="number">1</span>;</span><br><span class="line">	<span class="keyword">while</span> (b)</span><br><span class="line">	{</span><br><span class="line">		<span class="keyword">if</span> (b &amp; <span class="number">1</span>) res *= a;</span><br><span class="line">		a *= a, b /= <span class="number">2</span>;</span><br><span class="line">	}</span><br><span class="line">	<span class="keyword">return</span> res;</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">solve</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">	cin &gt;&gt; x &gt;&gt; a &gt;&gt; b;</span><br><span class="line">	<span class="keyword">if</span> (a * x - b &gt;= x)</span><br><span class="line">	{</span><br><span class="line">		cout &lt;&lt; x &lt;&lt; endl;</span><br><span class="line">		<span class="keyword">return</span> ;</span><br><span class="line">	}</span><br><span class="line">	<span class="keyword">if</span> (a == <span class="number">0</span> || x == <span class="number">0</span>)</span><br><span class="line">	{</span><br><span class="line">		cout &lt;&lt; -b &lt;&lt; endl;</span><br><span class="line">		<span class="keyword">return</span> ;</span><br><span class="line">	}</span><br><span class="line">	<span class="keyword">if</span> (a == <span class="number">1</span>)</span><br><span class="line">	{</span><br><span class="line">		cout &lt;&lt; x - (x / b + <span class="number">1</span>) * b &lt;&lt; endl;</span><br><span class="line">		<span class="keyword">return</span> ;</span><br><span class="line">	}</span><br><span class="line">	ll d = a * x - b - x;</span><br><span class="line">	<span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; ; i++)</span><br><span class="line">	{</span><br><span class="line">		<span class="keyword">if</span> (x + d * (<span class="built_in">qpow</span>(a, i) - <span class="number">1</span>) / (a - <span class="number">1</span>) &lt; <span class="number">0</span>)</span><br><span class="line">		{</span><br><span class="line">			cout &lt;&lt; x + d * (<span class="built_in">ksm</span>(a, i) - <span class="number">1</span>) / (a - <span class="number">1</span>) &lt;&lt; endl;</span><br><span class="line">			<span class="keyword">break</span>;</span><br><span class="line">		}</span><br><span class="line">	}</span><br><span class="line">	<span class="keyword">return</span> ;</span><br><span class="line">	</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">	cin &gt;&gt; T;</span><br><span class="line">	<span class="keyword">while</span> (T--)</span><br><span class="line">		<span class="built_in">solve</span>();</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">}</span><br></pre></td></tr></table></figure>]]></content>
-      <categories>
-        <category>题解</category>
-      </categories>
-      <tags>
-        <tag>OI</tag>
-        <tag>洛谷</tag>
-        <tag>数学</tag>
-        <tag>C++</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>HDU-5396 Expression 题解</title>
     <url>/2024/09/30/HDU-5396/</url>
     <content><![CDATA[<p><a href="https://vjudge.net/problem/HDU-5396#author=GPT_zh">HDU 5396 Expression</a></p>
@@ -62,6 +28,172 @@
       </tags>
   </entry>
   <entry>
+    <title>P10252 题解</title>
+    <url>/2024/09/16/P10252/</url>
+    <content><![CDATA[<h1 id="p10252"><a class="markdownIt-Anchor" href="#p10252"></a> <a href="https://www.luogu.com.cn/problem/P10252">P10252</a> 题解</h1>
+<p>一直没有想到  可能等于 ，白交了好多发，好蠢……</p>
+<h2 id="题意"><a class="markdownIt-Anchor" href="#题意"></a> 题意</h2>
+<p>题面很清楚了。</p>
+<h2 id="解析"><a class="markdownIt-Anchor" href="#解析"></a> 解析</h2>
+<p>有一个很且显然的想法是：每次  变换后，如果变换后的 ，那么  在接下来的变换里只会越来越大；反之亦然。具体的下面会提及。</p>
+<p>找找规律：</p>
+<p>变换一次：。<br>
+变换两次：。<br>
+变换三次：。<br>
+变换  次：。</p>
+<p>嘶……没头绪。那看看每次  增加的量是多少：</p>
+<p></p>
+<p>可以看见  这个数是第一次变换后， 与  的差值。 的增加与否与前面的  无关（），只跟  有关，而  是一个定值。这也说明了开头猜想的正确性。</p>
+<p>从这里我们可以发现一种特殊情况：如果 ，那么  变换后不可能变小，一开始的  就是最小值。这种情况直接输出  即可。</p>
+<p>现在来考虑  的一般情况。我们要求记的毕竟不是增加量，而是想求出它每一次变换后  的大小。使用上面的差值求和试试看？记  为 ，设  为变换次数，那么变换  次后：</p>
+<p><br>
+那么只要枚举 ，判断这个能在右边的式子是否小于  即可。 中的  增长速度很快（），不用二分就能过（或许可能数据太水了 = =）。</p>
+<p>注意，这里的  为分母，<strong>需要特判  的情况</strong>。答案易知是 。还有一种特殊情况：当  或  时，直接输出  即可。</p>
+<h2 id="代码"><a class="markdownIt-Anchor" href="#代码"></a> 代码</h2>
+<figure class="highlight cpp"><div class="table-wrap"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="type">long</span> <span class="type">long</span> ll;</span><br><span class="line">ll T, x, a, b;</span><br><span class="line"></span><br><span class="line"><span class="function">ll <span class="title">qpow</span><span class="params">(ll a, ll b)</span> <span class="comment">// 快速幂 </span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">	ll res = <span class="number">1</span>;</span><br><span class="line">	<span class="keyword">while</span> (b)</span><br><span class="line">	{</span><br><span class="line">		<span class="keyword">if</span> (b &amp; <span class="number">1</span>) res *= a;</span><br><span class="line">		a *= a, b /= <span class="number">2</span>;</span><br><span class="line">	}</span><br><span class="line">	<span class="keyword">return</span> res;</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">solve</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">	cin &gt;&gt; x &gt;&gt; a &gt;&gt; b;</span><br><span class="line">	<span class="keyword">if</span> (a * x - b &gt;= x)</span><br><span class="line">	{</span><br><span class="line">		cout &lt;&lt; x &lt;&lt; endl;</span><br><span class="line">		<span class="keyword">return</span> ;</span><br><span class="line">	}</span><br><span class="line">	<span class="keyword">if</span> (a == <span class="number">0</span> || x == <span class="number">0</span>)</span><br><span class="line">	{</span><br><span class="line">		cout &lt;&lt; -b &lt;&lt; endl;</span><br><span class="line">		<span class="keyword">return</span> ;</span><br><span class="line">	}</span><br><span class="line">	<span class="keyword">if</span> (a == <span class="number">1</span>)</span><br><span class="line">	{</span><br><span class="line">		cout &lt;&lt; x - (x / b + <span class="number">1</span>) * b &lt;&lt; endl;</span><br><span class="line">		<span class="keyword">return</span> ;</span><br><span class="line">	}</span><br><span class="line">	ll d = a * x - b - x;</span><br><span class="line">	<span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; ; i++)</span><br><span class="line">	{</span><br><span class="line">		<span class="keyword">if</span> (x + d * (<span class="built_in">qpow</span>(a, i) - <span class="number">1</span>) / (a - <span class="number">1</span>) &lt; <span class="number">0</span>)</span><br><span class="line">		{</span><br><span class="line">			cout &lt;&lt; x + d * (<span class="built_in">ksm</span>(a, i) - <span class="number">1</span>) / (a - <span class="number">1</span>) &lt;&lt; endl;</span><br><span class="line">			<span class="keyword">break</span>;</span><br><span class="line">		}</span><br><span class="line">	}</span><br><span class="line">	<span class="keyword">return</span> ;</span><br><span class="line">	</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">	cin &gt;&gt; T;</span><br><span class="line">	<span class="keyword">while</span> (T--)</span><br><span class="line">		<span class="built_in">solve</span>();</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">}</span><br></pre></td></tr></table></div></figure>]]></content>
+      <categories>
+        <category>题解</category>
+      </categories>
+      <tags>
+        <tag>OI</tag>
+        <tag>洛谷</tag>
+        <tag>数学</tag>
+        <tag>C++</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Windows 下使用 Hexo + GitHub Pages 搭建自己的博客指北</title>
+    <url>/2024/09/16/HexoI/</url>
+    <content><![CDATA[<h2 id="〇-开始之前"><a class="markdownIt-Anchor" href="#〇-开始之前"></a> 〇、开始之前</h2>
+<div class="note primary flat"><p>这篇文章可能用于计算机社博客搭建教学。</p>
+</div>
+<p>在开始之前，你需要有：</p>
+<ul>
+<li>一个健康的搜索引擎（遇到问题自己搜啊喂）</li>
+<li>一个 GitHub 账号</li>
+</ul>
+<div class="note primary flat"><p>如果上不去 Github 可以考虑尝试 <a href="https://github.com/WangGithubUser/FastGithub">FastGithub</a> 或者 <a href="https://steampp.net/accelerate">Watt Toolkit</a>……<s>哦好像 Windows 7 都用不了，那我在想想办法罢。</s></p>
+</div>
+<h2 id="一-安装-git-和-nodejs"><a class="markdownIt-Anchor" href="#一-安装-git-和-nodejs"></a> 一、安装 Git 和 Node.js</h2>
+<p>Git 在 <a href="https://git-scm.com/downloads">这里</a> 找到自己的版本并安装。Node.js 在 <a href="https://nodejs.org">这里</a> 找到自己电脑对应的版本并安装。</p>
+<div class="note primary flat"><p>下载速度太慢？可以到这里找找！<br>
+Git: <a href="https://github.com/waylau/git-for-win">https://github.com/waylau/git-for-win</a></p>
+</div>
+<div class="note primary flat"><p>使用 Node.js 官方安装程序时，请确保勾选 Add to PATH 选项（默认已勾选）</p>
+</div>
+<p>安装好后，在 cmd / PowerShell 中分别输入 <code>git -v</code> <code>npm -v</code> <code>node -v</code>，若没有报错且返回的是版本号则安装成功。</p>
+<p><img src="/images/hexo-i-1.png" alt="如图所示。"></p>
+<h2 id="二-安装-hexo"><a class="markdownIt-Anchor" href="#二-安装-hexo"></a> 二、安装 Hexo</h2>
+<p>官网上给出的命令是 <code>npm install -g hexo-cli</code>，但我们<s>出于众所周知的网络原因</s>而不用，而是使用阿里的镜像源：</p>
+<figure class="highlight cmd"><div class="table-wrap"><table><tr><td class="code"><pre><span class="line">npm install -g cnpm --registry=https://registry.npmmirror.com</span><br><span class="line">cnpm install -g hexo-cli</span><br></pre></td></tr></table></div></figure>
+<p>这样就成功安装了 Hexo。</p>
+<p>如果遇到形如 <code>Install fail! Error: EISDIR: illegal operation on a directory, symlink…</code> 的报错，那请尝试运行</p>
+<figure class="highlight cmd"><div class="table-wrap"><table><tr><td class="code"><pre><span class="line">corepack enable</span><br></pre></td></tr></table></div></figure>
+<p>然后将 <code>npm</code> 换成 <code>pnpm</code>。</p>
+<div class="note primary flat"><p>在网上找到开头为 <code>npm</code> 的命令，将其替换成 <code>cnpm</code> 或 <code>pnpm</code> 哦！<br>
+<s>遇到问题了可以 <code>cnpm</code> 或 <code>pnpm</code> 换着试，没准就成功了呢</s></p>
+</div>
+<h2 id="三-初始化-hexo-项目"><a class="markdownIt-Anchor" href="#三-初始化-hexo-项目"></a> 三、初始化 Hexo 项目</h2>
+<p>找一个心仪的位置，然后右键 → <code>Git Bash Here</code>。这时候出现的是 Git 命令窗口。输入</p>
+<figure class="highlight plaintext"><div class="table-wrap"><table><tr><td class="code"><pre><span class="line">hexo init 随便取一个名字</span><br></pre></td></tr></table></div></figure>
+<p>用来创建 Hexo 项目文件夹。这时发现卡住了，按 <code>Crtl + C</code> 取消，发现这个位置里已经有了一个以你刚才取的名字为名字的文件夹，里面已经有了基本的文件。</p>
+<p><strong>这时候可以选择 <code>cd 你刚才取的名字</code> 进入文件夹进行下一步操作；也可以直接点进这个文件夹，然后右键 → <code>Git Bash Here</code>。</strong></p>
+<p><strong>确定好自己已经在刚刚创建的文件夹后</strong>，输入</p>
+<figure class="highlight plaintext"><div class="table-wrap"><table><tr><td class="code"><pre><span class="line">cnpm install</span><br></pre></td></tr></table></div></figure>
+<p>稍等一会，Hexo 就已经初始化好啦！</p>
+<div class="note primary flat"><p>之后的命令默认在命令窗口中输入。<br>
+按 <code>Crtl + C</code> 可以终止一个命令哦！</p>
+</div>
+<p>在终端中分别输入</p>
+<figure class="highlight plaintext"><div class="table-wrap"><table><tr><td class="code"><pre><span class="line"># 这个井号是注释的意思，别把这个也复制上去！！</span><br><span class="line">hexo cl # 清理缓存</span><br><span class="line">hexo g # 生成静态文件</span><br><span class="line">hexo s # 启动本地服务器进行预览：在浏览器中访问http://localhost:4000查看效果。</span><br></pre></td></tr></table></div></figure>
+<p>即可在 <a href="http://localhost:4000/">http://localhost:4000/</a> 中预览啦！</p>
+<div class="note danger flat"><p>如果要在本地预览博客的话，每次修改博客文件后，都要执行这三条命令哦！</p>
+</div>
+<h2 id="四-连接-github"><a class="markdownIt-Anchor" href="#四-连接-github"></a> 四、连接 Github</h2>
+<p>注册好 Github 后，再次右键 → <code>Git Bash Here</code>，输入：</p>
+<figure class="highlight plaintext"><div class="table-wrap"><table><tr><td class="code"><pre><span class="line">git config --global user.name "你的 GitHub 用户名"</span><br><span class="line">git config --global user.email "你的 GitHub 邮箱"</span><br></pre></td></tr></table></div></figure>
+<p>创建 SSH 密匙：</p>
+<figure class="highlight plaintext"><div class="table-wrap"><table><tr><td class="code"><pre><span class="line">ssh-keygen -t rsa -C "你的 GitHub 邮箱"</span><br></pre></td></tr></table></div></figure>
+<p>然后一直回车即可。</p>
+<p>这时候进入 <code>C:\Users\用户名\.ssh</code> 目录 <strong>（要勾选显示“隐藏的项目”）</strong>，用记事本 / VScode 打开公钥 id_rsa.pub 文件并复制里面的内容。登陆 GitHub，进入 Settings 页面，选择左边栏的 SSH and GPG keys，点击 New SSH key<a href="https://github.com/settings/keys">（嫌麻烦的就直接点这吧）</a>。Title 随便取个名字，粘贴刚才复制的 id_rsa.pub 内容到 Key 中，点击 Add SSH key 完成添加。</p>
+<!-- 配图待补（读者看不到这行注释）
+     原图存在已停服的 picui.cn 图床上，且未被任何网页存档收录，无法找回。
+     补图：重新截图 → 放进 source\images\ → 用下面这行替换掉本注释：
+     ![](/images/你的文件名.png) -->
+<p>输入</p>
+<figure class="highlight cmd"><div class="table-wrap"><table><tr><td class="code"><pre><span class="line">ssh -T git@github.com</span><br></pre></td></tr></table></div></figure>
+<p>后，出现 <code>Are you sure…</code>，输入 <code>yes</code> 回车确认。显示 <code>Hi xxx! You've successfully……</code> 即连接成功。</p>
+<h2 id="五-创建仓库"><a class="markdownIt-Anchor" href="#五-创建仓库"></a> 五、创建仓库</h2>
+<p>点击 GitHub 主页右上角的加号 → New repository：</p>
+<ol>
+<li>Repository name 中输入 <strong>你的 GitHub 用户名</strong>.github.io</li>
+<li>勾选 “Initialize this repository with a README”</li>
+<li>选填 Description</li>
+</ol>
+<p>填好后点击 Create repository 创建。</p>
+<!-- 配图待补（读者看不到这行注释）
+     原图存在已停服的 picui.cn 图床上，且未被任何网页存档收录，无法找回。
+     补图：重新截图 → 放进 source\images\ → 用下面这行替换掉本注释：
+     ![](/images/你的文件名.png) -->
+<h2 id="六-上传至-github"><a class="markdownIt-Anchor" href="#六-上传至-github"></a> 六、上传至 GitHub</h2>
+<p>安装部署插件：</p>
+<figure class="highlight plaintext"><div class="table-wrap"><table><tr><td class="code"><pre><span class="line">npm install hexo-deployer-git --save</span><br></pre></td></tr></table></div></figure>
+<p>然后修改博客根目录下 _config.yml 文件末尾的 deploy 部分，修改成如下：</p>
+<figure class="highlight yml"><div class="table-wrap"><table><tr><td class="code"><pre><span class="line"><span class="attr">deploy:</span></span><br><span class="line">  <span class="attr">type:</span> <span class="string">'git'</span></span><br><span class="line">  <span class="attr">repo:</span> <span class="string">https://github.com/你的</span> <span class="string">GitHub</span> <span class="string">名字/你的</span> <span class="string">GitHub</span> <span class="string">名字.github.io.git</span></span><br><span class="line">  <span class="attr">branch:</span> <span class="string">main</span></span><br></pre></td></tr></table></div></figure>
+<p>完成后再输入</p>
+<figure class="highlight plaintext"><div class="table-wrap"><table><tr><td class="code"><pre><span class="line">hexo cl</span><br><span class="line">hexo g</span><br><span class="line">hexo d # 上传至 GitHub</span><br></pre></td></tr></table></div></figure>
+<p>如果没有报错的话，等不了一会你就能看到在 <a href="http://xn--GitHub-on9im33a35qr87d.github.io">你的GitHub名字.github.io</a> 上看到你刚上传的博客模板啦！</p>
+<h2 id="七-博客备份"><a class="markdownIt-Anchor" href="#七-博客备份"></a> 七、博客备份</h2>
+<p>众所周知，机房的电脑管理后硬盘是会被重置的。那除了把博客文件放在 U 盘里外，有没有什么更优雅的办法呢？我这里采用创建新仓库备份源文件的办法。</p>
+<h3 id="1-创建仓库"><a class="markdownIt-Anchor" href="#1-创建仓库"></a> 1. 创建仓库</h3>
+<p>与上文一样点击 GitHub 主页右上角的加号 → New repository：</p>
+<ol>
+<li>Repository name 就随便取一个名字；</li>
+<li>选择 Private，这样你的仓库就是私密的了。</li>
+</ol>
+<p>填好后点击 Create repository 创建。</p>
+<h3 id="2-创建-git"><a class="markdownIt-Anchor" href="#2-创建-git"></a> 2. 创建 git</h3>
+<p>直接将你仓库里的整个 repo 克隆下来（不会命令行的直接下载罢），然后复制其中的 .git 目录 到你博客的根目录下。</p>
+<hr>
+<p>文章持续更新中…</p>
+]]></content>
+      <categories>
+        <category>博客搭建</category>
+      </categories>
+      <tags>
+        <tag>Hexo</tag>
+        <tag>Git</tag>
+        <tag>NodeJS</tag>
+        <tag>博客</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>UVA11437 题解</title>
+    <url>/2024/09/15/UVA11437/</url>
+    <content><![CDATA[<p>这道题的难点在于求  和  之间的面积关系。题目给出了  三个顶点的坐标，我们可以用海伦公式求出它的面积：</p>
+<p></p>
+<p>其中  为三角形三边的长，。</p>
+<p>求  和  之间的面积关系，我们可以用梅涅劳斯定理：如果一直线与  的边  或其延长线分别交于 ，则有：</p>
+<p></p>
+<p>图例：</p>
+<p><img src="/images/UVA11437-menelaus.svg" alt="梅涅劳斯定理示意图"></p>
+<p>对题目中的  使用梅涅劳斯定理，可得 ，则 。</p>
+<p>同理，。</p>
+<p>设 ，由  可得 ，。</p>
+<p>，即 。</p>
+<p>关键的两个问题求完了，代码应该就能很轻松地写出来。只要把  的面积除以  就好了。注意输入是小数，输出不是小数。代码：</p>
+<figure class="highlight cpp"><div class="table-wrap"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">	<span class="type">int</span> t;</span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;t);</span><br><span class="line">	<span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= t; i++)</span><br><span class="line">	{</span><br><span class="line">		<span class="type">double</span> xa, ya, xb, yb, xc, yc;</span><br><span class="line">		<span class="built_in">scanf</span>(<span class="string">"%lf%lf%lf%lf%lf%lf"</span>, &amp;xa, &amp;ya, &amp;xb, &amp;yb, &amp;xc, &amp;yc);</span><br><span class="line">		<span class="type">double</span> x, y, z;</span><br><span class="line">		x = <span class="built_in">sqrt</span>((yb - ya) * (yb - ya) + (xb - xa) * (xb - xa));</span><br><span class="line">		y = <span class="built_in">sqrt</span>((yc - ya) * (yc - ya) + (xc - xa) * (xc - xa));</span><br><span class="line">		z = <span class="built_in">sqrt</span>((yc - yb) * (yc - yb) + (xc - xb) * (xc - xb));</span><br><span class="line">		<span class="type">double</span> s, p;</span><br><span class="line">		p = (x + y + z) / <span class="number">2</span>;</span><br><span class="line">		s = <span class="built_in">sqrt</span>(p * (p - x) * (p - y) * (p - z));</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"%.0lf\n"</span>, s / <span class="number">7</span>);</span><br><span class="line">	}</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">}</span><br><span class="line"></span><br></pre></td></tr></table></div></figure>]]></content>
+      <categories>
+        <category>题解</category>
+      </categories>
+      <tags>
+        <tag>OI</tag>
+        <tag>洛谷</tag>
+        <tag>数学</tag>
+        <tag>C++</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>P10511 题解</title>
     <url>/2024/09/16/P10511/</url>
     <content><![CDATA[<h2 id="思路"><a class="markdownIt-Anchor" href="#思路"></a> 思路</h2>
@@ -74,7 +206,7 @@
 <p>例如，想要求  所在的块编号，只要找到离它最近且大于等于它的  或小于它  即可。注意， 可以和  重合，但  不可以，如果重合的话  号块也可以算作被夹在中间的块了。代码写出来就是 <code>dx = lower_bound(r + 1, r + m + 1, x) - r; </code> 或 <code>dx = lower_bound(l + 1, l + m + 1, x) - l - 1</code>。 所在的编号也是差不多的求法。</p>
 <p>其他小细节在代码注释里。注意取膜哦！</p>
 <h2 id="代码"><a class="markdownIt-Anchor" href="#代码"></a> 代码</h2>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="keyword">using</span> ll = <span class="type">long</span> <span class="type">long</span>;</span><br><span class="line"></span><br><span class="line"><span class="type">const</span> ll M = <span class="number">2e5</span> + <span class="number">100</span>, mod = <span class="number">998244353</span>;</span><br><span class="line">ll n, m, q;</span><br><span class="line">ll l[M], r[M];</span><br><span class="line">ll s[M], qs[M], len[M], b[M];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">    cin &gt;&gt; n &gt;&gt; m &gt;&gt; q;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= m; i++)</span><br><span class="line">    {</span><br><span class="line">        cin &gt;&gt; l[i] &gt;&gt; r[i] &gt;&gt; b[i]; b[i] %= mod;</span><br><span class="line">        len[i] = (r[i] - l[i] + <span class="number">1</span>) % mod;  </span><br><span class="line">        s[i] = (len[i] * b[i]) % mod; </span><br><span class="line">        qs[i] = (s[i] * b[i]) % mod; </span><br><span class="line">        len[i] = (len[i - <span class="number">1</span>] + len[i]) % mod;</span><br><span class="line">        s[i] = (s[i - <span class="number">1</span>] + s[i]) % mod;</span><br><span class="line">        qs[i] = (qs[i - <span class="number">1</span>] + qs[i]) % mod;</span><br><span class="line">    }</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= q; i++)</span><br><span class="line">    {</span><br><span class="line">        <span class="comment">/* 一开始想先把离 x/y 右/左 边最近的 左/右 端点编号求出来的……但是实现起来有点麻烦（ */</span></span><br><span class="line">        </span><br><span class="line">        ll x, y, dx, dy <span class="comment">/* dx 为 x 所在的编号；dy 含义亦然 */</span>, S, QS, ans; cin &gt;&gt; x &gt;&gt; y;</span><br><span class="line">        dx = <span class="built_in">lower_bound</span>(l + <span class="number">1</span>, l + m + <span class="number">1</span>, x) - l - <span class="number">1</span>, <span class="comment">// 也就是 dx = lower_bound(r + 1, r + m + 1, x) - r;</span></span><br><span class="line">        dy = <span class="built_in">lower_bound</span>(r + <span class="number">1</span>, r + m + <span class="number">1</span>, y) - r;</span><br><span class="line">        <span class="keyword">if</span> (dx == dy) { cout &lt;&lt; <span class="number">0</span> &lt;&lt; endl; <span class="keyword">continue</span>; }</span><br><span class="line">        </span><br><span class="line"><span class="comment">//      S = S + (r[dx] - x + 1) * b[dx] + (y - l[dy] + 1) * b[dy];  </span></span><br><span class="line">        S = (r[dx] - x + <span class="number">1</span>) % mod * b[dx] % mod + (y - l[dy] + <span class="number">1</span>) % mod * b[dy] % mod;</span><br><span class="line">        QS = (r[dx] - x + <span class="number">1</span>) % mod * b[dx] % mod * b[dx] % mod + (y - l[dy] + <span class="number">1</span>) % mod* b[dy] % mod * b[dy] % mod;</span><br><span class="line">    </span><br><span class="line">        dx++, dy--; <span class="comment">// 移到里面夹着的整块</span></span><br><span class="line">        <span class="keyword">if</span> (dx &lt;= dy) <span class="comment">// 排除里面没夹着整块的情况</span></span><br><span class="line">        {</span><br><span class="line">            S = (S + s[dy] - s[dx - <span class="number">1</span>] + mod) % mod;</span><br><span class="line">            QS = (QS + qs[dy] - qs[dx - <span class="number">1</span>] + mod) % mod;</span><br><span class="line">        }</span><br><span class="line">        ans = ((y - x + <span class="number">1</span>) % mod * QS % mod - S * S % mod + mod) % mod;</span><br><span class="line">        cout &lt;&lt; (ans + mod) % mod &lt;&lt; endl;</span><br><span class="line">    }</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">}</span><br></pre></td></tr></table></figure>]]></content>
+<figure class="highlight cpp"><div class="table-wrap"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="keyword">using</span> ll = <span class="type">long</span> <span class="type">long</span>;</span><br><span class="line"></span><br><span class="line"><span class="type">const</span> ll M = <span class="number">2e5</span> + <span class="number">100</span>, mod = <span class="number">998244353</span>;</span><br><span class="line">ll n, m, q;</span><br><span class="line">ll l[M], r[M];</span><br><span class="line">ll s[M], qs[M], len[M], b[M];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">    cin &gt;&gt; n &gt;&gt; m &gt;&gt; q;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= m; i++)</span><br><span class="line">    {</span><br><span class="line">        cin &gt;&gt; l[i] &gt;&gt; r[i] &gt;&gt; b[i]; b[i] %= mod;</span><br><span class="line">        len[i] = (r[i] - l[i] + <span class="number">1</span>) % mod;  </span><br><span class="line">        s[i] = (len[i] * b[i]) % mod; </span><br><span class="line">        qs[i] = (s[i] * b[i]) % mod; </span><br><span class="line">        len[i] = (len[i - <span class="number">1</span>] + len[i]) % mod;</span><br><span class="line">        s[i] = (s[i - <span class="number">1</span>] + s[i]) % mod;</span><br><span class="line">        qs[i] = (qs[i - <span class="number">1</span>] + qs[i]) % mod;</span><br><span class="line">    }</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= q; i++)</span><br><span class="line">    {</span><br><span class="line">        <span class="comment">/* 一开始想先把离 x/y 右/左 边最近的 左/右 端点编号求出来的……但是实现起来有点麻烦（ */</span></span><br><span class="line">        </span><br><span class="line">        ll x, y, dx, dy <span class="comment">/* dx 为 x 所在的编号；dy 含义亦然 */</span>, S, QS, ans; cin &gt;&gt; x &gt;&gt; y;</span><br><span class="line">        dx = <span class="built_in">lower_bound</span>(l + <span class="number">1</span>, l + m + <span class="number">1</span>, x) - l - <span class="number">1</span>, <span class="comment">// 也就是 dx = lower_bound(r + 1, r + m + 1, x) - r;</span></span><br><span class="line">        dy = <span class="built_in">lower_bound</span>(r + <span class="number">1</span>, r + m + <span class="number">1</span>, y) - r;</span><br><span class="line">        <span class="keyword">if</span> (dx == dy) { cout &lt;&lt; <span class="number">0</span> &lt;&lt; endl; <span class="keyword">continue</span>; }</span><br><span class="line">        </span><br><span class="line"><span class="comment">//      S = S + (r[dx] - x + 1) * b[dx] + (y - l[dy] + 1) * b[dy];  </span></span><br><span class="line">        S = (r[dx] - x + <span class="number">1</span>) % mod * b[dx] % mod + (y - l[dy] + <span class="number">1</span>) % mod * b[dy] % mod;</span><br><span class="line">        QS = (r[dx] - x + <span class="number">1</span>) % mod * b[dx] % mod * b[dx] % mod + (y - l[dy] + <span class="number">1</span>) % mod* b[dy] % mod * b[dy] % mod;</span><br><span class="line">    </span><br><span class="line">        dx++, dy--; <span class="comment">// 移到里面夹着的整块</span></span><br><span class="line">        <span class="keyword">if</span> (dx &lt;= dy) <span class="comment">// 排除里面没夹着整块的情况</span></span><br><span class="line">        {</span><br><span class="line">            S = (S + s[dy] - s[dx - <span class="number">1</span>] + mod) % mod;</span><br><span class="line">            QS = (QS + qs[dy] - qs[dx - <span class="number">1</span>] + mod) % mod;</span><br><span class="line">        }</span><br><span class="line">        ans = ((y - x + <span class="number">1</span>) % mod * QS % mod - S * S % mod + mod) % mod;</span><br><span class="line">        cout &lt;&lt; (ans + mod) % mod &lt;&lt; endl;</span><br><span class="line">    }</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">}</span><br></pre></td></tr></table></div></figure>]]></content>
       <categories>
         <category>题解</category>
       </categories>
@@ -86,6 +218,99 @@
       </tags>
   </entry>
   <entry>
+    <title>给你的 Windows 更换字体（包括微软雅黑和 Segoe UI！）</title>
+    <url>/2024/09/16/PCFont/</url>
+    <content><![CDATA[<div class="note danger flat"><p>所有字体、<strong>包括系统字体</strong>一定要做好备份！</p>
+</div>
+<p>在网络上经常看到更换电脑字体的教程，可大多教程都解决不了一个问题——更换系统的英文字体。Windows 下某些地方的英文字体使用的是 Segoe UI，个人觉得十分丑陋。这篇文章将以字体 Inter 为例解决这个痛点，并同时介绍替换中文字体的方法。</p>
+<hr>
+<h2 id="一-软件安装"><a class="markdownIt-Anchor" href="#一-软件安装"></a> 一、软件安装</h2>
+<p>我使用的软件是 <a href="https://github.com/GuiWonder/WeiFonts/">WeiFonts</a> 和 <a href="https://www.fishlee.net/soft/SysFontReplacer/">字体替换工具(Font Replace Utility)</a>。前一个软件能够将被替换字体文件的信息写到你要替换的字体上，并把字体打包成 <code>.ttc</code>。后一个软件能够替换掉系统字体。</p>
+<h2 id="二-weifonts-的使用"><a class="markdownIt-Anchor" href="#二-weifonts-的使用"></a> 二、WeiFonts 的使用</h2>
+<p>下载发行包后，打开文件中的 <code>WeiFonts.exe</code> 就差不多会用了。对于 「Windows 中文」 选项卡里的内容我不是很会用，貌似是要先打包成 <code>.ttc</code> 再替换，有点麻烦 <s>（其实是我根本没了解啦）</s>。直接聚焦于「给定字体」选项卡即可。</p>
+<p>先讲讲中文字体：微软雅黑一共有三个字体要替换：<code>msyhl.ttc</code>、<code>msyh.ttc</code>、<code>msyhbd.ttc</code>，分别是 Light, Regular 和 Bold 字重。在「模板字体」一栏直接输入 <code>C:\Windows\Fonts\上述三个字体</code> 即可。（因为如果点右边的选择的话是找不到 Fonts 文件夹的，很奇怪）。<br>
+「输入字体」一栏直接找到你要替换的对应字重的字体的绝对地址即可。如果你的字体文件只有一个字重的话，或者你不在乎有几个字重，每次都用这一个文件即可。「保存为」一栏自定。如果 <code>.otf</code> 出了问题的话，尝试把它转化成 <code>.ttf</code> 文件。AFTools 提供了这一功能。<br>
+下图是使用阿里巴巴普惠体的例子。</p>
+<!-- 配图待补（读者看不到这行注释）
+     原图存在已停服的 picui.cn 图床上，且未被任何网页存档收录，无法找回。
+     补图：重新截图 → 放进 source\images\ → 用下面这行替换掉本注释：
+     ![](/images/你的文件名.png) -->
+<p>英文字体就比较搞了，这时候把字体打包成 <code>.ttc</code> 是比较方便的，但电脑里的 Segoe UI 并没有打包成 <code>.ttc</code>（亦或是我没找到打包或可变字体），所以需要一个一个字重去替换。这里我选择 Inter，一款非常像 SF Pro 的字体。以下是示例：</p>
+<!-- 配图待补（读者看不到这行注释）
+     原图存在已停服的 picui.cn 图床上，且未被任何网页存档收录，无法找回。
+     补图：重新截图 → 放进 source\images\ → 用下面这行替换掉本注释：
+     ![](/images/你的文件名.png) -->
+<p>工作量有点大，最后替换好应该得到了这么些文件：</p>
+<!-- 配图待补（读者看不到这行注释）
+     原图存在已停服的 picui.cn 图床上，且未被任何网页存档收录，无法找回。
+     补图：重新截图 → 放进 source\images\ → 用下面这行替换掉本注释：
+     ![](/images/你的文件名.png) -->
+<div class="note danger flat"><p>替换前一定要注意字重是否对应哦！</p>
+</div>
+<h2 id="三-字体替换工具的使用"><a class="markdownIt-Anchor" href="#三-字体替换工具的使用"></a> 三、字体替换工具的使用</h2>
+<p>这更是一款傻瓜式软件：打开后直接把所有字体拖进去，然后点「开始执行任务」即可。</p>
+<!-- 配图待补（读者看不到这行注释）
+     原图存在已停服的 picui.cn 图床上，且未被任何网页存档收录，无法找回。
+     补图：重新截图 → 放进 source\images\ → 用下面这行替换掉本注释：
+     ![](/images/你的文件名.png) -->
+<p>如果没有备份而想回退到之前的字体，点「还原」并找到自动的备份即可。</p>
+<p>点「开始执行任务」后会提醒你有多少个字体替换成功，然后自动重启。如果有不成功的就多替换几次。</p>
+<hr>
+<p>自此，你的电脑就有了崭新的中英文字体啦！可喜可贺！</p>
+<!-- 配图待补（读者看不到这行注释）
+     原图存在已停服的 picui.cn 图床上，且未被任何网页存档收录，无法找回。
+     补图：重新截图 → 放进 source\images\ → 用下面这行替换掉本注释：
+     ![](/images/你的文件名.png) -->
+<p>看我博客文件的一角，是不是也有苹果的味道了呢（笑）</p>
+<p>用这个方法，还可以替换掉系统的「黑体」「宋体」之类。不过我是不推荐的。</p>
+]]></content>
+      <categories>
+        <category>指北</category>
+      </categories>
+      <tags>
+        <tag>字体</tag>
+        <tag>美化</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>永嘉中学计算机社活动内容设想报告</title>
+    <url>/2024/09/15/YJZXCCReport/</url>
+    <content><![CDATA[<h1 id="永嘉中学计算机社活动内容设想报告"><a class="markdownIt-Anchor" href="#永嘉中学计算机社活动内容设想报告"></a> 永嘉中学计算机社活动内容设想报告</h1>
+<h2 id="一-活动背景"><a class="markdownIt-Anchor" href="#一-活动背景"></a> 一、活动背景</h2>
+<p>为了提升社员的计算机使用水平、激发社员对研究计算机的兴趣爱好、提高社员计算机技术应用能力与实践水平、增强社员技术学科素养，计算机社将在本学期计划组织一系列有趣且富有挑战性的课程与活动。这些活动旨在为社员提供实践经验、促进知识交流，并激发他们的创新思维。</p>
+<h2 id="二-活动目标"><a class="markdownIt-Anchor" href="#二-活动目标"></a> 二、活动目标</h2>
+<ol>
+<li><strong>提升实践水平</strong>：通过实践项目和技术讲座，提升社员的计算机知识和编程技能。</li>
+<li><strong>促进合作沟通</strong>：通过团队活动与讨论，增强社员之间的合作与沟通能力。</li>
+<li><strong>增强学科素养</strong>：授课内容涉及课内又远超课内，提升社员的编程意识与学科素养。</li>
+</ol>
+<h2 id="三-活动内容"><a class="markdownIt-Anchor" href="#三-活动内容"></a> 三、活动内容：</h2>
+<ul>
+<li>Markdown 基本语法教学</li>
+<li>Python 基本语法教学以及怕爬虫入门</li>
+<li>Github 的基本使用以及博客托管</li>
+<li>计算机常识普及</li>
+<li>……</li>
+</ul>
+<h2 id="四-活动安排"><a class="markdownIt-Anchor" href="#四-活动安排"></a> 四、活动安排</h2>
+<h3 id="单节课时时间安排"><a class="markdownIt-Anchor" href="#单节课时时间安排"></a> 单节课时时间安排</h3>
+<p>将使用 20 分钟时间传递相关知识，并给社员们 20 分钟左右的实践时间。</p>
+<h3 id="课时活动内容安排"><a class="markdownIt-Anchor" href="#课时活动内容安排"></a> 课时活动内容安排</h3>
+<p>采用 2 节讲授课 +1 节实践课的循环。授课与实践内容以活动内容为准。</p>
+<h3 id="其他安排"><a class="markdownIt-Anchor" href="#其他安排"></a> 其他安排</h3>
+<p>将不定时举行小组项目设计活动，并参与社内评比。</p>
+<h2 id="五-结语"><a class="markdownIt-Anchor" href="#五-结语"></a> 五、结语</h2>
+<p>本学期活动旨在通过丰富的内容和多样的形式，为计算机社成员提供全面的成长机会。希望通过这些活动，不仅能够提升技术能力，还能增强社员之间的合作与沟通，为社团的发展注入新的活力。</p>
+]]></content>
+      <categories>
+        <category>社团</category>
+      </categories>
+      <tags>
+        <tag>永中</tag>
+        <tag>计算机社</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>十二重计数法</title>
     <url>/2024/09/15/P5824/</url>
     <content><![CDATA[<hr>
@@ -94,7 +319,7 @@
 <p>我们教练说：初赛时排列组合的题目不会做就大力递推。虽然 CSP 初赛中数学题目越来越简单了，但这并不妨碍我仍然害怕着排练组合的题目。于是他让我来做这道题，并不是码，而是把递推式列出来。这方法确实很有用——于是我就写了这篇文章。</p>
 <p>这篇文章是为我自己而写，也是为不会组合数学的人写的。所以很多理所当然的过程都写了上去，请多包含。</p>
 <p>另附一些符号约定：</p>
-<table>
+<div class="table-wrap"><table>
 <thead>
 <tr>
 <th style="text-align:center">符号</th>
@@ -123,7 +348,7 @@
 <td style="text-align:center"></td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <hr>
 <h2 id="p5824-十二重计数法"><a class="markdownIt-Anchor" href="#p5824-十二重计数法"></a> <a href="https://www.luogu.com.cn/problem/P5824">P5824 十二重计数法</a></h2>
 <p>有  个球和  个盒子，要全部装进盒子里。<br>
@@ -252,193 +477,6 @@
       </tags>
   </entry>
   <entry>
-    <title>给你的 Windows 更换字体（包括微软雅黑和 Segoe UI！）</title>
-    <url>/2024/09/16/PCFont/</url>
-    <content><![CDATA[<div class="note danger flat"><p>所有字体、<strong>包括系统字体</strong>一定要做好备份！</p>
-</div>
-<p>在网络上经常看到更换电脑字体的教程，可大多教程都解决不了一个问题——更换系统的英文字体。Windows 下某些地方的英文字体使用的是 Segoe UI，个人觉得十分丑陋。这篇文章将以字体 Inter 为例解决这个痛点，并同时介绍替换中文字体的方法。</p>
-<hr>
-<h2 id="一-软件安装"><a class="markdownIt-Anchor" href="#一-软件安装"></a> 一、软件安装</h2>
-<p>我使用的软件是 <a href="https://github.com/GuiWonder/WeiFonts/">WeiFonts</a> 和 <a href="https://www.fishlee.net/soft/SysFontReplacer/">字体替换工具(Font Replace Utility)</a>。前一个软件能够将被替换字体文件的信息写到你要替换的字体上，并把字体打包成 <code>.ttc</code>。后一个软件能够替换掉系统字体。</p>
-<h2 id="二-weifonts-的使用"><a class="markdownIt-Anchor" href="#二-weifonts-的使用"></a> 二、WeiFonts 的使用</h2>
-<p>下载发行包后，打开文件中的 <code>WeiFonts.exe</code> 就差不多会用了。对于 「Windows 中文」 选项卡里的内容我不是很会用，貌似是要先打包成 <code>.ttc</code> 再替换，有点麻烦 <s>（其实是我根本没了解啦）</s>。直接聚焦于「给定字体」选项卡即可。</p>
-<p>先讲讲中文字体：微软雅黑一共有三个字体要替换：<code>msyhl.ttc</code>、<code>msyh.ttc</code>、<code>msyhbd.ttc</code>，分别是 Light, Regular 和 Bold 字重。在「模板字体」一栏直接输入 <code>C:\Windows\Fonts\上述三个字体</code> 即可。（因为如果点右边的选择的话是找不到 Fonts 文件夹的，很奇怪）。<br>
-「输入字体」一栏直接找到你要替换的对应字重的字体的绝对地址即可。如果你的字体文件只有一个字重的话，或者你不在乎有几个字重，每次都用这一个文件即可。「保存为」一栏自定。如果 <code>.otf</code> 出了问题的话，尝试把它转化成 <code>.ttf</code> 文件。AFTools 提供了这一功能。<br>
-下图是使用阿里巴巴普惠体的例子。</p>
-<!-- 配图待补（读者看不到这行注释）
-     原图存在已停服的 picui.cn 图床上，且未被任何网页存档收录，无法找回。
-     补图：重新截图 → 放进 source\images\ → 用下面这行替换掉本注释：
-     ![](/images/你的文件名.png) -->
-<p>英文字体就比较搞了，这时候把字体打包成 <code>.ttc</code> 是比较方便的，但电脑里的 Segoe UI 并没有打包成 <code>.ttc</code>（亦或是我没找到打包或可变字体），所以需要一个一个字重去替换。这里我选择 Inter，一款非常像 SF Pro 的字体。以下是示例：</p>
-<!-- 配图待补（读者看不到这行注释）
-     原图存在已停服的 picui.cn 图床上，且未被任何网页存档收录，无法找回。
-     补图：重新截图 → 放进 source\images\ → 用下面这行替换掉本注释：
-     ![](/images/你的文件名.png) -->
-<p>工作量有点大，最后替换好应该得到了这么些文件：</p>
-<!-- 配图待补（读者看不到这行注释）
-     原图存在已停服的 picui.cn 图床上，且未被任何网页存档收录，无法找回。
-     补图：重新截图 → 放进 source\images\ → 用下面这行替换掉本注释：
-     ![](/images/你的文件名.png) -->
-<div class="note danger flat"><p>替换前一定要注意字重是否对应哦！</p>
-</div>
-<h2 id="三-字体替换工具的使用"><a class="markdownIt-Anchor" href="#三-字体替换工具的使用"></a> 三、字体替换工具的使用</h2>
-<p>这更是一款傻瓜式软件：打开后直接把所有字体拖进去，然后点「开始执行任务」即可。</p>
-<!-- 配图待补（读者看不到这行注释）
-     原图存在已停服的 picui.cn 图床上，且未被任何网页存档收录，无法找回。
-     补图：重新截图 → 放进 source\images\ → 用下面这行替换掉本注释：
-     ![](/images/你的文件名.png) -->
-<p>如果没有备份而想回退到之前的字体，点「还原」并找到自动的备份即可。</p>
-<p>点「开始执行任务」后会提醒你有多少个字体替换成功，然后自动重启。如果有不成功的就多替换几次。</p>
-<hr>
-<p>自此，你的电脑就有了崭新的中英文字体啦！可喜可贺！</p>
-<!-- 配图待补（读者看不到这行注释）
-     原图存在已停服的 picui.cn 图床上，且未被任何网页存档收录，无法找回。
-     补图：重新截图 → 放进 source\images\ → 用下面这行替换掉本注释：
-     ![](/images/你的文件名.png) -->
-<p>看我博客文件的一角，是不是也有苹果的味道了呢（笑）</p>
-<p>用这个方法，还可以替换掉系统的「黑体」「宋体」之类。不过我是不推荐的。</p>
-]]></content>
-      <categories>
-        <category>指北</category>
-      </categories>
-      <tags>
-        <tag>字体</tag>
-        <tag>美化</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Windows 下使用 Hexo + GitHub Pages 搭建自己的博客指北</title>
-    <url>/2024/09/16/HexoI/</url>
-    <content><![CDATA[<h2 id="〇-开始之前"><a class="markdownIt-Anchor" href="#〇-开始之前"></a> 〇、开始之前</h2>
-<div class="note primary flat"><p>这篇文章可能用于计算机社博客搭建教学。</p>
-</div>
-<p>在开始之前，你需要有：</p>
-<ul>
-<li>一个健康的搜索引擎（遇到问题自己搜啊喂）</li>
-<li>一个 GitHub 账号</li>
-</ul>
-<div class="note primary flat"><p>如果上不去 Github 可以考虑尝试 <a href="https://github.com/WangGithubUser/FastGithub">FastGithub</a> 或者 <a href="https://steampp.net/accelerate">Watt Toolkit</a>……<s>哦好像 Windows 7 都用不了，那我在想想办法罢。</s></p>
-</div>
-<h2 id="一-安装-git-和-nodejs"><a class="markdownIt-Anchor" href="#一-安装-git-和-nodejs"></a> 一、安装 Git 和 Node.js</h2>
-<p>Git 在 <a href="https://git-scm.com/downloads">这里</a> 找到自己的版本并安装。Node.js 在 <a href="https://nodejs.org">这里</a> 找到自己电脑对应的版本并安装。</p>
-<div class="note primary flat"><p>下载速度太慢？可以到这里找找！<br>
-Git: <a href="https://github.com/waylau/git-for-win">https://github.com/waylau/git-for-win</a></p>
-</div>
-<div class="note primary flat"><p>使用 Node.js 官方安装程序时，请确保勾选 Add to PATH 选项（默认已勾选）</p>
-</div>
-<p>安装好后，在 cmd / PowerShell 中分别输入 <code>git -v</code> <code>npm -v</code> <code>node -v</code>，若没有报错且返回的是版本号则安装成功。</p>
-<p><img src="/images/hexo-i-1.png" alt="如图所示。"></p>
-<h2 id="二-安装-hexo"><a class="markdownIt-Anchor" href="#二-安装-hexo"></a> 二、安装 Hexo</h2>
-<p>官网上给出的命令是 <code>npm install -g hexo-cli</code>，但我们<s>出于众所周知的网络原因</s>而不用，而是使用阿里的镜像源：</p>
-<figure class="highlight cmd"><table><tr><td class="code"><pre><span class="line">npm install -g cnpm --registry=https://registry.npmmirror.com</span><br><span class="line">cnpm install -g hexo-cli</span><br></pre></td></tr></table></figure>
-<p>这样就成功安装了 Hexo。</p>
-<p>如果遇到形如 <code>Install fail! Error: EISDIR: illegal operation on a directory, symlink…</code> 的报错，那请尝试运行</p>
-<figure class="highlight cmd"><table><tr><td class="code"><pre><span class="line">corepack enable</span><br></pre></td></tr></table></figure>
-<p>然后将 <code>npm</code> 换成 <code>pnpm</code>。</p>
-<div class="note primary flat"><p>在网上找到开头为 <code>npm</code> 的命令，将其替换成 <code>cnpm</code> 或 <code>pnpm</code> 哦！<br>
-<s>遇到问题了可以 <code>cnpm</code> 或 <code>pnpm</code> 换着试，没准就成功了呢</s></p>
-</div>
-<h2 id="三-初始化-hexo-项目"><a class="markdownIt-Anchor" href="#三-初始化-hexo-项目"></a> 三、初始化 Hexo 项目</h2>
-<p>找一个心仪的位置，然后右键 → <code>Git Bash Here</code>。这时候出现的是 Git 命令窗口。输入</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">hexo init 随便取一个名字</span><br></pre></td></tr></table></figure>
-<p>用来创建 Hexo 项目文件夹。这时发现卡住了，按 <code>Crtl + C</code> 取消，发现这个位置里已经有了一个以你刚才取的名字为名字的文件夹，里面已经有了基本的文件。</p>
-<p><strong>这时候可以选择 <code>cd 你刚才取的名字</code> 进入文件夹进行下一步操作；也可以直接点进这个文件夹，然后右键 → <code>Git Bash Here</code>。</strong></p>
-<p><strong>确定好自己已经在刚刚创建的文件夹后</strong>，输入</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">cnpm install</span><br></pre></td></tr></table></figure>
-<p>稍等一会，Hexo 就已经初始化好啦！</p>
-<div class="note primary flat"><p>之后的命令默认在命令窗口中输入。<br>
-按 <code>Crtl + C</code> 可以终止一个命令哦！</p>
-</div>
-<p>在终端中分别输入</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># 这个井号是注释的意思，别把这个也复制上去！！</span><br><span class="line">hexo cl # 清理缓存</span><br><span class="line">hexo g # 生成静态文件</span><br><span class="line">hexo s # 启动本地服务器进行预览：在浏览器中访问http://localhost:4000查看效果。</span><br></pre></td></tr></table></figure>
-<p>即可在 <a href="http://localhost:4000/">http://localhost:4000/</a> 中预览啦！</p>
-<div class="note danger flat"><p>如果要在本地预览博客的话，每次修改博客文件后，都要执行这三条命令哦！</p>
-</div>
-<h2 id="四-连接-github"><a class="markdownIt-Anchor" href="#四-连接-github"></a> 四、连接 Github</h2>
-<p>注册好 Github 后，再次右键 → <code>Git Bash Here</code>，输入：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git config --global user.name "你的 GitHub 用户名"</span><br><span class="line">git config --global user.email "你的 GitHub 邮箱"</span><br></pre></td></tr></table></figure>
-<p>创建 SSH 密匙：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">ssh-keygen -t rsa -C "你的 GitHub 邮箱"</span><br></pre></td></tr></table></figure>
-<p>然后一直回车即可。</p>
-<p>这时候进入 <code>C:\Users\用户名\.ssh</code> 目录 <strong>（要勾选显示“隐藏的项目”）</strong>，用记事本 / VScode 打开公钥 id_rsa.pub 文件并复制里面的内容。登陆 GitHub，进入 Settings 页面，选择左边栏的 SSH and GPG keys，点击 New SSH key<a href="https://github.com/settings/keys">（嫌麻烦的就直接点这吧）</a>。Title 随便取个名字，粘贴刚才复制的 id_rsa.pub 内容到 Key 中，点击 Add SSH key 完成添加。</p>
-<!-- 配图待补（读者看不到这行注释）
-     原图存在已停服的 picui.cn 图床上，且未被任何网页存档收录，无法找回。
-     补图：重新截图 → 放进 source\images\ → 用下面这行替换掉本注释：
-     ![](/images/你的文件名.png) -->
-<p>输入</p>
-<figure class="highlight cmd"><table><tr><td class="code"><pre><span class="line">ssh -T git@github.com</span><br></pre></td></tr></table></figure>
-<p>后，出现 <code>Are you sure…</code>，输入 <code>yes</code> 回车确认。显示 <code>Hi xxx! You've successfully……</code> 即连接成功。</p>
-<h2 id="五-创建仓库"><a class="markdownIt-Anchor" href="#五-创建仓库"></a> 五、创建仓库</h2>
-<p>点击 GitHub 主页右上角的加号 → New repository：</p>
-<ol>
-<li>Repository name 中输入 <strong>你的 GitHub 用户名</strong>.github.io</li>
-<li>勾选 “Initialize this repository with a README”</li>
-<li>选填 Description</li>
-</ol>
-<p>填好后点击 Create repository 创建。</p>
-<!-- 配图待补（读者看不到这行注释）
-     原图存在已停服的 picui.cn 图床上，且未被任何网页存档收录，无法找回。
-     补图：重新截图 → 放进 source\images\ → 用下面这行替换掉本注释：
-     ![](/images/你的文件名.png) -->
-<h2 id="六-上传至-github"><a class="markdownIt-Anchor" href="#六-上传至-github"></a> 六、上传至 GitHub</h2>
-<p>安装部署插件：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">npm install hexo-deployer-git --save</span><br></pre></td></tr></table></figure>
-<p>然后修改博客根目录下 _config.yml 文件末尾的 deploy 部分，修改成如下：</p>
-<figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="attr">deploy:</span></span><br><span class="line">  <span class="attr">type:</span> <span class="string">'git'</span></span><br><span class="line">  <span class="attr">repo:</span> <span class="string">https://github.com/你的</span> <span class="string">GitHub</span> <span class="string">名字/你的</span> <span class="string">GitHub</span> <span class="string">名字.github.io.git</span></span><br><span class="line">  <span class="attr">branch:</span> <span class="string">main</span></span><br></pre></td></tr></table></figure>
-<p>完成后再输入</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">hexo cl</span><br><span class="line">hexo g</span><br><span class="line">hexo d # 上传至 GitHub</span><br></pre></td></tr></table></figure>
-<p>如果没有报错的话，等不了一会你就能看到在 <a href="http://xn--GitHub-on9im33a35qr87d.github.io">你的GitHub名字.github.io</a> 上看到你刚上传的博客模板啦！</p>
-<h2 id="七-博客备份"><a class="markdownIt-Anchor" href="#七-博客备份"></a> 七、博客备份</h2>
-<p>众所周知，机房的电脑管理后硬盘是会被重置的。那除了把博客文件放在 U 盘里外，有没有什么更优雅的办法呢？我这里采用创建新仓库备份源文件的办法。</p>
-<h3 id="1-创建仓库"><a class="markdownIt-Anchor" href="#1-创建仓库"></a> 1. 创建仓库</h3>
-<p>与上文一样点击 GitHub 主页右上角的加号 → New repository：</p>
-<ol>
-<li>Repository name 就随便取一个名字；</li>
-<li>选择 Private，这样你的仓库就是私密的了。</li>
-</ol>
-<p>填好后点击 Create repository 创建。</p>
-<h3 id="2-创建-git"><a class="markdownIt-Anchor" href="#2-创建-git"></a> 2. 创建 git</h3>
-<p>直接将你仓库里的整个 repo 克隆下来（不会命令行的直接下载罢），然后复制其中的 .git 目录 到你博客的根目录下。</p>
-<hr>
-<p>文章持续更新中…</p>
-]]></content>
-      <categories>
-        <category>博客搭建</category>
-      </categories>
-      <tags>
-        <tag>Hexo</tag>
-        <tag>Git</tag>
-        <tag>NodeJS</tag>
-        <tag>博客</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>UVA11437 题解</title>
-    <url>/2024/09/15/UVA11437/</url>
-    <content><![CDATA[<p>这道题的难点在于求  和  之间的面积关系。题目给出了  三个顶点的坐标，我们可以用海伦公式求出它的面积：</p>
-<p></p>
-<p>其中  为三角形三边的长，。</p>
-<p>求  和  之间的面积关系，我们可以用梅涅劳斯定理：如果一直线与  的边  或其延长线分别交于 ，则有：</p>
-<p></p>
-<p>图例：</p>
-<p><img src="/images/UVA11437-menelaus.svg" alt="梅涅劳斯定理示意图"></p>
-<p>对题目中的  使用梅涅劳斯定理，可得 ，则 。</p>
-<p>同理，。</p>
-<p>设 ，由  可得 ，。</p>
-<p>，即 。</p>
-<p>关键的两个问题求完了，代码应该就能很轻松地写出来。只要把  的面积除以  就好了。注意输入是小数，输出不是小数。代码：</p>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">	<span class="type">int</span> t;</span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;t);</span><br><span class="line">	<span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= t; i++)</span><br><span class="line">	{</span><br><span class="line">		<span class="type">double</span> xa, ya, xb, yb, xc, yc;</span><br><span class="line">		<span class="built_in">scanf</span>(<span class="string">"%lf%lf%lf%lf%lf%lf"</span>, &amp;xa, &amp;ya, &amp;xb, &amp;yb, &amp;xc, &amp;yc);</span><br><span class="line">		<span class="type">double</span> x, y, z;</span><br><span class="line">		x = <span class="built_in">sqrt</span>((yb - ya) * (yb - ya) + (xb - xa) * (xb - xa));</span><br><span class="line">		y = <span class="built_in">sqrt</span>((yc - ya) * (yc - ya) + (xc - xa) * (xc - xa));</span><br><span class="line">		z = <span class="built_in">sqrt</span>((yc - yb) * (yc - yb) + (xc - xb) * (xc - xb));</span><br><span class="line">		<span class="type">double</span> s, p;</span><br><span class="line">		p = (x + y + z) / <span class="number">2</span>;</span><br><span class="line">		s = <span class="built_in">sqrt</span>(p * (p - x) * (p - y) * (p - z));</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"%.0lf\n"</span>, s / <span class="number">7</span>);</span><br><span class="line">	}</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">}</span><br><span class="line"></span><br></pre></td></tr></table></figure>]]></content>
-      <categories>
-        <category>题解</category>
-      </categories>
-      <tags>
-        <tag>OI</tag>
-        <tag>洛谷</tag>
-        <tag>数学</tag>
-        <tag>C++</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>日記</title>
     <url>/2025/01/01/nikki/</url>
     <content><![CDATA[<div class="hbe hbe-container" id="hexo-blog-encrypt" data-wpm="Oh, this is an invalid password. Check and try again, please." data-whm="OOPS, these decrypted content may changed, but you can still have a look.">
@@ -484,7 +522,7 @@ Git: <a href="https://github.com/waylau/git-for-win">https://github.com/waylau/g
 <h1 id="2-微编写两个小爬虫"><a class="markdownIt-Anchor" href="#2-微编写两个小爬虫"></a> 2. 微编写两个小爬虫</h1>
 <p>在这之前我先介绍一下 Python 的文件读写操作。</p>
 <p>Python 使用 <code>open(dir, mode)</code> 读取文件。其中，<code>dir</code> 为一个文件的绝对路径或相对路径的字符串，<code>mode</code> 决定了打开文件的模式。如果不写这个参数，那默认为只读（<code>r</code>）。下面列出一些常见的 <code>mode</code> 参数：</p>
-<table>
+<div class="table-wrap"><table>
 <thead>
 <tr>
 <th><code>mode</code> 参数</th>
@@ -541,13 +579,13 @@ Git: <a href="https://github.com/waylau/git-for-win">https://github.com/waylau/g
 <td>以二进制格式打开一个文件用于<strong>追加</strong>。如果该文件已存在，文件指针将会放在文件的结尾。如果该文件不存在，创建新文件用于读写。</td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <p>简单来说，<code>r</code> 读文件，<code>w</code> 写文件，<code>b</code> 用二进制格式打开，可以打开非文本文件。相比于 <code>w</code>，<code>a</code> 为追加，在被多次调用时不会覆盖文件原来的内容。<code>+</code> 可以「拓展功能」，由原来单一的读、写变成同时可读写模式。<strong>但 <code>r+</code> 得保证文件存在。</strong></p>
 <p><code>open()</code> 函数会返回一个 <code>file</code> 对象，而这种对象有个 <code>read()</code> 方法。调用后，会读取文件里的内容（字节），并以字符串的形式返回。比方说，我们让 <code>f = open("mnsj.txt", "r")</code>，如果执行 <code>print(f.read())</code>，那就会输出 <code>mnsj.txt</code> 中的内容了。</p>
 <p>读完文件后需要关闭文件，代码为 <code>f.close()</code>。非常多的情况下我们会忘记这一操作，所以另一种方法就是使用 <code>with</code>。对比一下两种写法：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 第一种</span></span><br><span class="line">f = <span class="built_in">open</span>(<span class="string">"mnsj.txt"</span>, <span class="string">"r"</span>)</span><br><span class="line"><span class="built_in">print</span>(f.read())</span><br><span class="line">f.close()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 第二种</span></span><br><span class="line"><span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">"mnsj.txt"</span>, <span class="string">"r"</span>) <span class="keyword">as</span> f:</span><br><span class="line">    <span class="built_in">print</span>(f.read())</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><div class="table-wrap"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 第一种</span></span><br><span class="line">f = <span class="built_in">open</span>(<span class="string">"mnsj.txt"</span>, <span class="string">"r"</span>)</span><br><span class="line"><span class="built_in">print</span>(f.read())</span><br><span class="line">f.close()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 第二种</span></span><br><span class="line"><span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">"mnsj.txt"</span>, <span class="string">"r"</span>) <span class="keyword">as</span> f:</span><br><span class="line">    <span class="built_in">print</span>(f.read())</span><br></pre></td></tr></table></div></figure>
 <p>推荐使用第二种写法。下面列出了 <code>file</code> 对象的常用方法：</p>
-<table>
+<div class="table-wrap"><table>
 <thead>
 <tr>
 <th><code>file</code> 对象的方法</th>
@@ -568,14 +606,14 @@ Git: <a href="https://github.com/waylau/git-for-win">https://github.com/waylau/g
 <td>将 <code>content</code> 写入到文件中。</td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <p>下面我们开始写两个小爬虫。</p>
 <hr>
 <p>我们使用 Python 来写我们的爬虫代码。我们爬取 <a href="https://www.mini1.cn/">迷你世界官网</a> 的源代码：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> requests <span class="comment"># 引入 requsets 库</span></span><br><span class="line">response = requests.get(<span class="string">'https://www.mini1.cn/'</span>) <span class="comment"># get 请求</span></span><br><span class="line">response.encoding = <span class="string">'utf-8'</span> <span class="comment"># 用 utf-8 解码</span></span><br><span class="line"><span class="built_in">print</span>(response.text) <span class="comment"># 输出</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><div class="table-wrap"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> requests <span class="comment"># 引入 requsets 库</span></span><br><span class="line">response = requests.get(<span class="string">'https://www.mini1.cn/'</span>) <span class="comment"># get 请求</span></span><br><span class="line">response.encoding = <span class="string">'utf-8'</span> <span class="comment"># 用 utf-8 解码</span></span><br><span class="line"><span class="built_in">print</span>(response.text) <span class="comment"># 输出</span></span><br></pre></td></tr></table></div></figure>
 <p>成功输出了迷你世界官网的 HTML 代码！有同学会发现，换成某些网站可能会报错。出现这种情况的原因、解决方法与 Request 库的进一步了解我们之后再聊。</p>
 <p>接下来是下载图片的爬虫。在网上冲浪时，经常能碰见能够生成随机壁纸的网站以及 API。我们来写一个爬虫把图片下载下来。</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line">response = requests.get(<span class="string">'https://www.dmoe.cc/random.php'</span>) <span class="comment"># 调用某随机图片 API 下载图片</span></span><br><span class="line"><span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">"plmm.jpg"</span>, <span class="string">"wb+"</span>) <span class="keyword">as</span> f: <span class="comment"># 使用 wb+ 来读写图片</span></span><br><span class="line">    f.write(response.content) <span class="comment"># 写入到 plmm.jpg 中</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><div class="table-wrap"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line">response = requests.get(<span class="string">'https://www.dmoe.cc/random.php'</span>) <span class="comment"># 调用某随机图片 API 下载图片</span></span><br><span class="line"><span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">"plmm.jpg"</span>, <span class="string">"wb+"</span>) <span class="keyword">as</span> f: <span class="comment"># 使用 wb+ 来读写图片</span></span><br><span class="line">    f.write(response.content) <span class="comment"># 写入到 plmm.jpg 中</span></span><br></pre></td></tr></table></div></figure>
 <p>发现同文件夹下出现了 <code>plmm.jpg</code> 文件。真的有漂亮美眉！</p>
 <p>至此，我们对爬虫已经有了初步的了解。下次活动我们会介绍 HTTP 协议和爬虫发送请求的具体过程，虽然非常枯燥，但是非常重要，请一定要认真听。</p>
 <h1 id="3-web-请求过程分析与-https-协议"><a class="markdownIt-Anchor" href="#3-web-请求过程分析与-https-协议"></a> 3. Web 请求过程分析与 HTTPS 协议</h1>
@@ -617,13 +655,13 @@ Git: <a href="https://github.com/waylau/git-for-win">https://github.com/waylau/g
 <h1 id="4-requests-库入门"><a class="markdownIt-Anchor" href="#4-requests-库入门"></a> 4. <code>requests</code> 库入门</h1>
 <h2 id="41-基本方法与函数"><a class="markdownIt-Anchor" href="#41-基本方法与函数"></a> 4.1 基本方法与函数</h2>
 <p>在第二节我们展示了这样一段代码：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> requests <span class="comment"># 引入 requsets 库</span></span><br><span class="line">response = requests.get(<span class="string">'https://www.mini1.cn/'</span>) <span class="comment"># get 请求</span></span><br><span class="line">response.encoding = <span class="string">'utf-8'</span> <span class="comment"># 用 utf-8 解码</span></span><br><span class="line"><span class="built_in">print</span>(response.text) <span class="comment"># 输出</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><div class="table-wrap"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> requests <span class="comment"># 引入 requsets 库</span></span><br><span class="line">response = requests.get(<span class="string">'https://www.mini1.cn/'</span>) <span class="comment"># get 请求</span></span><br><span class="line">response.encoding = <span class="string">'utf-8'</span> <span class="comment"># 用 utf-8 解码</span></span><br><span class="line"><span class="built_in">print</span>(response.text) <span class="comment"># 输出</span></span><br></pre></td></tr></table></div></figure>
 <p>但有些人可能会发现如果把网址换成其他的会出现「404」或「异常访问请求」的提示。这又是咋回事呢？别急，在这之前让我们先来了解 <code>requests</code> 的一些基本用法。</p>
 <p>使用 <code>requests</code> 库前得先安装一次这个库。直接在命令行（cmd）中输入 <code>pip install requests</code> 即可。如果网速太慢，可使用<a href="https://mirrors.tuna.tsinghua.edu.cn/help/pypi/">清华源</a>。输入 <code>pip install -i https://mirrors.tuna.tsinghua.edu.cn/pypi/web/simple requests</code> 即可。</p>
 <p>在我们导入 <code>requests</code> 库（<code>import requests</code>）后，我们可以用 <code>requests</code> 库下的方法 <strong><code>get</code></strong> 获得一个 <code>response</code> 对象：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> requests <span class="comment"># 导入 requests 包</span></span><br><span class="line">re = requests.get(<span class="string">'https://www.mini1.cn/'</span>)</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><div class="table-wrap"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> requests <span class="comment"># 导入 requests 包</span></span><br><span class="line">re = requests.get(<span class="string">'https://www.mini1.cn/'</span>)</span><br></pre></td></tr></table></div></figure>
 <p>该对象包含了具体的响应信息，如状态码、响应头、响应内容等。节选部分如下表格：</p>
-<table>
+<div class="table-wrap"><table>
 <thead>
 <tr>
 <th>代码</th>
@@ -656,9 +694,9 @@ Git: <a href="https://github.com/waylau/git-for-win">https://github.com/waylau/g
 <td>检查 <code>status_code</code> 的值，如果小于 400，则返回 <code>True</code>，如果不小于 400，则返回 <code>False</code></td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <p>emm……不像人话。那我们来具体输出一下，看看这都是什么东西。</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> requests <span class="comment"># 导入 requests 包</span></span><br><span class="line"></span><br><span class="line">re = requests.get(<span class="string">'https://www.mini1.cn/'</span>)</span><br><span class="line"><span class="built_in">print</span>(re)</span><br><span class="line"><span class="built_in">print</span>(re.status_code)</span><br><span class="line"><span class="built_in">print</span>(re.content)</span><br><span class="line"><span class="built_in">print</span>(re.text)</span><br><span class="line"><span class="built_in">print</span>(re.apparent_encoding)</span><br><span class="line"><span class="built_in">print</span>(re.encoding)</span><br><span class="line"><span class="built_in">print</span>(re.ok)</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><div class="table-wrap"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> requests <span class="comment"># 导入 requests 包</span></span><br><span class="line"></span><br><span class="line">re = requests.get(<span class="string">'https://www.mini1.cn/'</span>)</span><br><span class="line"><span class="built_in">print</span>(re)</span><br><span class="line"><span class="built_in">print</span>(re.status_code)</span><br><span class="line"><span class="built_in">print</span>(re.content)</span><br><span class="line"><span class="built_in">print</span>(re.text)</span><br><span class="line"><span class="built_in">print</span>(re.apparent_encoding)</span><br><span class="line"><span class="built_in">print</span>(re.encoding)</span><br><span class="line"><span class="built_in">print</span>(re.ok)</span><br></pre></td></tr></table></div></figure>
 <p>输出来的内容是这样的：<br>
 <img src="/images/4.1.1.png" alt="4.1.1"></p>
 <p>我们一块一块解释。<br>
@@ -669,67 +707,29 @@ Git: <a href="https://github.com/waylau/git-for-win">https://github.com/waylau/g
 <p>现在，你能看懂之前展示的两段代码了吗？</p>
 <h2 id="42-为啥有404或异常访问请求"><a class="markdownIt-Anchor" href="#42-为啥有404或异常访问请求"></a> 4.2 为啥有「404」或「异常访问请求」？</h2>
 <p>我们还是没有解决这个问题！如爬取知乎首页：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"></span><br><span class="line">response = requests.get(<span class="string">'https://www.zhihu.com/'</span>)</span><br><span class="line">response.encoding = <span class="string">'utf-8'</span></span><br><span class="line"><span class="built_in">print</span>(response.status_code) <span class="comment"># 输出状态码</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><div class="table-wrap"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"></span><br><span class="line">response = requests.get(<span class="string">'https://www.zhihu.com/'</span>)</span><br><span class="line">response.encoding = <span class="string">'utf-8'</span></span><br><span class="line"><span class="built_in">print</span>(response.status_code) <span class="comment"># 输出状态码</span></span><br></pre></td></tr></table></div></figure>
 <p>怎么返回了 403？这是<a href="https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Status#%E5%AE%A2%E6%88%B7%E7%AB%AF%E9%94%99%E8%AF%AF%E5%93%8D%E5%BA%94">「服务器拒绝提供请求的资源」</a>的意思！这该如何解决？</p>
 <p>上次说到，请求头（header）中的 User-Agent(UA) 表明了客户端的相关信息。服务器就是通过这个判断你是人还是爬虫。这已是最简单的反爬机制。所以说，我们要通过修改 UA 来把自己的浏览器「伪装成人」。</p>
 <p>首先，我们获取一个正常点的 UA。通过上回说到的浏览器抓包工具找到了一个正常的 UA：<br>
 <img src="/images/4.2.1.webp" alt="figure_4.2.1"><br>
 把他复制下来。</p>
 <p><code>get()</code> 中不仅可以传入网址，还可以传入 header，类型为字典。所以，我们要创建一个包含 UA 信息的字典：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">headers = {<span class="string">"User-Agent"</span>: <span class="string">"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/132.0.0.0 Safari/537.36"</span>}</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><div class="table-wrap"><table><tr><td class="code"><pre><span class="line">headers = {<span class="string">"User-Agent"</span>: <span class="string">"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/132.0.0.0 Safari/537.36"</span>}</span><br></pre></td></tr></table></div></figure>
 <p>就像这样。现在，我们再来试一下：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"></span><br><span class="line">headers = {<span class="string">"User-Agent"</span>: <span class="string">"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/132.0.0.0 Safari/537.36"</span>}</span><br><span class="line">response = requests.get(<span class="string">'https://www.zhihu.com/'</span>, headers = headers) <span class="comment"># 把 UA 传进去。注意，这两个 headers 不同，前面是 get 的关键字，后面的是我们自己建立的字典，可以随便改名字</span></span><br><span class="line">response.encoding = <span class="string">'utf-8'</span></span><br><span class="line"><span class="built_in">print</span>(response.status_code)</span><br><span class="line"><span class="built_in">print</span>(response.text)</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><div class="table-wrap"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"></span><br><span class="line">headers = {<span class="string">"User-Agent"</span>: <span class="string">"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/132.0.0.0 Safari/537.36"</span>}</span><br><span class="line">response = requests.get(<span class="string">'https://www.zhihu.com/'</span>, headers = headers) <span class="comment"># 把 UA 传进去。注意，这两个 headers 不同，前面是 get 的关键字，后面的是我们自己建立的字典，可以随便改名字</span></span><br><span class="line">response.encoding = <span class="string">'utf-8'</span></span><br><span class="line"><span class="built_in">print</span>(response.status_code)</span><br><span class="line"><span class="built_in">print</span>(response.text)</span><br></pre></td></tr></table></div></figure>
 <p>可喜可贺！成功骗过了知乎！这也是我们反反爬的一个技巧。</p>
 <p>接下来，请大家尝试一下实现这样一个程序：输入一个游戏名，返回必应搜索到的网页源代码。（如，我输入「原神」，程序返回给我 <code>https://cn.bing.com/search?q=原神</code> 的源代码。）<br>
 提示：<code>f-string</code> 用法：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="built_in">str</span> = <span class="string">'Miniworld'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="string">f'Hello <span class="subst">{<span class="built_in">str</span>}</span>'</span>  <span class="comment"># 替换变量</span></span><br><span class="line"><span class="string">'Hello Miniworld'</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><div class="table-wrap"><table><tr><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="built_in">str</span> = <span class="string">'Miniworld'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="string">f'Hello <span class="subst">{<span class="built_in">str</span>}</span>'</span>  <span class="comment"># 替换变量</span></span><br><span class="line"><span class="string">'Hello Miniworld'</span></span><br></pre></td></tr></table></div></figure>
 ]]></content>
       <categories>
         <category>指北</category>
       </categories>
       <tags>
+        <tag>永中</tag>
+        <tag>计算机社</tag>
         <tag>Python</tag>
         <tag>爬虫</tag>
-        <tag>计算机社</tag>
-        <tag>永中</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>永嘉中学计算机社活动内容设想报告</title>
-    <url>/2024/09/15/YJZXCCReport/</url>
-    <content><![CDATA[<h1 id="永嘉中学计算机社活动内容设想报告"><a class="markdownIt-Anchor" href="#永嘉中学计算机社活动内容设想报告"></a> 永嘉中学计算机社活动内容设想报告</h1>
-<h2 id="一-活动背景"><a class="markdownIt-Anchor" href="#一-活动背景"></a> 一、活动背景</h2>
-<p>为了提升社员的计算机使用水平、激发社员对研究计算机的兴趣爱好、提高社员计算机技术应用能力与实践水平、增强社员技术学科素养，计算机社将在本学期计划组织一系列有趣且富有挑战性的课程与活动。这些活动旨在为社员提供实践经验、促进知识交流，并激发他们的创新思维。</p>
-<h2 id="二-活动目标"><a class="markdownIt-Anchor" href="#二-活动目标"></a> 二、活动目标</h2>
-<ol>
-<li><strong>提升实践水平</strong>：通过实践项目和技术讲座，提升社员的计算机知识和编程技能。</li>
-<li><strong>促进合作沟通</strong>：通过团队活动与讨论，增强社员之间的合作与沟通能力。</li>
-<li><strong>增强学科素养</strong>：授课内容涉及课内又远超课内，提升社员的编程意识与学科素养。</li>
-</ol>
-<h2 id="三-活动内容"><a class="markdownIt-Anchor" href="#三-活动内容"></a> 三、活动内容：</h2>
-<ul>
-<li>Markdown 基本语法教学</li>
-<li>Python 基本语法教学以及怕爬虫入门</li>
-<li>Github 的基本使用以及博客托管</li>
-<li>计算机常识普及</li>
-<li>……</li>
-</ul>
-<h2 id="四-活动安排"><a class="markdownIt-Anchor" href="#四-活动安排"></a> 四、活动安排</h2>
-<h3 id="单节课时时间安排"><a class="markdownIt-Anchor" href="#单节课时时间安排"></a> 单节课时时间安排</h3>
-<p>将使用 20 分钟时间传递相关知识，并给社员们 20 分钟左右的实践时间。</p>
-<h3 id="课时活动内容安排"><a class="markdownIt-Anchor" href="#课时活动内容安排"></a> 课时活动内容安排</h3>
-<p>采用 2 节讲授课 +1 节实践课的循环。授课与实践内容以活动内容为准。</p>
-<h3 id="其他安排"><a class="markdownIt-Anchor" href="#其他安排"></a> 其他安排</h3>
-<p>将不定时举行小组项目设计活动，并参与社内评比。</p>
-<h2 id="五-结语"><a class="markdownIt-Anchor" href="#五-结语"></a> 五、结语</h2>
-<p>本学期活动旨在通过丰富的内容和多样的形式，为计算机社成员提供全面的成长机会。希望通过这些活动，不仅能够提升技术能力，还能增强社员之间的合作与沟通，为社团的发展注入新的活力。</p>
-]]></content>
-      <categories>
-        <category>社团</category>
-      </categories>
-      <tags>
-        <tag>计算机社</tag>
-        <tag>永中</tag>
       </tags>
   </entry>
 </search>
