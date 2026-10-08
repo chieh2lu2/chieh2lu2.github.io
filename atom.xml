@@ -11,21 +11,30 @@
   <rights>All rights reserved 2026, Zera / 捷攎</rights>
   <subtitle>Keep writing and Keep loving.</subtitle>
   <title>Zera 的小博客</title>
-  <updated>2026-10-08T07:43:45.098Z</updated>
+  <updated>2026-10-08T08:26:23.396Z</updated>
   <entry>
     <author>
       <name>Zera / 捷攎</name>
     </author>
     <category term="指北" scheme="https://zerablog.top/categories/%E6%8C%87%E5%8C%97/"/>
     <category term="串流" scheme="https://zerablog.top/tags/%E4%B8%B2%E6%B5%81/"/>
+    <category term="杭州电子科技大学" scheme="https://zerablog.top/tags/%E6%9D%AD%E5%B7%9E%E7%94%B5%E5%AD%90%E7%A7%91%E6%8A%80%E5%A4%A7%E5%AD%A6/"/>
+    <category term="校园网" scheme="https://zerablog.top/tags/%E6%A0%A1%E5%9B%AD%E7%BD%91/"/>
     <id>https://zerablog.top/2026/10/08/pad-streaming/</id>
     <link href="https://zerablog.top/2026/10/08/pad-streaming/"/>
     <published>2026-10-08T07:18:22.000Z</published>
     <summary>
-      <![CDATA[<h1 id="前言"><a class="markdownIt-Anchor" href="#前言"></a>]]>
+      <![CDATA[<h1 id="前言"><a class="markdownIt-Anchor" href="#前言"></a> 前言</h1>
+<p>大学之后才发现有这么多💦课，感觉就这样浪费甚是可惜，于是想拿电脑做点事情。但是直接把笔记本带到教室显然不现实：</p>
+<ul>
+<li>教室里没有插头（有也很少）</li>
+<li>电源适配器超级重，体积也很大</li>
+<li>风扇声音太大（虽然可以调小）</li>
+<li>……<br>
+总之有十万八千个理由。但是现在买一个轻薄本又是不可能的。直到有一天看到一位同学在课上优雅地使用平板<span]]>
     </summary>
     <title>在杭电，优雅地远程使用电脑——Sunshine + Moonlight + Tailscale 平板串流</title>
-    <updated>2026-10-08T07:43:45.098Z</updated>
+    <updated>2026-10-08T08:26:23.396Z</updated>
   </entry>
   <entry>
     <author>

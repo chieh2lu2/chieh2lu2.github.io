@@ -1,6 +1,91 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>HDU-5396 Expression 题解</title>
+    <url>/2024/09/30/HDU-5396/</url>
+    <content><![CDATA[<p><a href="https://vjudge.net/problem/HDU-5396#author=GPT_zh">HDU 5396 Expression</a></p>
+<p>看到  这么小的范围就不难想到区间 DP。</p>
+<p> 表示从第  个数到第  个数的结果和。考虑枚举到第  个位置运算符。</p>
+<p>如果  是 ：<br>
+考虑 ，其中  是结果的序列。由乘法原理可知：，。考虑左右边分别有多少个运算符即可。<br>
+那么</p>
+<p></p>
+<p>所以同理，如果  是 ，则 ；<br>
+如果  是 ，则 。</p>
+<p>……对，对吗？<br>
+<s>在愉快地爆掉样例后</s>，发现了递推式中的错误：即使运算符左右两边的结果是确定的，也可能有不同的运算过程。可能是先把左边的运算符算完了，再算右边的运算符；也可能是先算左边的一个、再算右边的一个……所以，我们还得考虑运算符的运算顺序。可以把问题转化成：现在有一个长为  的运算符序列，要挑 （或 ）个运算符放在左/右边，问有几种做法。那答案显然是 （或）了。所以最终的转移方程为：</p>
+<p></p>
+<p>边界条件： 为原序列第  个数。记得取膜。代码不放了。</p>
+]]></content>
+      <categories>
+        <category>题解</category>
+      </categories>
+      <tags>
+        <tag>OI</tag>
+        <tag>区间 DP</tag>
+        <tag>DP</tag>
+        <tag>HDU</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>P10252 题解</title>
+    <url>/2024/09/16/P10252/</url>
+    <content><![CDATA[<h1 id="p10252"><a class="markdownIt-Anchor" href="#p10252"></a> <a href="https://www.luogu.com.cn/problem/P10252">P10252</a> 题解</h1>
+<p>一直没有想到  可能等于 ，白交了好多发，好蠢……</p>
+<h2 id="题意"><a class="markdownIt-Anchor" href="#题意"></a> 题意</h2>
+<p>题面很清楚了。</p>
+<h2 id="解析"><a class="markdownIt-Anchor" href="#解析"></a> 解析</h2>
+<p>有一个很且显然的想法是：每次  变换后，如果变换后的 ，那么  在接下来的变换里只会越来越大；反之亦然。具体的下面会提及。</p>
+<p>找找规律：</p>
+<p>变换一次：。<br>
+变换两次：。<br>
+变换三次：。<br>
+变换  次：。</p>
+<p>嘶……没头绪。那看看每次  增加的量是多少：</p>
+<p></p>
+<p>可以看见  这个数是第一次变换后， 与  的差值。 的增加与否与前面的  无关（），只跟  有关，而  是一个定值。这也说明了开头猜想的正确性。</p>
+<p>从这里我们可以发现一种特殊情况：如果 ，那么  变换后不可能变小，一开始的  就是最小值。这种情况直接输出  即可。</p>
+<p>现在来考虑  的一般情况。我们要求记的毕竟不是增加量，而是想求出它每一次变换后  的大小。使用上面的差值求和试试看？记  为 ，设  为变换次数，那么变换  次后：</p>
+<p><br>
+那么只要枚举 ，判断这个能在右边的式子是否小于  即可。 中的  增长速度很快（），不用二分就能过（或许可能数据太水了 = =）。</p>
+<p>注意，这里的  为分母，<strong>需要特判  的情况</strong>。答案易知是 。还有一种特殊情况：当  或  时，直接输出  即可。</p>
+<h2 id="代码"><a class="markdownIt-Anchor" href="#代码"></a> 代码</h2>
+<figure class="highlight cpp"><div class="table-wrap"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="type">long</span> <span class="type">long</span> ll;</span><br><span class="line">ll T, x, a, b;</span><br><span class="line"></span><br><span class="line"><span class="function">ll <span class="title">qpow</span><span class="params">(ll a, ll b)</span> <span class="comment">// 快速幂 </span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">	ll res = <span class="number">1</span>;</span><br><span class="line">	<span class="keyword">while</span> (b)</span><br><span class="line">	{</span><br><span class="line">		<span class="keyword">if</span> (b &amp; <span class="number">1</span>) res *= a;</span><br><span class="line">		a *= a, b /= <span class="number">2</span>;</span><br><span class="line">	}</span><br><span class="line">	<span class="keyword">return</span> res;</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">solve</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">	cin &gt;&gt; x &gt;&gt; a &gt;&gt; b;</span><br><span class="line">	<span class="keyword">if</span> (a * x - b &gt;= x)</span><br><span class="line">	{</span><br><span class="line">		cout &lt;&lt; x &lt;&lt; endl;</span><br><span class="line">		<span class="keyword">return</span> ;</span><br><span class="line">	}</span><br><span class="line">	<span class="keyword">if</span> (a == <span class="number">0</span> || x == <span class="number">0</span>)</span><br><span class="line">	{</span><br><span class="line">		cout &lt;&lt; -b &lt;&lt; endl;</span><br><span class="line">		<span class="keyword">return</span> ;</span><br><span class="line">	}</span><br><span class="line">	<span class="keyword">if</span> (a == <span class="number">1</span>)</span><br><span class="line">	{</span><br><span class="line">		cout &lt;&lt; x - (x / b + <span class="number">1</span>) * b &lt;&lt; endl;</span><br><span class="line">		<span class="keyword">return</span> ;</span><br><span class="line">	}</span><br><span class="line">	ll d = a * x - b - x;</span><br><span class="line">	<span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; ; i++)</span><br><span class="line">	{</span><br><span class="line">		<span class="keyword">if</span> (x + d * (<span class="built_in">qpow</span>(a, i) - <span class="number">1</span>) / (a - <span class="number">1</span>) &lt; <span class="number">0</span>)</span><br><span class="line">		{</span><br><span class="line">			cout &lt;&lt; x + d * (<span class="built_in">ksm</span>(a, i) - <span class="number">1</span>) / (a - <span class="number">1</span>) &lt;&lt; endl;</span><br><span class="line">			<span class="keyword">break</span>;</span><br><span class="line">		}</span><br><span class="line">	}</span><br><span class="line">	<span class="keyword">return</span> ;</span><br><span class="line">	</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">	cin &gt;&gt; T;</span><br><span class="line">	<span class="keyword">while</span> (T--)</span><br><span class="line">		<span class="built_in">solve</span>();</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">}</span><br></pre></td></tr></table></div></figure>]]></content>
+      <categories>
+        <category>题解</category>
+      </categories>
+      <tags>
+        <tag>OI</tag>
+        <tag>洛谷</tag>
+        <tag>数学</tag>
+        <tag>C++</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>P10511 题解</title>
+    <url>/2024/09/16/P10511/</url>
+    <content><![CDATA[<h2 id="思路"><a class="markdownIt-Anchor" href="#思路"></a> 思路</h2>
+<p>首先好像高一就学过 。但还是推一下：<br>
+令 ，则</p>
+<p></p>
+<p>也就是要维护区间平方和与区间和。这可以考虑用前缀和维护。考虑到有散块的可能，所以先把夹在  和  中间的整块求出来，再把  旁边的或  旁边的散块求出来。记得及时取膜。</p>
+<p>我们可以先把  和  所在的块的坐标求出来，再把指针各往中间移一块来计算整块。</p>
+<p><img src="/images/P10511-1.png" alt=""></p>
+<p>例如，想要求  所在的块编号，只要找到离它最近且大于等于它的  或小于它  即可。注意， 可以和  重合，但  不可以，如果重合的话  号块也可以算作被夹在中间的块了。代码写出来就是 <code>dx = lower_bound(r + 1, r + m + 1, x) - r; </code> 或 <code>dx = lower_bound(l + 1, l + m + 1, x) - l - 1</code>。 所在的编号也是差不多的求法。</p>
+<p>其他小细节在代码注释里。注意取膜哦！</p>
+<h2 id="代码"><a class="markdownIt-Anchor" href="#代码"></a> 代码</h2>
+<figure class="highlight cpp"><div class="table-wrap"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="keyword">using</span> ll = <span class="type">long</span> <span class="type">long</span>;</span><br><span class="line"></span><br><span class="line"><span class="type">const</span> ll M = <span class="number">2e5</span> + <span class="number">100</span>, mod = <span class="number">998244353</span>;</span><br><span class="line">ll n, m, q;</span><br><span class="line">ll l[M], r[M];</span><br><span class="line">ll s[M], qs[M], len[M], b[M];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">    cin &gt;&gt; n &gt;&gt; m &gt;&gt; q;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= m; i++)</span><br><span class="line">    {</span><br><span class="line">        cin &gt;&gt; l[i] &gt;&gt; r[i] &gt;&gt; b[i]; b[i] %= mod;</span><br><span class="line">        len[i] = (r[i] - l[i] + <span class="number">1</span>) % mod;  </span><br><span class="line">        s[i] = (len[i] * b[i]) % mod; </span><br><span class="line">        qs[i] = (s[i] * b[i]) % mod; </span><br><span class="line">        len[i] = (len[i - <span class="number">1</span>] + len[i]) % mod;</span><br><span class="line">        s[i] = (s[i - <span class="number">1</span>] + s[i]) % mod;</span><br><span class="line">        qs[i] = (qs[i - <span class="number">1</span>] + qs[i]) % mod;</span><br><span class="line">    }</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= q; i++)</span><br><span class="line">    {</span><br><span class="line">        <span class="comment">/* 一开始想先把离 x/y 右/左 边最近的 左/右 端点编号求出来的……但是实现起来有点麻烦（ */</span></span><br><span class="line">        </span><br><span class="line">        ll x, y, dx, dy <span class="comment">/* dx 为 x 所在的编号；dy 含义亦然 */</span>, S, QS, ans; cin &gt;&gt; x &gt;&gt; y;</span><br><span class="line">        dx = <span class="built_in">lower_bound</span>(l + <span class="number">1</span>, l + m + <span class="number">1</span>, x) - l - <span class="number">1</span>, <span class="comment">// 也就是 dx = lower_bound(r + 1, r + m + 1, x) - r;</span></span><br><span class="line">        dy = <span class="built_in">lower_bound</span>(r + <span class="number">1</span>, r + m + <span class="number">1</span>, y) - r;</span><br><span class="line">        <span class="keyword">if</span> (dx == dy) { cout &lt;&lt; <span class="number">0</span> &lt;&lt; endl; <span class="keyword">continue</span>; }</span><br><span class="line">        </span><br><span class="line"><span class="comment">//      S = S + (r[dx] - x + 1) * b[dx] + (y - l[dy] + 1) * b[dy];  </span></span><br><span class="line">        S = (r[dx] - x + <span class="number">1</span>) % mod * b[dx] % mod + (y - l[dy] + <span class="number">1</span>) % mod * b[dy] % mod;</span><br><span class="line">        QS = (r[dx] - x + <span class="number">1</span>) % mod * b[dx] % mod * b[dx] % mod + (y - l[dy] + <span class="number">1</span>) % mod* b[dy] % mod * b[dy] % mod;</span><br><span class="line">    </span><br><span class="line">        dx++, dy--; <span class="comment">// 移到里面夹着的整块</span></span><br><span class="line">        <span class="keyword">if</span> (dx &lt;= dy) <span class="comment">// 排除里面没夹着整块的情况</span></span><br><span class="line">        {</span><br><span class="line">            S = (S + s[dy] - s[dx - <span class="number">1</span>] + mod) % mod;</span><br><span class="line">            QS = (QS + qs[dy] - qs[dx - <span class="number">1</span>] + mod) % mod;</span><br><span class="line">        }</span><br><span class="line">        ans = ((y - x + <span class="number">1</span>) % mod * QS % mod - S * S % mod + mod) % mod;</span><br><span class="line">        cout &lt;&lt; (ans + mod) % mod &lt;&lt; endl;</span><br><span class="line">    }</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">}</span><br></pre></td></tr></table></div></figure>]]></content>
+      <categories>
+        <category>题解</category>
+      </categories>
+      <tags>
+        <tag>OI</tag>
+        <tag>洛谷</tag>
+        <tag>数学</tag>
+        <tag>C++</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Windows 下使用 Hexo + GitHub Pages 搭建自己的博客指北</title>
     <url>/2024/09/16/HexoI/</url>
     <content><![CDATA[<h2 id="〇-开始之前"><a class="markdownIt-Anchor" href="#〇-开始之前"></a> 〇、开始之前</h2>
@@ -107,254 +192,58 @@ Git: <a href="https://github.com/waylau/git-for-win">https://github.com/waylau/g
       </tags>
   </entry>
   <entry>
-    <title>HDU-5396 Expression 题解</title>
-    <url>/2024/09/30/HDU-5396/</url>
-    <content><![CDATA[<p><a href="https://vjudge.net/problem/HDU-5396#author=GPT_zh">HDU 5396 Expression</a></p>
-<p>看到  这么小的范围就不难想到区间 DP。</p>
-<p> 表示从第  个数到第  个数的结果和。考虑枚举到第  个位置运算符。</p>
-<p>如果  是 ：<br>
-考虑 ，其中  是结果的序列。由乘法原理可知：，。考虑左右边分别有多少个运算符即可。<br>
-那么</p>
-<p></p>
-<p>所以同理，如果  是 ，则 ；<br>
-如果  是 ，则 。</p>
-<p>……对，对吗？<br>
-<s>在愉快地爆掉样例后</s>，发现了递推式中的错误：即使运算符左右两边的结果是确定的，也可能有不同的运算过程。可能是先把左边的运算符算完了，再算右边的运算符；也可能是先算左边的一个、再算右边的一个……所以，我们还得考虑运算符的运算顺序。可以把问题转化成：现在有一个长为  的运算符序列，要挑 （或 ）个运算符放在左/右边，问有几种做法。那答案显然是 （或）了。所以最终的转移方程为：</p>
-<p></p>
-<p>边界条件： 为原序列第  个数。记得取膜。代码不放了。</p>
+    <title>给你的 Windows 更换字体（包括微软雅黑和 Segoe UI！）</title>
+    <url>/2024/09/16/PCFont/</url>
+    <content><![CDATA[<div class="note danger flat"><p>所有字体、<strong>包括系统字体</strong>一定要做好备份！</p>
+</div>
+<p>在网络上经常看到更换电脑字体的教程，可大多教程都解决不了一个问题——更换系统的英文字体。Windows 下某些地方的英文字体使用的是 Segoe UI，个人觉得十分丑陋。这篇文章将以字体 Inter 为例解决这个痛点，并同时介绍替换中文字体的方法。</p>
+<hr>
+<h2 id="一-软件安装"><a class="markdownIt-Anchor" href="#一-软件安装"></a> 一、软件安装</h2>
+<p>我使用的软件是 <a href="https://github.com/GuiWonder/WeiFonts/">WeiFonts</a> 和 <a href="https://www.fishlee.net/soft/SysFontReplacer/">字体替换工具(Font Replace Utility)</a>。前一个软件能够将被替换字体文件的信息写到你要替换的字体上，并把字体打包成 <code>.ttc</code>。后一个软件能够替换掉系统字体。</p>
+<h2 id="二-weifonts-的使用"><a class="markdownIt-Anchor" href="#二-weifonts-的使用"></a> 二、WeiFonts 的使用</h2>
+<p>下载发行包后，打开文件中的 <code>WeiFonts.exe</code> 就差不多会用了。对于 「Windows 中文」 选项卡里的内容我不是很会用，貌似是要先打包成 <code>.ttc</code> 再替换，有点麻烦 <s>（其实是我根本没了解啦）</s>。直接聚焦于「给定字体」选项卡即可。</p>
+<p>先讲讲中文字体：微软雅黑一共有三个字体要替换：<code>msyhl.ttc</code>、<code>msyh.ttc</code>、<code>msyhbd.ttc</code>，分别是 Light, Regular 和 Bold 字重。在「模板字体」一栏直接输入 <code>C:\Windows\Fonts\上述三个字体</code> 即可。（因为如果点右边的选择的话是找不到 Fonts 文件夹的，很奇怪）。<br>
+「输入字体」一栏直接找到你要替换的对应字重的字体的绝对地址即可。如果你的字体文件只有一个字重的话，或者你不在乎有几个字重，每次都用这一个文件即可。「保存为」一栏自定。如果 <code>.otf</code> 出了问题的话，尝试把它转化成 <code>.ttf</code> 文件。AFTools 提供了这一功能。<br>
+下图是使用阿里巴巴普惠体的例子。</p>
+<!-- 配图待补（读者看不到这行注释）
+     原图存在已停服的 picui.cn 图床上，且未被任何网页存档收录，无法找回。
+     补图：重新截图 → 放进 source\images\ → 用下面这行替换掉本注释：
+     ![](/images/你的文件名.png) -->
+<p>英文字体就比较搞了，这时候把字体打包成 <code>.ttc</code> 是比较方便的，但电脑里的 Segoe UI 并没有打包成 <code>.ttc</code>（亦或是我没找到打包或可变字体），所以需要一个一个字重去替换。这里我选择 Inter，一款非常像 SF Pro 的字体。以下是示例：</p>
+<!-- 配图待补（读者看不到这行注释）
+     原图存在已停服的 picui.cn 图床上，且未被任何网页存档收录，无法找回。
+     补图：重新截图 → 放进 source\images\ → 用下面这行替换掉本注释：
+     ![](/images/你的文件名.png) -->
+<p>工作量有点大，最后替换好应该得到了这么些文件：</p>
+<!-- 配图待补（读者看不到这行注释）
+     原图存在已停服的 picui.cn 图床上，且未被任何网页存档收录，无法找回。
+     补图：重新截图 → 放进 source\images\ → 用下面这行替换掉本注释：
+     ![](/images/你的文件名.png) -->
+<div class="note danger flat"><p>替换前一定要注意字重是否对应哦！</p>
+</div>
+<h2 id="三-字体替换工具的使用"><a class="markdownIt-Anchor" href="#三-字体替换工具的使用"></a> 三、字体替换工具的使用</h2>
+<p>这更是一款傻瓜式软件：打开后直接把所有字体拖进去，然后点「开始执行任务」即可。</p>
+<!-- 配图待补（读者看不到这行注释）
+     原图存在已停服的 picui.cn 图床上，且未被任何网页存档收录，无法找回。
+     补图：重新截图 → 放进 source\images\ → 用下面这行替换掉本注释：
+     ![](/images/你的文件名.png) -->
+<p>如果没有备份而想回退到之前的字体，点「还原」并找到自动的备份即可。</p>
+<p>点「开始执行任务」后会提醒你有多少个字体替换成功，然后自动重启。如果有不成功的就多替换几次。</p>
+<hr>
+<p>自此，你的电脑就有了崭新的中英文字体啦！可喜可贺！</p>
+<!-- 配图待补（读者看不到这行注释）
+     原图存在已停服的 picui.cn 图床上，且未被任何网页存档收录，无法找回。
+     补图：重新截图 → 放进 source\images\ → 用下面这行替换掉本注释：
+     ![](/images/你的文件名.png) -->
+<p>看我博客文件的一角，是不是也有苹果的味道了呢（笑）</p>
+<p>用这个方法，还可以替换掉系统的「黑体」「宋体」之类。不过我是不推荐的。</p>
 ]]></content>
       <categories>
-        <category>题解</category>
+        <category>指北</category>
       </categories>
       <tags>
-        <tag>OI</tag>
-        <tag>区间 DP</tag>
-        <tag>DP</tag>
-        <tag>HDU</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>P10252 题解</title>
-    <url>/2024/09/16/P10252/</url>
-    <content><![CDATA[<h1 id="p10252"><a class="markdownIt-Anchor" href="#p10252"></a> <a href="https://www.luogu.com.cn/problem/P10252">P10252</a> 题解</h1>
-<p>一直没有想到  可能等于 ，白交了好多发，好蠢……</p>
-<h2 id="题意"><a class="markdownIt-Anchor" href="#题意"></a> 题意</h2>
-<p>题面很清楚了。</p>
-<h2 id="解析"><a class="markdownIt-Anchor" href="#解析"></a> 解析</h2>
-<p>有一个很且显然的想法是：每次  变换后，如果变换后的 ，那么  在接下来的变换里只会越来越大；反之亦然。具体的下面会提及。</p>
-<p>找找规律：</p>
-<p>变换一次：。<br>
-变换两次：。<br>
-变换三次：。<br>
-变换  次：。</p>
-<p>嘶……没头绪。那看看每次  增加的量是多少：</p>
-<p></p>
-<p>可以看见  这个数是第一次变换后， 与  的差值。 的增加与否与前面的  无关（），只跟  有关，而  是一个定值。这也说明了开头猜想的正确性。</p>
-<p>从这里我们可以发现一种特殊情况：如果 ，那么  变换后不可能变小，一开始的  就是最小值。这种情况直接输出  即可。</p>
-<p>现在来考虑  的一般情况。我们要求记的毕竟不是增加量，而是想求出它每一次变换后  的大小。使用上面的差值求和试试看？记  为 ，设  为变换次数，那么变换  次后：</p>
-<p><br>
-那么只要枚举 ，判断这个能在右边的式子是否小于  即可。 中的  增长速度很快（），不用二分就能过（或许可能数据太水了 = =）。</p>
-<p>注意，这里的  为分母，<strong>需要特判  的情况</strong>。答案易知是 。还有一种特殊情况：当  或  时，直接输出  即可。</p>
-<h2 id="代码"><a class="markdownIt-Anchor" href="#代码"></a> 代码</h2>
-<figure class="highlight cpp"><div class="table-wrap"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="type">long</span> <span class="type">long</span> ll;</span><br><span class="line">ll T, x, a, b;</span><br><span class="line"></span><br><span class="line"><span class="function">ll <span class="title">qpow</span><span class="params">(ll a, ll b)</span> <span class="comment">// 快速幂 </span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">	ll res = <span class="number">1</span>;</span><br><span class="line">	<span class="keyword">while</span> (b)</span><br><span class="line">	{</span><br><span class="line">		<span class="keyword">if</span> (b &amp; <span class="number">1</span>) res *= a;</span><br><span class="line">		a *= a, b /= <span class="number">2</span>;</span><br><span class="line">	}</span><br><span class="line">	<span class="keyword">return</span> res;</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">solve</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">	cin &gt;&gt; x &gt;&gt; a &gt;&gt; b;</span><br><span class="line">	<span class="keyword">if</span> (a * x - b &gt;= x)</span><br><span class="line">	{</span><br><span class="line">		cout &lt;&lt; x &lt;&lt; endl;</span><br><span class="line">		<span class="keyword">return</span> ;</span><br><span class="line">	}</span><br><span class="line">	<span class="keyword">if</span> (a == <span class="number">0</span> || x == <span class="number">0</span>)</span><br><span class="line">	{</span><br><span class="line">		cout &lt;&lt; -b &lt;&lt; endl;</span><br><span class="line">		<span class="keyword">return</span> ;</span><br><span class="line">	}</span><br><span class="line">	<span class="keyword">if</span> (a == <span class="number">1</span>)</span><br><span class="line">	{</span><br><span class="line">		cout &lt;&lt; x - (x / b + <span class="number">1</span>) * b &lt;&lt; endl;</span><br><span class="line">		<span class="keyword">return</span> ;</span><br><span class="line">	}</span><br><span class="line">	ll d = a * x - b - x;</span><br><span class="line">	<span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; ; i++)</span><br><span class="line">	{</span><br><span class="line">		<span class="keyword">if</span> (x + d * (<span class="built_in">qpow</span>(a, i) - <span class="number">1</span>) / (a - <span class="number">1</span>) &lt; <span class="number">0</span>)</span><br><span class="line">		{</span><br><span class="line">			cout &lt;&lt; x + d * (<span class="built_in">ksm</span>(a, i) - <span class="number">1</span>) / (a - <span class="number">1</span>) &lt;&lt; endl;</span><br><span class="line">			<span class="keyword">break</span>;</span><br><span class="line">		}</span><br><span class="line">	}</span><br><span class="line">	<span class="keyword">return</span> ;</span><br><span class="line">	</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">	cin &gt;&gt; T;</span><br><span class="line">	<span class="keyword">while</span> (T--)</span><br><span class="line">		<span class="built_in">solve</span>();</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">}</span><br></pre></td></tr></table></div></figure>]]></content>
-      <categories>
-        <category>题解</category>
-      </categories>
-      <tags>
-        <tag>OI</tag>
-        <tag>洛谷</tag>
-        <tag>数学</tag>
-        <tag>C++</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>十二重计数法</title>
-    <url>/2024/09/15/P5824/</url>
-    <content><![CDATA[<hr>
-<p><s>复赛完了再写这篇文章是不是太迟了？</s></p>
-<p>闲话：我只是为了初赛练练组合数学而做的，没有多少 OI 内容（<s>可能复赛时会考虑添加？</s> 复赛寄的太彻底，不加了）。</p>
-<p>我们教练说：初赛时排列组合的题目不会做就大力递推。虽然 CSP 初赛中数学题目越来越简单了，但这并不妨碍我仍然害怕着排练组合的题目。于是他让我来做这道题，并不是码，而是把递推式列出来。这方法确实很有用——于是我就写了这篇文章。</p>
-<p>这篇文章是为我自己而写，也是为不会组合数学的人写的。所以很多理所当然的过程都写了上去，请多包含。</p>
-<p>另附一些符号约定：</p>
-<div class="table-wrap"><table>
-<thead>
-<tr>
-<th style="text-align:center">符号</th>
-<th style="text-align:center">意义</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">集合  的并集，</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">集合  的交集，</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">即 </td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">下降阶乘幂，</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center"></td>
-</tr>
-</tbody>
-</table></div>
-<hr>
-<h2 id="p5824-十二重计数法"><a class="markdownIt-Anchor" href="#p5824-十二重计数法"></a> <a href="https://www.luogu.com.cn/problem/P5824">P5824 十二重计数法</a></h2>
-<p>有  个球和  个盒子，要全部装进盒子里。<br>
-还有一些限制条件，那么有多少种方法放球？（与放的先后顺序无关）</p>
-<p>限制条件分别如下：</p>
-<p>：球之间互不相同，盒子之间互不相同。<br>
-：球之间互不相同，盒子之间互不相同，每个盒子至多装一个球。<br>
-：球之间互不相同，盒子之间互不相同，每个盒子至少装一个球。</p>
-<p>：球之间互不相同，盒子全部相同。<br>
-：球之间互不相同，盒子全部相同，每个盒子至多装一个球。<br>
-：球之间互不相同，盒子全部相同，每个盒子至少装一个球。</p>
-<p>：球全部相同，盒子之间互不相同。<br>
-：球全部相同，盒子之间互不相同，每个盒子至多装一个球。<br>
-：球全部相同，盒子之间互不相同，每个盒子至少装一个球。</p>
-<p>：球全部相同，盒子全部相同。<br>
-：球全部相同，盒子全部相同，每个盒子至多装一个球。<br>
-：球全部相同，盒子全部相同，每个盒子至少装一个球。</p>
-<hr>
-<h1 id="想法"><a class="markdownIt-Anchor" href="#想法"></a> 想法</h1>
-<hr>
-<h1 id="i"><span class="math-heading-text">I</span><a class="markdownIt-Anchor" href="#i"></a> </h1>
-<p>每个球都有  种方案数。答案即为<br>
-</p>
-<h1 id="ii"><span class="math-heading-text">II</span><a class="markdownIt-Anchor" href="#ii"></a> </h1>
-<p>依次取球放进盒子，每次放球后方案数都会少一种，乘起来答案为<br>
-</p>
-<h1 id="iii"><span class="math-heading-text">III</span><a class="markdownIt-Anchor" href="#iii"></a> </h1>
-<p>可以考虑先参考 。<br>
-那么考虑盒子的排列，一种很显然的答案就是<br>
-</p>
-<p>当然了，我们也可以考虑容斥：枚举空着的盒子的个数，不限制放置个数的方案总数 减去 有  个盒子空着时方案的总数 即为我们求的答案。<br>
-设全集  是所有放球的方法构成的集合（容易注意到 ）， 为能满足  个盒子为空的放法构成的集合。即求 。<br>
-容斥得<br>
-<br>
-前面的系数  可以归纳证明。 表示选  个作为空盒子， 的情景和  相同。</p>
-<p>所以答案就是</p>
-<p></p>
-<p>这个时候我们可以再次回看 。</p>
-<h1 id="iv"><span class="math-heading-text">IV</span><a class="markdownIt-Anchor" href="#iv"></a> </h1>
-<p>先参考 。<br>
-与  不同的是没有了个数的限制。枚举非空盒子个数，所以是<br>
-</p>
-<h1 id="v"><span class="math-heading-text">V</span><a class="markdownIt-Anchor" href="#v"></a> </h1>
-<p>最简单的一集！由于盒子相同且最多放一个球，无论怎么装，都可以交换盒子顺序额得到同一种方案，所以答案为：<br>
-<br>
-顺带去看看 。</p>
-<h1 id="vi"><span class="math-heading-text">VI</span><a class="markdownIt-Anchor" href="#vi"></a> </h1>
-<p>我会递推！<br>
-设  为  个球， 个盒子的方案数。<br>
-考虑新加进来一个球：</p>
-<ul>
-<li>可以再拿一个盒子，盒子数目也就从  个变成了  个。那就从  转移过来；</li>
-<li>可以放在之前任意一个盒子里，有  个盒子可选，即从  转移。<br>
-所以递推式为：<br>
-<br>
-实际上，这就是 <a href="https://oi.wiki/math/combinatorics/stirling/#%E7%AC%AC%E4%BA%8C%E7%B1%BB%E6%96%AF%E7%89%B9%E6%9E%97%E6%95%B0stirling-number">第二类斯特林数 </a> 。<br>
-解决  后，我们发现 。而 ，于是最后理所应当地得到了</li>
-</ul>
-<p><br>
-非常神奇呢。</p>
-<h1 id="vii"><span class="math-heading-text">VII</span><a class="markdownIt-Anchor" href="#vii"></a> </h1>
-<p>我会递推！<br>
-设  为  个球， 个盒子的方案数。<br>
-考虑<strong>这一个球 不放而让新开的盒子空着 还是 在之前的盒子里放多个</strong>：</p>
-<ul>
-<li>可以不放这个球而让盒子空着，小球数目仍然为  个。拿过来了一个新的盒子，即从  转移。</li>
-<li>在之前的盒子里放多个，盒子数目仍然为  个。即从  转移。</li>
-</ul>
-<p>所以递推式为：<br>
-</p>
-<p>也可以从插板的角度考虑：</p>
-<blockquote>
-<p>先往每个盒子里塞一个球，最后把这个球拿走就行了。换言之，先求「将  个相同小球，放入到  个不同盒子，盒子至少装一球」的方案数，对于每个这个问题的划分方案，将每个盒子抽掉一个球，就是  的方案。因此该问答案即为</p>
-<p></p>
-<p><em>引用自 <a href="https://www.luogu.com.cn/article/2hb00cd4">囧仙</a></em></p>
-</blockquote>
-<h1 id="viii"><span class="math-heading-text">VIII</span><a class="markdownIt-Anchor" href="#viii"></a> </h1>
-<p>我会递推！<br>
-设  为  个球， 个盒子的方案数。<br>
-考虑<strong>这一个球 再开一个盒子放一个 还是 不放而让新开的盒子空着</strong>：</p>
-<ul>
-<li>再开一个盒子放一个，盒子数目也就从  个变成了  个。那就从  转移过来；</li>
-<li>可以不放这个球而让盒子空着，小球数目仍然为  个。拿过来了一个新的盒子，即从  转移。</li>
-</ul>
-<p>所以递推式为：<br>
-<br>
-实际上，这就是 <a href="https://oi.wiki/math/combinatorics/combination/#%E7%BB%84%E5%90%88%E6%95%B0">组合数 </a> 。<br>
-也可以直接考虑选  个盒子装球，那答案也是一样的。</p>
-<h1 id="ix"><span class="math-heading-text">IX</span><a class="markdownIt-Anchor" href="#ix"></a> </h1>
-<p>我会递推！<br>
-设  为  个球， 个盒子的方案数。<br>
-考虑<strong>这一个球 再开一个盒子放一个 还是 在之前的盒子里放多个</strong>：</p>
-<ul>
-<li>再开一个盒子放一个，盒子数目也就从  个变成了  个。那就从  转移过来；</li>
-<li>在之前的盒子里放多个，盒子数目仍然为  个。即从  转移。</li>
-</ul>
-<p>所以递推式为：<br>
-</p>
-<p>也可以从插板的角度考虑，是最平凡的插板法。答案为<br>
-</p>
-<h1 id="x"><span class="math-heading-text">X</span><a class="markdownIt-Anchor" href="#x"></a> </h1>
-<p>我会递推！<br>
-设  为  个球， 个盒子的方案数。可以发现，在所谓「第一个盒子里装一个球、第三个盒子里装三个球」是和「第一个盒子里装三个球、第三个盒子里装一个球」无异的。一种比较讨巧的做法是这样的：将盒子按照球的数量从小到大排序。这样的话，两种方案相同，仅当两种方案排序后的序列相同。所以可以：</p>
-<ul>
-<li>在这个序列  开头加一个空盒子，盒子数目也就从  个变成了  个。那就从  转移过来；</li>
-<li>让所有盒子里都加一个球，也就从  转移过来；</li>
-</ul>
-<p>可以证明以上的转移方案是正确的。所以递推式为：</p>
-<p></p>
-<p>这个东西其实就是 <a href="https://oi-wiki.org/math/combinatorics/partition/">划分数</a>。</p>
-<h1 id="xi"><span class="math-heading-text">XI</span><a class="markdownIt-Anchor" href="#xi"></a> </h1>
-<p>最简单的一集！<br>
-</p>
-<h1 id="xii"><span class="math-heading-text">XII</span><a class="markdownIt-Anchor" href="#xii"></a> </h1>
-<p>与  的唯一差别是每个盒子里都至少要一个球——那就先往盒子里都放一个球就好了。答案就是<br>
-</p>
-]]></content>
-      <categories>
-        <category>题解</category>
-      </categories>
-      <tags>
-        <tag>OI</tag>
-        <tag>洛谷</tag>
-        <tag>数学</tag>
-        <tag>排列组合</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>P10511 题解</title>
-    <url>/2024/09/16/P10511/</url>
-    <content><![CDATA[<h2 id="思路"><a class="markdownIt-Anchor" href="#思路"></a> 思路</h2>
-<p>首先好像高一就学过 。但还是推一下：<br>
-令 ，则</p>
-<p></p>
-<p>也就是要维护区间平方和与区间和。这可以考虑用前缀和维护。考虑到有散块的可能，所以先把夹在  和  中间的整块求出来，再把  旁边的或  旁边的散块求出来。记得及时取膜。</p>
-<p>我们可以先把  和  所在的块的坐标求出来，再把指针各往中间移一块来计算整块。</p>
-<p><img src="/images/P10511-1.png" alt=""></p>
-<p>例如，想要求  所在的块编号，只要找到离它最近且大于等于它的  或小于它  即可。注意， 可以和  重合，但  不可以，如果重合的话  号块也可以算作被夹在中间的块了。代码写出来就是 <code>dx = lower_bound(r + 1, r + m + 1, x) - r; </code> 或 <code>dx = lower_bound(l + 1, l + m + 1, x) - l - 1</code>。 所在的编号也是差不多的求法。</p>
-<p>其他小细节在代码注释里。注意取膜哦！</p>
-<h2 id="代码"><a class="markdownIt-Anchor" href="#代码"></a> 代码</h2>
-<figure class="highlight cpp"><div class="table-wrap"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="keyword">using</span> ll = <span class="type">long</span> <span class="type">long</span>;</span><br><span class="line"></span><br><span class="line"><span class="type">const</span> ll M = <span class="number">2e5</span> + <span class="number">100</span>, mod = <span class="number">998244353</span>;</span><br><span class="line">ll n, m, q;</span><br><span class="line">ll l[M], r[M];</span><br><span class="line">ll s[M], qs[M], len[M], b[M];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">    cin &gt;&gt; n &gt;&gt; m &gt;&gt; q;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= m; i++)</span><br><span class="line">    {</span><br><span class="line">        cin &gt;&gt; l[i] &gt;&gt; r[i] &gt;&gt; b[i]; b[i] %= mod;</span><br><span class="line">        len[i] = (r[i] - l[i] + <span class="number">1</span>) % mod;  </span><br><span class="line">        s[i] = (len[i] * b[i]) % mod; </span><br><span class="line">        qs[i] = (s[i] * b[i]) % mod; </span><br><span class="line">        len[i] = (len[i - <span class="number">1</span>] + len[i]) % mod;</span><br><span class="line">        s[i] = (s[i - <span class="number">1</span>] + s[i]) % mod;</span><br><span class="line">        qs[i] = (qs[i - <span class="number">1</span>] + qs[i]) % mod;</span><br><span class="line">    }</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= q; i++)</span><br><span class="line">    {</span><br><span class="line">        <span class="comment">/* 一开始想先把离 x/y 右/左 边最近的 左/右 端点编号求出来的……但是实现起来有点麻烦（ */</span></span><br><span class="line">        </span><br><span class="line">        ll x, y, dx, dy <span class="comment">/* dx 为 x 所在的编号；dy 含义亦然 */</span>, S, QS, ans; cin &gt;&gt; x &gt;&gt; y;</span><br><span class="line">        dx = <span class="built_in">lower_bound</span>(l + <span class="number">1</span>, l + m + <span class="number">1</span>, x) - l - <span class="number">1</span>, <span class="comment">// 也就是 dx = lower_bound(r + 1, r + m + 1, x) - r;</span></span><br><span class="line">        dy = <span class="built_in">lower_bound</span>(r + <span class="number">1</span>, r + m + <span class="number">1</span>, y) - r;</span><br><span class="line">        <span class="keyword">if</span> (dx == dy) { cout &lt;&lt; <span class="number">0</span> &lt;&lt; endl; <span class="keyword">continue</span>; }</span><br><span class="line">        </span><br><span class="line"><span class="comment">//      S = S + (r[dx] - x + 1) * b[dx] + (y - l[dy] + 1) * b[dy];  </span></span><br><span class="line">        S = (r[dx] - x + <span class="number">1</span>) % mod * b[dx] % mod + (y - l[dy] + <span class="number">1</span>) % mod * b[dy] % mod;</span><br><span class="line">        QS = (r[dx] - x + <span class="number">1</span>) % mod * b[dx] % mod * b[dx] % mod + (y - l[dy] + <span class="number">1</span>) % mod* b[dy] % mod * b[dy] % mod;</span><br><span class="line">    </span><br><span class="line">        dx++, dy--; <span class="comment">// 移到里面夹着的整块</span></span><br><span class="line">        <span class="keyword">if</span> (dx &lt;= dy) <span class="comment">// 排除里面没夹着整块的情况</span></span><br><span class="line">        {</span><br><span class="line">            S = (S + s[dy] - s[dx - <span class="number">1</span>] + mod) % mod;</span><br><span class="line">            QS = (QS + qs[dy] - qs[dx - <span class="number">1</span>] + mod) % mod;</span><br><span class="line">        }</span><br><span class="line">        ans = ((y - x + <span class="number">1</span>) % mod * QS % mod - S * S % mod + mod) % mod;</span><br><span class="line">        cout &lt;&lt; (ans + mod) % mod &lt;&lt; endl;</span><br><span class="line">    }</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">}</span><br></pre></td></tr></table></div></figure>]]></content>
-      <categories>
-        <category>题解</category>
-      </categories>
-      <tags>
-        <tag>OI</tag>
-        <tag>洛谷</tag>
-        <tag>数学</tag>
-        <tag>C++</tag>
+        <tag>字体</tag>
+        <tag>美化</tag>
       </tags>
   </entry>
   <entry>
@@ -592,58 +481,169 @@ Git: <a href="https://github.com/waylau/git-for-win">https://github.com/waylau/g
       </tags>
   </entry>
   <entry>
-    <title>给你的 Windows 更换字体（包括微软雅黑和 Segoe UI！）</title>
-    <url>/2024/09/16/PCFont/</url>
-    <content><![CDATA[<div class="note danger flat"><p>所有字体、<strong>包括系统字体</strong>一定要做好备份！</p>
-</div>
-<p>在网络上经常看到更换电脑字体的教程，可大多教程都解决不了一个问题——更换系统的英文字体。Windows 下某些地方的英文字体使用的是 Segoe UI，个人觉得十分丑陋。这篇文章将以字体 Inter 为例解决这个痛点，并同时介绍替换中文字体的方法。</p>
+    <title>十二重计数法</title>
+    <url>/2024/09/15/P5824/</url>
+    <content><![CDATA[<hr>
+<p><s>复赛完了再写这篇文章是不是太迟了？</s></p>
+<p>闲话：我只是为了初赛练练组合数学而做的，没有多少 OI 内容（<s>可能复赛时会考虑添加？</s> 复赛寄的太彻底，不加了）。</p>
+<p>我们教练说：初赛时排列组合的题目不会做就大力递推。虽然 CSP 初赛中数学题目越来越简单了，但这并不妨碍我仍然害怕着排练组合的题目。于是他让我来做这道题，并不是码，而是把递推式列出来。这方法确实很有用——于是我就写了这篇文章。</p>
+<p>这篇文章是为我自己而写，也是为不会组合数学的人写的。所以很多理所当然的过程都写了上去，请多包含。</p>
+<p>另附一些符号约定：</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th style="text-align:center">符号</th>
+<th style="text-align:center">意义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center">集合  的并集，</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center">集合  的交集，</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center">即 </td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center">下降阶乘幂，</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+</tr>
+</tbody>
+</table></div>
 <hr>
-<h2 id="一-软件安装"><a class="markdownIt-Anchor" href="#一-软件安装"></a> 一、软件安装</h2>
-<p>我使用的软件是 <a href="https://github.com/GuiWonder/WeiFonts/">WeiFonts</a> 和 <a href="https://www.fishlee.net/soft/SysFontReplacer/">字体替换工具(Font Replace Utility)</a>。前一个软件能够将被替换字体文件的信息写到你要替换的字体上，并把字体打包成 <code>.ttc</code>。后一个软件能够替换掉系统字体。</p>
-<h2 id="二-weifonts-的使用"><a class="markdownIt-Anchor" href="#二-weifonts-的使用"></a> 二、WeiFonts 的使用</h2>
-<p>下载发行包后，打开文件中的 <code>WeiFonts.exe</code> 就差不多会用了。对于 「Windows 中文」 选项卡里的内容我不是很会用，貌似是要先打包成 <code>.ttc</code> 再替换，有点麻烦 <s>（其实是我根本没了解啦）</s>。直接聚焦于「给定字体」选项卡即可。</p>
-<p>先讲讲中文字体：微软雅黑一共有三个字体要替换：<code>msyhl.ttc</code>、<code>msyh.ttc</code>、<code>msyhbd.ttc</code>，分别是 Light, Regular 和 Bold 字重。在「模板字体」一栏直接输入 <code>C:\Windows\Fonts\上述三个字体</code> 即可。（因为如果点右边的选择的话是找不到 Fonts 文件夹的，很奇怪）。<br>
-「输入字体」一栏直接找到你要替换的对应字重的字体的绝对地址即可。如果你的字体文件只有一个字重的话，或者你不在乎有几个字重，每次都用这一个文件即可。「保存为」一栏自定。如果 <code>.otf</code> 出了问题的话，尝试把它转化成 <code>.ttf</code> 文件。AFTools 提供了这一功能。<br>
-下图是使用阿里巴巴普惠体的例子。</p>
-<!-- 配图待补（读者看不到这行注释）
-     原图存在已停服的 picui.cn 图床上，且未被任何网页存档收录，无法找回。
-     补图：重新截图 → 放进 source\images\ → 用下面这行替换掉本注释：
-     ![](/images/你的文件名.png) -->
-<p>英文字体就比较搞了，这时候把字体打包成 <code>.ttc</code> 是比较方便的，但电脑里的 Segoe UI 并没有打包成 <code>.ttc</code>（亦或是我没找到打包或可变字体），所以需要一个一个字重去替换。这里我选择 Inter，一款非常像 SF Pro 的字体。以下是示例：</p>
-<!-- 配图待补（读者看不到这行注释）
-     原图存在已停服的 picui.cn 图床上，且未被任何网页存档收录，无法找回。
-     补图：重新截图 → 放进 source\images\ → 用下面这行替换掉本注释：
-     ![](/images/你的文件名.png) -->
-<p>工作量有点大，最后替换好应该得到了这么些文件：</p>
-<!-- 配图待补（读者看不到这行注释）
-     原图存在已停服的 picui.cn 图床上，且未被任何网页存档收录，无法找回。
-     补图：重新截图 → 放进 source\images\ → 用下面这行替换掉本注释：
-     ![](/images/你的文件名.png) -->
-<div class="note danger flat"><p>替换前一定要注意字重是否对应哦！</p>
-</div>
-<h2 id="三-字体替换工具的使用"><a class="markdownIt-Anchor" href="#三-字体替换工具的使用"></a> 三、字体替换工具的使用</h2>
-<p>这更是一款傻瓜式软件：打开后直接把所有字体拖进去，然后点「开始执行任务」即可。</p>
-<!-- 配图待补（读者看不到这行注释）
-     原图存在已停服的 picui.cn 图床上，且未被任何网页存档收录，无法找回。
-     补图：重新截图 → 放进 source\images\ → 用下面这行替换掉本注释：
-     ![](/images/你的文件名.png) -->
-<p>如果没有备份而想回退到之前的字体，点「还原」并找到自动的备份即可。</p>
-<p>点「开始执行任务」后会提醒你有多少个字体替换成功，然后自动重启。如果有不成功的就多替换几次。</p>
+<h2 id="p5824-十二重计数法"><a class="markdownIt-Anchor" href="#p5824-十二重计数法"></a> <a href="https://www.luogu.com.cn/problem/P5824">P5824 十二重计数法</a></h2>
+<p>有  个球和  个盒子，要全部装进盒子里。<br>
+还有一些限制条件，那么有多少种方法放球？（与放的先后顺序无关）</p>
+<p>限制条件分别如下：</p>
+<p>：球之间互不相同，盒子之间互不相同。<br>
+：球之间互不相同，盒子之间互不相同，每个盒子至多装一个球。<br>
+：球之间互不相同，盒子之间互不相同，每个盒子至少装一个球。</p>
+<p>：球之间互不相同，盒子全部相同。<br>
+：球之间互不相同，盒子全部相同，每个盒子至多装一个球。<br>
+：球之间互不相同，盒子全部相同，每个盒子至少装一个球。</p>
+<p>：球全部相同，盒子之间互不相同。<br>
+：球全部相同，盒子之间互不相同，每个盒子至多装一个球。<br>
+：球全部相同，盒子之间互不相同，每个盒子至少装一个球。</p>
+<p>：球全部相同，盒子全部相同。<br>
+：球全部相同，盒子全部相同，每个盒子至多装一个球。<br>
+：球全部相同，盒子全部相同，每个盒子至少装一个球。</p>
 <hr>
-<p>自此，你的电脑就有了崭新的中英文字体啦！可喜可贺！</p>
-<!-- 配图待补（读者看不到这行注释）
-     原图存在已停服的 picui.cn 图床上，且未被任何网页存档收录，无法找回。
-     补图：重新截图 → 放进 source\images\ → 用下面这行替换掉本注释：
-     ![](/images/你的文件名.png) -->
-<p>看我博客文件的一角，是不是也有苹果的味道了呢（笑）</p>
-<p>用这个方法，还可以替换掉系统的「黑体」「宋体」之类。不过我是不推荐的。</p>
+<h1 id="想法"><a class="markdownIt-Anchor" href="#想法"></a> 想法</h1>
+<hr>
+<h1 id="i"><span class="math-heading-text">I</span><a class="markdownIt-Anchor" href="#i"></a> </h1>
+<p>每个球都有  种方案数。答案即为<br>
+</p>
+<h1 id="ii"><span class="math-heading-text">II</span><a class="markdownIt-Anchor" href="#ii"></a> </h1>
+<p>依次取球放进盒子，每次放球后方案数都会少一种，乘起来答案为<br>
+</p>
+<h1 id="iii"><span class="math-heading-text">III</span><a class="markdownIt-Anchor" href="#iii"></a> </h1>
+<p>可以考虑先参考 。<br>
+那么考虑盒子的排列，一种很显然的答案就是<br>
+</p>
+<p>当然了，我们也可以考虑容斥：枚举空着的盒子的个数，不限制放置个数的方案总数 减去 有  个盒子空着时方案的总数 即为我们求的答案。<br>
+设全集  是所有放球的方法构成的集合（容易注意到 ）， 为能满足  个盒子为空的放法构成的集合。即求 。<br>
+容斥得<br>
+<br>
+前面的系数  可以归纳证明。 表示选  个作为空盒子， 的情景和  相同。</p>
+<p>所以答案就是</p>
+<p></p>
+<p>这个时候我们可以再次回看 。</p>
+<h1 id="iv"><span class="math-heading-text">IV</span><a class="markdownIt-Anchor" href="#iv"></a> </h1>
+<p>先参考 。<br>
+与  不同的是没有了个数的限制。枚举非空盒子个数，所以是<br>
+</p>
+<h1 id="v"><span class="math-heading-text">V</span><a class="markdownIt-Anchor" href="#v"></a> </h1>
+<p>最简单的一集！由于盒子相同且最多放一个球，无论怎么装，都可以交换盒子顺序额得到同一种方案，所以答案为：<br>
+<br>
+顺带去看看 。</p>
+<h1 id="vi"><span class="math-heading-text">VI</span><a class="markdownIt-Anchor" href="#vi"></a> </h1>
+<p>我会递推！<br>
+设  为  个球， 个盒子的方案数。<br>
+考虑新加进来一个球：</p>
+<ul>
+<li>可以再拿一个盒子，盒子数目也就从  个变成了  个。那就从  转移过来；</li>
+<li>可以放在之前任意一个盒子里，有  个盒子可选，即从  转移。<br>
+所以递推式为：<br>
+<br>
+实际上，这就是 <a href="https://oi.wiki/math/combinatorics/stirling/#%E7%AC%AC%E4%BA%8C%E7%B1%BB%E6%96%AF%E7%89%B9%E6%9E%97%E6%95%B0stirling-number">第二类斯特林数 </a> 。<br>
+解决  后，我们发现 。而 ，于是最后理所应当地得到了</li>
+</ul>
+<p><br>
+非常神奇呢。</p>
+<h1 id="vii"><span class="math-heading-text">VII</span><a class="markdownIt-Anchor" href="#vii"></a> </h1>
+<p>我会递推！<br>
+设  为  个球， 个盒子的方案数。<br>
+考虑<strong>这一个球 不放而让新开的盒子空着 还是 在之前的盒子里放多个</strong>：</p>
+<ul>
+<li>可以不放这个球而让盒子空着，小球数目仍然为  个。拿过来了一个新的盒子，即从  转移。</li>
+<li>在之前的盒子里放多个，盒子数目仍然为  个。即从  转移。</li>
+</ul>
+<p>所以递推式为：<br>
+</p>
+<p>也可以从插板的角度考虑：</p>
+<blockquote>
+<p>先往每个盒子里塞一个球，最后把这个球拿走就行了。换言之，先求「将  个相同小球，放入到  个不同盒子，盒子至少装一球」的方案数，对于每个这个问题的划分方案，将每个盒子抽掉一个球，就是  的方案。因此该问答案即为</p>
+<p></p>
+<p><em>引用自 <a href="https://www.luogu.com.cn/article/2hb00cd4">囧仙</a></em></p>
+</blockquote>
+<h1 id="viii"><span class="math-heading-text">VIII</span><a class="markdownIt-Anchor" href="#viii"></a> </h1>
+<p>我会递推！<br>
+设  为  个球， 个盒子的方案数。<br>
+考虑<strong>这一个球 再开一个盒子放一个 还是 不放而让新开的盒子空着</strong>：</p>
+<ul>
+<li>再开一个盒子放一个，盒子数目也就从  个变成了  个。那就从  转移过来；</li>
+<li>可以不放这个球而让盒子空着，小球数目仍然为  个。拿过来了一个新的盒子，即从  转移。</li>
+</ul>
+<p>所以递推式为：<br>
+<br>
+实际上，这就是 <a href="https://oi.wiki/math/combinatorics/combination/#%E7%BB%84%E5%90%88%E6%95%B0">组合数 </a> 。<br>
+也可以直接考虑选  个盒子装球，那答案也是一样的。</p>
+<h1 id="ix"><span class="math-heading-text">IX</span><a class="markdownIt-Anchor" href="#ix"></a> </h1>
+<p>我会递推！<br>
+设  为  个球， 个盒子的方案数。<br>
+考虑<strong>这一个球 再开一个盒子放一个 还是 在之前的盒子里放多个</strong>：</p>
+<ul>
+<li>再开一个盒子放一个，盒子数目也就从  个变成了  个。那就从  转移过来；</li>
+<li>在之前的盒子里放多个，盒子数目仍然为  个。即从  转移。</li>
+</ul>
+<p>所以递推式为：<br>
+</p>
+<p>也可以从插板的角度考虑，是最平凡的插板法。答案为<br>
+</p>
+<h1 id="x"><span class="math-heading-text">X</span><a class="markdownIt-Anchor" href="#x"></a> </h1>
+<p>我会递推！<br>
+设  为  个球， 个盒子的方案数。可以发现，在所谓「第一个盒子里装一个球、第三个盒子里装三个球」是和「第一个盒子里装三个球、第三个盒子里装一个球」无异的。一种比较讨巧的做法是这样的：将盒子按照球的数量从小到大排序。这样的话，两种方案相同，仅当两种方案排序后的序列相同。所以可以：</p>
+<ul>
+<li>在这个序列  开头加一个空盒子，盒子数目也就从  个变成了  个。那就从  转移过来；</li>
+<li>让所有盒子里都加一个球，也就从  转移过来；</li>
+</ul>
+<p>可以证明以上的转移方案是正确的。所以递推式为：</p>
+<p></p>
+<p>这个东西其实就是 <a href="https://oi-wiki.org/math/combinatorics/partition/">划分数</a>。</p>
+<h1 id="xi"><span class="math-heading-text">XI</span><a class="markdownIt-Anchor" href="#xi"></a> </h1>
+<p>最简单的一集！<br>
+</p>
+<h1 id="xii"><span class="math-heading-text">XII</span><a class="markdownIt-Anchor" href="#xii"></a> </h1>
+<p>与  的唯一差别是每个盒子里都至少要一个球——那就先往盒子里都放一个球就好了。答案就是<br>
+</p>
 ]]></content>
       <categories>
-        <category>指北</category>
+        <category>题解</category>
       </categories>
       <tags>
-        <tag>字体</tag>
-        <tag>美化</tag>
+        <tag>OI</tag>
+        <tag>洛谷</tag>
+        <tag>数学</tag>
+        <tag>排列组合</tag>
       </tags>
   </entry>
   <entry>
@@ -673,16 +673,25 @@ Git: <a href="https://github.com/waylau/git-for-win">https://github.com/waylau/g
       </tags>
   </entry>
   <entry>
-    <title>在杭电，优雅地远程使用电脑——Sunshine + Moonlight + Tailscale 平板串流</title>
-    <url>/2026/10/08/pad-streaming/</url>
-    <content><![CDATA[<h1 id="前言"><a class="markdownIt-Anchor" href="#前言"></a> 前言</h1>
-<p>大学之后才发现有这么多💦课，感觉就这样浪费甚是可惜，于是想拿电脑做点事情。但是直接把笔记本带到教室</p>
-]]></content>
+    <title>日記</title>
+    <url>/2025/01/01/nikki/</url>
+    <content><![CDATA[<div class="hbe hbe-container" id="hexo-blog-encrypt" data-wpm="Oh, this is an invalid password. Check and try again, please." data-whm="OOPS, these decrypted content may changed, but you can still have a look.">
+  <script id="hbeData" type="hbeData" data-hmacdigest="95da762b708be68b3ebff692185b582d780442e579a16e7332e306a7f34c0374">2e8069cb7e672a6dc51982fdeb527cdd1a8ffd8ad95e824346b7e639464e35d270b09d856212f178974d06f3c25f2e2b083bff2e8b713b5f8644c6e55de9aec6d27ab50722a9bcef2b45a1ca0c4a3b0b5f1aac51b860e1a6d0fbfae563a1d09e3eb670f9001dca6ae904606f78761189d94f5d61d0693dce6c7bc5c1e0b84ea7eedeb7d7615308a429773d100812eab82a1d4a7d9b72e8dcb349eeeb847645ffc8249c302928db31046e22a797a165d5c3f398a7d553c895dc25b299d055ed0504c9894365099daea9a5c734181162d8a5f1e4af80a2cefcecc2e4676247c566f974b678ce6e127487724f8828b9d1c7729569612c4d12b5a4292b73750691768c46fd6f55782ed83ae823a70bda1787dfd4cb6875a5a764a5a7cd535408a8be37a9f7a02e157a6e2b5d3df28159103464e3281c954118c872e1b494d1a7c90e2767675fd4af91ce01695d3c4c8da3499a075b32d15fcccc7f8690b5b35e485a260ad7a603d492158ae50e60a0a65ae9be2fbef0a0d132f2878aae59ce51bc461681d35a90e3c3286ae799ad0048e2507c1d923bb8532f9c41be835ef8a9468a5a4fcfee71c55d4bf1e116b2d17156fc4eca5b5671bd69077d868e1567dbda098a3f14c23e78572c638df9e0d693f1c739b84436920f456a1b4620322e146ee396e03246f59d9b4c6749540db1e665d5a0aba050f768f5d2a6cfaaa2bf0d2c152ddd6bbb7aa4e73be90cd3a37e1f53fa2a29296c32a9e80f4db244802dfd1690647a53691165a0c614cd34dac15e29955eae137c72a9ab1a0e7183185bf699ddffa8b24910cd84a2f106f076b147a447881cba915b0369c71a518fc210de96ca2965a632f5118c28e91480c9903fb276ac664617d921015695c2ad9fd6aefb7008fba0ce3237f815d9945632afe75f7ca311f0b78e820042ce3bec9a00ea9ddc0fd01b8799d1bf580c889f6f095a176dd87dce8f18492e7c36ac5a9f1552a3adde732554cf7cea3f07b30befa49ce58a6c847a2d092227fa4f9735e8f24d5ac9b3209bbe1e8e662b8495fc952c79a680d6c6d204369648e4114ffe23af037722ac9107d2fd09f6a1d4dcd0b9145a1c86c918dd5433800ca43d597e61c77109dfd6d5b6b6193b24a42768981e4681e987fd7ae8e5cc5f03e1c07343668301ed53b3aaf1315fb022190c0c19daac6825731fdf85de081685ee109ea8f3b8e3a0648828d5464dda01d0cf60d45281b2a1d5c90ea2fc2df1e38b5d4364c8ec45efdad43dd1ce5f3444197e5a6cd6677265648515924ac342ca28311cbeedc674f3f4ec74475d330e7844c6eec956db4d51d504dd2d15df8da00f17e39f24eb4bfcaafa6f1c25656fbcb8938a250478df6c68d40a3ebef971b2eb1943065309f5fe6b4c8e596fb0cecb57e30ef939d6221d9d28bf0b27f7d5d5ff1ec9af3c4c532ac765169ca92ee1225e02d1008a364b9014768a8a9c15ff87939a1b44e247ba95d9278a361a47c2225e77377ccfdc5ae679d31c5bd53a8fe1ee903f8b3c05991afb2e6f135c19152c49c89743ed7f13fd50282ad140455f5ae452bd8b3b448ab06b8a50d8009aa242b947fe1fc110139223815dfebe8887f1f0694d9cccff024895dbe51331bbea152fd0f5ae5dd392f3fc92a016320cc2b7b43ce6cb9d34ef38ebe48a49ef24bf128337d63aa656f6dfca1c104d01098f2d1b1ee024702efecc57b4a11cd664940ed7510da513e2f6c26f</script>
+  <div class="hbe hbe-content">
+    <div class="hbe hbe-input hbe-input-default">
+      <input class="hbe hbe-input-field hbe-input-field-default" type="password" id="hbePass">
+      <label class="hbe hbe-input-label hbe-input-label-default" for="hbePass">
+        <span class="hbe hbe-input-label-content hbe-input-label-content-default">请输入密码：</span>
+      </label>
+    </div>
+  </div>
+</div>
+<script data-pjax src="/lib/hbe.js"></script><link href="/css/hbe.style.css" rel="stylesheet" type="text/css">]]></content>
       <categories>
-        <category>指北</category>
+        <category>日記</category>
       </categories>
       <tags>
-        <tag>串流</tag>
+        <tag>日記</tag>
       </tags>
   </entry>
   <entry>
@@ -724,25 +733,44 @@ Git: <a href="https://github.com/waylau/git-for-win">https://github.com/waylau/g
       </tags>
   </entry>
   <entry>
-    <title>日記</title>
-    <url>/2025/01/01/nikki/</url>
-    <content><![CDATA[<div class="hbe hbe-container" id="hexo-blog-encrypt" data-wpm="Oh, this is an invalid password. Check and try again, please." data-whm="OOPS, these decrypted content may changed, but you can still have a look.">
-  <script id="hbeData" type="hbeData" data-hmacdigest="95da762b708be68b3ebff692185b582d780442e579a16e7332e306a7f34c0374">2e8069cb7e672a6dc51982fdeb527cdd1a8ffd8ad95e824346b7e639464e35d270b09d856212f178974d06f3c25f2e2b083bff2e8b713b5f8644c6e55de9aec6d27ab50722a9bcef2b45a1ca0c4a3b0b5f1aac51b860e1a6d0fbfae563a1d09e3eb670f9001dca6ae904606f78761189d94f5d61d0693dce6c7bc5c1e0b84ea7eedeb7d7615308a429773d100812eab82a1d4a7d9b72e8dcb349eeeb847645ffc8249c302928db31046e22a797a165d5c3f398a7d553c895dc25b299d055ed0504c9894365099daea9a5c734181162d8a5f1e4af80a2cefcecc2e4676247c566f974b678ce6e127487724f8828b9d1c7729569612c4d12b5a4292b73750691768c46fd6f55782ed83ae823a70bda1787dfd4cb6875a5a764a5a7cd535408a8be37a9f7a02e157a6e2b5d3df28159103464e3281c954118c872e1b494d1a7c90e2767675fd4af91ce01695d3c4c8da3499a075b32d15fcccc7f8690b5b35e485a260ad7a603d492158ae50e60a0a65ae9be2fbef0a0d132f2878aae59ce51bc461681d35a90e3c3286ae799ad0048e2507c1d923bb8532f9c41be835ef8a9468a5a4fcfee71c55d4bf1e116b2d17156fc4eca5b5671bd69077d868e1567dbda098a3f14c23e78572c638df9e0d693f1c739b84436920f456a1b4620322e146ee396e03246f59d9b4c6749540db1e665d5a0aba050f768f5d2a6cfaaa2bf0d2c152ddd6bbb7aa4e73be90cd3a37e1f53fa2a29296c32a9e80f4db244802dfd1690647a53691165a0c614cd34dac15e29955eae137c72a9ab1a0e7183185bf699ddffa8b24910cd84a2f106f076b147a447881cba915b0369c71a518fc210de96ca2965a632f5118c28e91480c9903fb276ac664617d921015695c2ad9fd6aefb7008fba0ce3237f815d9945632afe75f7ca311f0b78e820042ce3bec9a00ea9ddc0fd01b8799d1bf580c889f6f095a176dd87dce8f18492e7c36ac5a9f1552a3adde732554cf7cea3f07b30befa49ce58a6c847a2d092227fa4f9735e8f24d5ac9b3209bbe1e8e662b8495fc952c79a680d6c6d204369648e4114ffe23af037722ac9107d2fd09f6a1d4dcd0b9145a1c86c918dd5433800ca43d597e61c77109dfd6d5b6b6193b24a42768981e4681e987fd7ae8e5cc5f03e1c07343668301ed53b3aaf1315fb022190c0c19daac6825731fdf85de081685ee109ea8f3b8e3a0648828d5464dda01d0cf60d45281b2a1d5c90ea2fc2df1e38b5d4364c8ec45efdad43dd1ce5f3444197e5a6cd6677265648515924ac342ca28311cbeedc674f3f4ec74475d330e7844c6eec956db4d51d504dd2d15df8da00f17e39f24eb4bfcaafa6f1c25656fbcb8938a250478df6c68d40a3ebef971b2eb1943065309f5fe6b4c8e596fb0cecb57e30ef939d6221d9d28bf0b27f7d5d5ff1ec9af3c4c532ac765169ca92ee1225e02d1008a364b9014768a8a9c15ff87939a1b44e247ba95d9278a361a47c2225e77377ccfdc5ae679d31c5bd53a8fe1ee903f8b3c05991afb2e6f135c19152c49c89743ed7f13fd50282ad140455f5ae452bd8b3b448ab06b8a50d8009aa242b947fe1fc110139223815dfebe8887f1f0694d9cccff024895dbe51331bbea152fd0f5ae5dd392f3fc92a016320cc2b7b43ce6cb9d34ef38ebe48a49ef24bf128337d63aa656f6dfca1c104d01098f2d1b1ee024702efecc57b4a11cd664940ed7510da513e2f6c26f</script>
-  <div class="hbe hbe-content">
-    <div class="hbe hbe-input hbe-input-default">
-      <input class="hbe hbe-input-field hbe-input-field-default" type="password" id="hbePass">
-      <label class="hbe hbe-input-label hbe-input-label-default" for="hbePass">
-        <span class="hbe hbe-input-label-content hbe-input-label-content-default">请输入密码：</span>
-      </label>
-    </div>
-  </div>
+    <title>在杭电，优雅地远程使用电脑——Sunshine + Moonlight + Tailscale 平板串流</title>
+    <url>/2026/10/08/pad-streaming/</url>
+    <content><![CDATA[<h1 id="前言"><a class="markdownIt-Anchor" href="#前言"></a> 前言</h1>
+<p>大学之后才发现有这么多💦课，感觉就这样浪费甚是可惜，于是想拿电脑做点事情。但是直接把笔记本带到教室显然不现实：</p>
+<ul>
+<li>教室里没有插头（有也很少）</li>
+<li>电源适配器超级重，体积也很大</li>
+<li>风扇声音太大（虽然可以调小）</li>
+<li>……<br>
+总之有十万八千个理由。但是现在买一个轻薄本又是不可能的。直到有一天看到一位同学在课上优雅地使用平板<span style="font-size:12px;">（后来才发觉那是 Surface）</span>和 Claude 对话激发了我~<br>
+好吧，我也试试看用平板吧！在网上搜了一下已经有非常成熟的方案了，但是每个学校的网络情况并不相同，所以我在 AI 的帮助下 <span style="font-size:12px;">AI 真是太好用了你们知道吗</span> 完成了配置。<br>
+这篇文章就供在杭电且跟我有一样苦恼的同学们作参考。</li>
+</ul>
+<div class="note primary flat"><p>这篇文章会一直更新 <span style="font-size:12px;">大概吧，看我心情</span>，后续可能会加上平板作笔记本副屏的方法，或者如果杭电网络情况变了我也会改。</p>
 </div>
-<script data-pjax src="/lib/hbe.js"></script><link href="/css/hbe.style.css" rel="stylesheet" type="text/css">]]></content>
+<h1 id="isunshine"><a class="markdownIt-Anchor" href="#isunshine"></a> ⅠSunshine</h1>
+<p><s>真是对称且优雅的取名啊。</s><br>
+首先在笔记本上下载 <a href="%5Bhttps://github.com/LizardByte/Sunshine/releases/latest%5D(https://github.com/LizardByte/Sunshine/releases/latest)">Sunshine</a>，一路安装。<br>
+然后打开 <a href="https://localhost:47990">https://localhost:47990</a> ：<br>
+<img src="images/Pasted%20image%2020261008160151.png" alt=""></p>
+<p>创建管理账号。用户名和密码都可以自己设定，不过<strong>一旦设置好就不能修改了，一定要记住！</strong> 之后串流的时候还会用到。<br>
+其他设置没有特殊需要不用特别操作。[官方文档](<a href="https://docs.lizardbyte.dev/projects/sunshine/latest/index.html">Sunshine: Sunshine</a>)<br>
+在电脑 cmd 里输入 <code>ipconfig</code>，在输出里找到 <strong>无线局域网适配器 WLAN</strong> 那一段，看 <strong>IPv4 地址</strong>，形如 <code>192.168.43.xx</code>（手机热点一般是 <code>192.168.43.x</code>），记下来，一会会用。</p>
+<h1 id="ii-moonlight"><a class="markdownIt-Anchor" href="#ii-moonlight"></a> Ⅱ Moonlight</h1>
+<p>在平板（如果没有的话可以现在手机上先尝试下）安装 Moonlight。iOS 直接搜索 <strong>Moonlight Game Streaming</strong> 就好，安卓端可以看 [这里](<a href="https://github.com/moonlight-stream/moonlight-android/releases">Releases · moonlight-stream/moonlight-android</a>)，选择非 Root 的版本就好。<br>
+此时已经可以尝试一下串流了：让平板（手机）开热点给电脑连接以使得二者在同一网络下。打开 Moonlight，点击左边的加号，输入刚刚记下的 IP。<br>
+此时主页就会出现你配对的电脑了：</p>
+<p><img src="images/7354e60453d0e3d8b3b1b3de6186a420.jpg" alt="作者的电脑"></p>
+<p>点击后，平板上会出现一串 4 位 PIN 码，此时电脑上也会提示 PIN 码配对。点开弹出的网页：<br>
+<img src="images/Pasted%20image%2020261008162610.png" alt=""></p>
+]]></content>
       <categories>
-        <category>日記</category>
+        <category>指北</category>
       </categories>
       <tags>
-        <tag>日記</tag>
+        <tag>串流</tag>
+        <tag>杭州电子科技大学</tag>
+        <tag>校园网</tag>
       </tags>
   </entry>
 </search>
