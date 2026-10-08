@@ -65,7 +65,7 @@
   </url>
   
   <url>
-    <loc>https://chieh2lu2.github.io/archives/index.html</loc>
+    <loc>https://chieh2lu2.github.io/categories/index.html</loc>
     
     <lastmod>2026-10-07</lastmod>
     
@@ -74,7 +74,7 @@
   </url>
   
   <url>
-    <loc>https://chieh2lu2.github.io/categories/index.html</loc>
+    <loc>https://chieh2lu2.github.io/archives/index.html</loc>
     
     <lastmod>2026-10-07</lastmod>
     
@@ -165,27 +165,6 @@
   </url>
   
   <url>
-    <loc>https://chieh2lu2.github.io/tags/%E6%B4%9B%E8%B0%B7/</loc>
-    <lastmod>2026-10-08</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://chieh2lu2.github.io/tags/%E6%95%B0%E5%AD%A6/</loc>
-    <lastmod>2026-10-08</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://chieh2lu2.github.io/tags/C/</loc>
-    <lastmod>2026-10-08</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://chieh2lu2.github.io/tags/Hexo/</loc>
     <lastmod>2026-10-08</lastmod>
     <changefreq>weekly</changefreq>
@@ -214,42 +193,21 @@
   </url>
   
   <url>
-    <loc>https://chieh2lu2.github.io/tags/%E5%AD%97%E4%BD%93/</loc>
+    <loc>https://chieh2lu2.github.io/tags/%E6%B4%9B%E8%B0%B7/</loc>
     <lastmod>2026-10-08</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://chieh2lu2.github.io/tags/%E7%BE%8E%E5%8C%96/</loc>
+    <loc>https://chieh2lu2.github.io/tags/%E6%95%B0%E5%AD%A6/</loc>
     <lastmod>2026-10-08</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://chieh2lu2.github.io/tags/%E6%B0%B8%E4%B8%AD/</loc>
-    <lastmod>2026-10-08</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://chieh2lu2.github.io/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%A4%BE/</loc>
-    <lastmod>2026-10-08</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://chieh2lu2.github.io/tags/%E6%8E%92%E5%88%97%E7%BB%84%E5%90%88/</loc>
-    <lastmod>2026-10-08</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://chieh2lu2.github.io/tags/%E6%97%A5%E8%A8%98/</loc>
+    <loc>https://chieh2lu2.github.io/tags/C/</loc>
     <lastmod>2026-10-08</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -264,6 +222,48 @@
   
   <url>
     <loc>https://chieh2lu2.github.io/tags/%E7%88%AC%E8%99%AB/</loc>
+    <lastmod>2026-10-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://chieh2lu2.github.io/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%A4%BE/</loc>
+    <lastmod>2026-10-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://chieh2lu2.github.io/tags/%E6%B0%B8%E4%B8%AD/</loc>
+    <lastmod>2026-10-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://chieh2lu2.github.io/tags/%E5%AD%97%E4%BD%93/</loc>
+    <lastmod>2026-10-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://chieh2lu2.github.io/tags/%E7%BE%8E%E5%8C%96/</loc>
+    <lastmod>2026-10-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://chieh2lu2.github.io/tags/%E6%8E%92%E5%88%97%E7%BB%84%E5%90%88/</loc>
+    <lastmod>2026-10-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://chieh2lu2.github.io/tags/%E6%97%A5%E8%A8%98/</loc>
     <lastmod>2026-10-08</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -293,14 +293,14 @@
   </url>
   
   <url>
-    <loc>https://chieh2lu2.github.io/categories/%E7%A4%BE%E5%9B%A2/</loc>
+    <loc>https://chieh2lu2.github.io/categories/%E6%97%A5%E8%A8%98/</loc>
     <lastmod>2026-10-08</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://chieh2lu2.github.io/categories/%E6%97%A5%E8%A8%98/</loc>
+    <loc>https://chieh2lu2.github.io/categories/%E7%A4%BE%E5%9B%A2/</loc>
     <lastmod>2026-10-08</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
