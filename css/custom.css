@@ -1,0 +1,108 @@
+/* ============================================================================
+   站点自定义样式（custom.css）
+   ============================================================================
+   这个文件通过 _config.anzhiyu.yml 的 inject.head 注入到每个页面的 <head>，
+   排在主题样式之后，所以这里的规则会覆盖主题默认值。
+
+   目前包含三类：
+     1. 移动端排版修复（宽表格、宽公式不要撑破手机屏幕）
+     2. 纯公式标题的隐藏文本（给侧边目录用）
+     3. 一些小细节
+
+   想加自己的样式，直接写在文件末尾即可，不用动主题。
+   ============================================================================ */
+
+
+/* ==========================================================================
+   1) 移动端排版修复
+   ========================================================================== */
+
+/* 宽表格：自己横向滚动，不撑破页面
+   （表格的滚动容器由 scripts/04-wrap-tables.js 补上） */
+#article-container .table-wrap {
+  max-width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+#article-container .table-wrap > table {
+  margin: 0;
+}
+
+/* 宽公式：行内公式自己横向滚动。
+   MathJax 渲染出来的行内公式是固定宽度的 SVG，最宽能到 52ex（约 420px），
+   比手机屏幕还宽，而主题原本只给「独立公式」加了 overflow。 */
+#article-container mjx-container:not([display="true"]) {
+  display: inline-block;
+  max-width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
+/* 兜底：图片、代码块、长链接都不许超出容器 */
+#article-container img {
+  max-width: 100%;
+  height: auto;
+}
+
+#article-container pre {
+  max-width: 100%;
+  overflow-x: auto;
+}
+
+#article-container a {
+  word-break: break-word;
+}
+
+#article-container p,
+#article-container li {
+  overflow-wrap: break-word;
+}
+
+
+/* ==========================================================================
+   2) 纯公式标题的隐藏文本
+   ==========================================================================
+   像「# $\text{I}$」这样的标题，公式渲染成 SVG 之后就没有文字了，
+   而侧边目录是靠抓标题文字生成的 —— 结果目录里会出现一串空白条目。
+
+   配套的 scripts/00-protect-math.js 会给这类标题插一段
+   <span class="math-heading-text">I</span>，
+   下面这段样式让它「读者看不见，但目录和屏幕阅读器读得到」。
+   ========================================================================== */
+#article-container .math-heading-text {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* 标题本身要作为定位参考，隐藏文本才不会跑到别处去 */
+#article-container h1,
+#article-container h2,
+#article-container h3,
+#article-container h4,
+#article-container h5,
+#article-container h6 {
+  position: relative;
+}
+
+
+/* ==========================================================================
+   3) 小细节
+   ========================================================================== */
+
+/* 公式单独成段时，给一点上下留白，别和正文贴太紧 */
+#article-container mjx-container[display="true"] {
+  margin: 0.8em 0;
+}
+
+/* 目录里的公式标题条目，hover 时给个提示色（原本是空白的，容易以为点不动） */
+.toc-content .toc-link:hover .toc-text {
+  color: var(--anzhiyu-main);
+}

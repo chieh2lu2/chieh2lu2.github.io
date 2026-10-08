@@ -192,6 +192,227 @@ Git: <a href="https://github.com/waylau/git-for-win">https://github.com/waylau/g
       </tags>
   </entry>
   <entry>
+    <title>十二重计数法</title>
+    <url>/2024/09/15/P5824/</url>
+    <content><![CDATA[<hr>
+<p><s>复赛完了再写这篇文章是不是太迟了？</s></p>
+<p>闲话：我只是为了初赛练练组合数学而做的，没有多少 OI 内容（<s>可能复赛时会考虑添加？</s> 复赛寄的太彻底，不加了）。</p>
+<p>我们教练说：初赛时排列组合的题目不会做就大力递推。虽然 CSP 初赛中数学题目越来越简单了，但这并不妨碍我仍然害怕着排练组合的题目。于是他让我来做这道题，并不是码，而是把递推式列出来。这方法确实很有用——于是我就写了这篇文章。</p>
+<p>这篇文章是为我自己而写，也是为不会组合数学的人写的。所以很多理所当然的过程都写了上去，请多包含。</p>
+<p>另附一些符号约定：</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th style="text-align:center">符号</th>
+<th style="text-align:center">意义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center">集合  的并集，</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center">集合  的交集，</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center">即 </td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center">下降阶乘幂，</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+</tr>
+</tbody>
+</table></div>
+<hr>
+<h2 id="p5824-十二重计数法"><a class="markdownIt-Anchor" href="#p5824-十二重计数法"></a> <a href="https://www.luogu.com.cn/problem/P5824">P5824 十二重计数法</a></h2>
+<p>有  个球和  个盒子，要全部装进盒子里。<br>
+还有一些限制条件，那么有多少种方法放球？（与放的先后顺序无关）</p>
+<p>限制条件分别如下：</p>
+<p>：球之间互不相同，盒子之间互不相同。<br>
+：球之间互不相同，盒子之间互不相同，每个盒子至多装一个球。<br>
+：球之间互不相同，盒子之间互不相同，每个盒子至少装一个球。</p>
+<p>：球之间互不相同，盒子全部相同。<br>
+：球之间互不相同，盒子全部相同，每个盒子至多装一个球。<br>
+：球之间互不相同，盒子全部相同，每个盒子至少装一个球。</p>
+<p>：球全部相同，盒子之间互不相同。<br>
+：球全部相同，盒子之间互不相同，每个盒子至多装一个球。<br>
+：球全部相同，盒子之间互不相同，每个盒子至少装一个球。</p>
+<p>：球全部相同，盒子全部相同。<br>
+：球全部相同，盒子全部相同，每个盒子至多装一个球。<br>
+：球全部相同，盒子全部相同，每个盒子至少装一个球。</p>
+<hr>
+<h1 id="想法"><a class="markdownIt-Anchor" href="#想法"></a> 想法</h1>
+<hr>
+<h1 id="i"><span class="math-heading-text">I</span><a class="markdownIt-Anchor" href="#i"></a> </h1>
+<p>每个球都有  种方案数。答案即为<br>
+</p>
+<h1 id="ii"><span class="math-heading-text">II</span><a class="markdownIt-Anchor" href="#ii"></a> </h1>
+<p>依次取球放进盒子，每次放球后方案数都会少一种，乘起来答案为<br>
+</p>
+<h1 id="iii"><span class="math-heading-text">III</span><a class="markdownIt-Anchor" href="#iii"></a> </h1>
+<p>可以考虑先参考 。<br>
+那么考虑盒子的排列，一种很显然的答案就是<br>
+</p>
+<p>当然了，我们也可以考虑容斥：枚举空着的盒子的个数，不限制放置个数的方案总数 减去 有  个盒子空着时方案的总数 即为我们求的答案。<br>
+设全集  是所有放球的方法构成的集合（容易注意到 ）， 为能满足  个盒子为空的放法构成的集合。即求 。<br>
+容斥得<br>
+<br>
+前面的系数  可以归纳证明。 表示选  个作为空盒子， 的情景和  相同。</p>
+<p>所以答案就是</p>
+<p></p>
+<p>这个时候我们可以再次回看 。</p>
+<h1 id="iv"><span class="math-heading-text">IV</span><a class="markdownIt-Anchor" href="#iv"></a> </h1>
+<p>先参考 。<br>
+与  不同的是没有了个数的限制。枚举非空盒子个数，所以是<br>
+</p>
+<h1 id="v"><span class="math-heading-text">V</span><a class="markdownIt-Anchor" href="#v"></a> </h1>
+<p>最简单的一集！由于盒子相同且最多放一个球，无论怎么装，都可以交换盒子顺序额得到同一种方案，所以答案为：<br>
+<br>
+顺带去看看 。</p>
+<h1 id="vi"><span class="math-heading-text">VI</span><a class="markdownIt-Anchor" href="#vi"></a> </h1>
+<p>我会递推！<br>
+设  为  个球， 个盒子的方案数。<br>
+考虑新加进来一个球：</p>
+<ul>
+<li>可以再拿一个盒子，盒子数目也就从  个变成了  个。那就从  转移过来；</li>
+<li>可以放在之前任意一个盒子里，有  个盒子可选，即从  转移。<br>
+所以递推式为：<br>
+<br>
+实际上，这就是 <a href="https://oi.wiki/math/combinatorics/stirling/#%E7%AC%AC%E4%BA%8C%E7%B1%BB%E6%96%AF%E7%89%B9%E6%9E%97%E6%95%B0stirling-number">第二类斯特林数 </a> 。<br>
+解决  后，我们发现 。而 ，于是最后理所应当地得到了</li>
+</ul>
+<p><br>
+非常神奇呢。</p>
+<h1 id="vii"><span class="math-heading-text">VII</span><a class="markdownIt-Anchor" href="#vii"></a> </h1>
+<p>我会递推！<br>
+设  为  个球， 个盒子的方案数。<br>
+考虑<strong>这一个球 不放而让新开的盒子空着 还是 在之前的盒子里放多个</strong>：</p>
+<ul>
+<li>可以不放这个球而让盒子空着，小球数目仍然为  个。拿过来了一个新的盒子，即从  转移。</li>
+<li>在之前的盒子里放多个，盒子数目仍然为  个。即从  转移。</li>
+</ul>
+<p>所以递推式为：<br>
+</p>
+<p>也可以从插板的角度考虑：</p>
+<blockquote>
+<p>先往每个盒子里塞一个球，最后把这个球拿走就行了。换言之，先求「将  个相同小球，放入到  个不同盒子，盒子至少装一球」的方案数，对于每个这个问题的划分方案，将每个盒子抽掉一个球，就是  的方案。因此该问答案即为</p>
+<p></p>
+<p><em>引用自 <a href="https://www.luogu.com.cn/article/2hb00cd4">囧仙</a></em></p>
+</blockquote>
+<h1 id="viii"><span class="math-heading-text">VIII</span><a class="markdownIt-Anchor" href="#viii"></a> </h1>
+<p>我会递推！<br>
+设  为  个球， 个盒子的方案数。<br>
+考虑<strong>这一个球 再开一个盒子放一个 还是 不放而让新开的盒子空着</strong>：</p>
+<ul>
+<li>再开一个盒子放一个，盒子数目也就从  个变成了  个。那就从  转移过来；</li>
+<li>可以不放这个球而让盒子空着，小球数目仍然为  个。拿过来了一个新的盒子，即从  转移。</li>
+</ul>
+<p>所以递推式为：<br>
+<br>
+实际上，这就是 <a href="https://oi.wiki/math/combinatorics/combination/#%E7%BB%84%E5%90%88%E6%95%B0">组合数 </a> 。<br>
+也可以直接考虑选  个盒子装球，那答案也是一样的。</p>
+<h1 id="ix"><span class="math-heading-text">IX</span><a class="markdownIt-Anchor" href="#ix"></a> </h1>
+<p>我会递推！<br>
+设  为  个球， 个盒子的方案数。<br>
+考虑<strong>这一个球 再开一个盒子放一个 还是 在之前的盒子里放多个</strong>：</p>
+<ul>
+<li>再开一个盒子放一个，盒子数目也就从  个变成了  个。那就从  转移过来；</li>
+<li>在之前的盒子里放多个，盒子数目仍然为  个。即从  转移。</li>
+</ul>
+<p>所以递推式为：<br>
+</p>
+<p>也可以从插板的角度考虑，是最平凡的插板法。答案为<br>
+</p>
+<h1 id="x"><span class="math-heading-text">X</span><a class="markdownIt-Anchor" href="#x"></a> </h1>
+<p>我会递推！<br>
+设  为  个球， 个盒子的方案数。可以发现，在所谓「第一个盒子里装一个球、第三个盒子里装三个球」是和「第一个盒子里装三个球、第三个盒子里装一个球」无异的。一种比较讨巧的做法是这样的：将盒子按照球的数量从小到大排序。这样的话，两种方案相同，仅当两种方案排序后的序列相同。所以可以：</p>
+<ul>
+<li>在这个序列  开头加一个空盒子，盒子数目也就从  个变成了  个。那就从  转移过来；</li>
+<li>让所有盒子里都加一个球，也就从  转移过来；</li>
+</ul>
+<p>可以证明以上的转移方案是正确的。所以递推式为：</p>
+<p></p>
+<p>这个东西其实就是 <a href="https://oi-wiki.org/math/combinatorics/partition/">划分数</a>。</p>
+<h1 id="xi"><span class="math-heading-text">XI</span><a class="markdownIt-Anchor" href="#xi"></a> </h1>
+<p>最简单的一集！<br>
+</p>
+<h1 id="xii"><span class="math-heading-text">XII</span><a class="markdownIt-Anchor" href="#xii"></a> </h1>
+<p>与  的唯一差别是每个盒子里都至少要一个球——那就先往盒子里都放一个球就好了。答案就是<br>
+</p>
+]]></content>
+      <categories>
+        <category>题解</category>
+      </categories>
+      <tags>
+        <tag>OI</tag>
+        <tag>洛谷</tag>
+        <tag>数学</tag>
+        <tag>排列组合</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>给你的 Windows 更换字体（包括微软雅黑和 Segoe UI！）</title>
+    <url>/2024/09/16/PCFont/</url>
+    <content><![CDATA[<div class="note danger flat"><p>所有字体、<strong>包括系统字体</strong>一定要做好备份！</p>
+</div>
+<p>在网络上经常看到更换电脑字体的教程，可大多教程都解决不了一个问题——更换系统的英文字体。Windows 下某些地方的英文字体使用的是 Segoe UI，个人觉得十分丑陋。这篇文章将以字体 Inter 为例解决这个痛点，并同时介绍替换中文字体的方法。</p>
+<hr>
+<h2 id="一-软件安装"><a class="markdownIt-Anchor" href="#一-软件安装"></a> 一、软件安装</h2>
+<p>我使用的软件是 <a href="https://github.com/GuiWonder/WeiFonts/">WeiFonts</a> 和 <a href="https://www.fishlee.net/soft/SysFontReplacer/">字体替换工具(Font Replace Utility)</a>。前一个软件能够将被替换字体文件的信息写到你要替换的字体上，并把字体打包成 <code>.ttc</code>。后一个软件能够替换掉系统字体。</p>
+<h2 id="二-weifonts-的使用"><a class="markdownIt-Anchor" href="#二-weifonts-的使用"></a> 二、WeiFonts 的使用</h2>
+<p>下载发行包后，打开文件中的 <code>WeiFonts.exe</code> 就差不多会用了。对于 「Windows 中文」 选项卡里的内容我不是很会用，貌似是要先打包成 <code>.ttc</code> 再替换，有点麻烦 <s>（其实是我根本没了解啦）</s>。直接聚焦于「给定字体」选项卡即可。</p>
+<p>先讲讲中文字体：微软雅黑一共有三个字体要替换：<code>msyhl.ttc</code>、<code>msyh.ttc</code>、<code>msyhbd.ttc</code>，分别是 Light, Regular 和 Bold 字重。在「模板字体」一栏直接输入 <code>C:\Windows\Fonts\上述三个字体</code> 即可。（因为如果点右边的选择的话是找不到 Fonts 文件夹的，很奇怪）。<br>
+「输入字体」一栏直接找到你要替换的对应字重的字体的绝对地址即可。如果你的字体文件只有一个字重的话，或者你不在乎有几个字重，每次都用这一个文件即可。「保存为」一栏自定。如果 <code>.otf</code> 出了问题的话，尝试把它转化成 <code>.ttf</code> 文件。AFTools 提供了这一功能。<br>
+下图是使用阿里巴巴普惠体的例子。</p>
+<!-- 配图待补（读者看不到这行注释）
+     原图存在已停服的 picui.cn 图床上，且未被任何网页存档收录，无法找回。
+     补图：重新截图 → 放进 source\images\ → 用下面这行替换掉本注释：
+     ![](/images/你的文件名.png) -->
+<p>英文字体就比较搞了，这时候把字体打包成 <code>.ttc</code> 是比较方便的，但电脑里的 Segoe UI 并没有打包成 <code>.ttc</code>（亦或是我没找到打包或可变字体），所以需要一个一个字重去替换。这里我选择 Inter，一款非常像 SF Pro 的字体。以下是示例：</p>
+<!-- 配图待补（读者看不到这行注释）
+     原图存在已停服的 picui.cn 图床上，且未被任何网页存档收录，无法找回。
+     补图：重新截图 → 放进 source\images\ → 用下面这行替换掉本注释：
+     ![](/images/你的文件名.png) -->
+<p>工作量有点大，最后替换好应该得到了这么些文件：</p>
+<!-- 配图待补（读者看不到这行注释）
+     原图存在已停服的 picui.cn 图床上，且未被任何网页存档收录，无法找回。
+     补图：重新截图 → 放进 source\images\ → 用下面这行替换掉本注释：
+     ![](/images/你的文件名.png) -->
+<div class="note danger flat"><p>替换前一定要注意字重是否对应哦！</p>
+</div>
+<h2 id="三-字体替换工具的使用"><a class="markdownIt-Anchor" href="#三-字体替换工具的使用"></a> 三、字体替换工具的使用</h2>
+<p>这更是一款傻瓜式软件：打开后直接把所有字体拖进去，然后点「开始执行任务」即可。</p>
+<!-- 配图待补（读者看不到这行注释）
+     原图存在已停服的 picui.cn 图床上，且未被任何网页存档收录，无法找回。
+     补图：重新截图 → 放进 source\images\ → 用下面这行替换掉本注释：
+     ![](/images/你的文件名.png) -->
+<p>如果没有备份而想回退到之前的字体，点「还原」并找到自动的备份即可。</p>
+<p>点「开始执行任务」后会提醒你有多少个字体替换成功，然后自动重启。如果有不成功的就多替换几次。</p>
+<hr>
+<p>自此，你的电脑就有了崭新的中英文字体啦！可喜可贺！</p>
+<!-- 配图待补（读者看不到这行注释）
+     原图存在已停服的 picui.cn 图床上，且未被任何网页存档收录，无法找回。
+     补图：重新截图 → 放进 source\images\ → 用下面这行替换掉本注释：
+     ![](/images/你的文件名.png) -->
+<p>看我博客文件的一角，是不是也有苹果的味道了呢（笑）</p>
+<p>用这个方法，还可以替换掉系统的「黑体」「宋体」之类。不过我是不推荐的。</p>
+]]></content>
+      <categories>
+        <category>指北</category>
+      </categories>
+      <tags>
+        <tag>字体</tag>
+        <tag>美化</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>从零开始的爬虫指北</title>
     <url>/2024/12/01/Spider/</url>
     <content><![CDATA[<h1 id="0-为啥要学爬虫"><a class="markdownIt-Anchor" href="#0-为啥要学爬虫"></a> 0. 为啥要学爬虫？</h1>
@@ -426,61 +647,6 @@ Git: <a href="https://github.com/waylau/git-for-win">https://github.com/waylau/g
       </tags>
   </entry>
   <entry>
-    <title>给你的 Windows 更换字体（包括微软雅黑和 Segoe UI！）</title>
-    <url>/2024/09/16/PCFont/</url>
-    <content><![CDATA[<div class="note danger flat"><p>所有字体、<strong>包括系统字体</strong>一定要做好备份！</p>
-</div>
-<p>在网络上经常看到更换电脑字体的教程，可大多教程都解决不了一个问题——更换系统的英文字体。Windows 下某些地方的英文字体使用的是 Segoe UI，个人觉得十分丑陋。这篇文章将以字体 Inter 为例解决这个痛点，并同时介绍替换中文字体的方法。</p>
-<hr>
-<h2 id="一-软件安装"><a class="markdownIt-Anchor" href="#一-软件安装"></a> 一、软件安装</h2>
-<p>我使用的软件是 <a href="https://github.com/GuiWonder/WeiFonts/">WeiFonts</a> 和 <a href="https://www.fishlee.net/soft/SysFontReplacer/">字体替换工具(Font Replace Utility)</a>。前一个软件能够将被替换字体文件的信息写到你要替换的字体上，并把字体打包成 <code>.ttc</code>。后一个软件能够替换掉系统字体。</p>
-<h2 id="二-weifonts-的使用"><a class="markdownIt-Anchor" href="#二-weifonts-的使用"></a> 二、WeiFonts 的使用</h2>
-<p>下载发行包后，打开文件中的 <code>WeiFonts.exe</code> 就差不多会用了。对于 「Windows 中文」 选项卡里的内容我不是很会用，貌似是要先打包成 <code>.ttc</code> 再替换，有点麻烦 <s>（其实是我根本没了解啦）</s>。直接聚焦于「给定字体」选项卡即可。</p>
-<p>先讲讲中文字体：微软雅黑一共有三个字体要替换：<code>msyhl.ttc</code>、<code>msyh.ttc</code>、<code>msyhbd.ttc</code>，分别是 Light, Regular 和 Bold 字重。在「模板字体」一栏直接输入 <code>C:\Windows\Fonts\上述三个字体</code> 即可。（因为如果点右边的选择的话是找不到 Fonts 文件夹的，很奇怪）。<br>
-「输入字体」一栏直接找到你要替换的对应字重的字体的绝对地址即可。如果你的字体文件只有一个字重的话，或者你不在乎有几个字重，每次都用这一个文件即可。「保存为」一栏自定。如果 <code>.otf</code> 出了问题的话，尝试把它转化成 <code>.ttf</code> 文件。AFTools 提供了这一功能。<br>
-下图是使用阿里巴巴普惠体的例子。</p>
-<!-- 配图待补（读者看不到这行注释）
-     原图存在已停服的 picui.cn 图床上，且未被任何网页存档收录，无法找回。
-     补图：重新截图 → 放进 source\images\ → 用下面这行替换掉本注释：
-     ![](/images/你的文件名.png) -->
-<p>英文字体就比较搞了，这时候把字体打包成 <code>.ttc</code> 是比较方便的，但电脑里的 Segoe UI 并没有打包成 <code>.ttc</code>（亦或是我没找到打包或可变字体），所以需要一个一个字重去替换。这里我选择 Inter，一款非常像 SF Pro 的字体。以下是示例：</p>
-<!-- 配图待补（读者看不到这行注释）
-     原图存在已停服的 picui.cn 图床上，且未被任何网页存档收录，无法找回。
-     补图：重新截图 → 放进 source\images\ → 用下面这行替换掉本注释：
-     ![](/images/你的文件名.png) -->
-<p>工作量有点大，最后替换好应该得到了这么些文件：</p>
-<!-- 配图待补（读者看不到这行注释）
-     原图存在已停服的 picui.cn 图床上，且未被任何网页存档收录，无法找回。
-     补图：重新截图 → 放进 source\images\ → 用下面这行替换掉本注释：
-     ![](/images/你的文件名.png) -->
-<div class="note danger flat"><p>替换前一定要注意字重是否对应哦！</p>
-</div>
-<h2 id="三-字体替换工具的使用"><a class="markdownIt-Anchor" href="#三-字体替换工具的使用"></a> 三、字体替换工具的使用</h2>
-<p>这更是一款傻瓜式软件：打开后直接把所有字体拖进去，然后点「开始执行任务」即可。</p>
-<!-- 配图待补（读者看不到这行注释）
-     原图存在已停服的 picui.cn 图床上，且未被任何网页存档收录，无法找回。
-     补图：重新截图 → 放进 source\images\ → 用下面这行替换掉本注释：
-     ![](/images/你的文件名.png) -->
-<p>如果没有备份而想回退到之前的字体，点「还原」并找到自动的备份即可。</p>
-<p>点「开始执行任务」后会提醒你有多少个字体替换成功，然后自动重启。如果有不成功的就多替换几次。</p>
-<hr>
-<p>自此，你的电脑就有了崭新的中英文字体啦！可喜可贺！</p>
-<!-- 配图待补（读者看不到这行注释）
-     原图存在已停服的 picui.cn 图床上，且未被任何网页存档收录，无法找回。
-     补图：重新截图 → 放进 source\images\ → 用下面这行替换掉本注释：
-     ![](/images/你的文件名.png) -->
-<p>看我博客文件的一角，是不是也有苹果的味道了呢（笑）</p>
-<p>用这个方法，还可以替换掉系统的「黑体」「宋体」之类。不过我是不推荐的。</p>
-]]></content>
-      <categories>
-        <category>指北</category>
-      </categories>
-      <tags>
-        <tag>字体</tag>
-        <tag>美化</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>UVA11437 题解</title>
     <url>/2024/09/15/UVA11437/</url>
     <content><![CDATA[<p>这道题的难点在于求  和  之间的面积关系。题目给出了  三个顶点的坐标，我们可以用海伦公式求出它的面积：</p>
@@ -504,194 +670,6 @@ Git: <a href="https://github.com/waylau/git-for-win">https://github.com/waylau/g
         <tag>洛谷</tag>
         <tag>数学</tag>
         <tag>C++</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>十二重计数法</title>
-    <url>/2024/09/15/P5824/</url>
-    <content><![CDATA[<hr>
-<p><s>复赛完了再写这篇文章是不是太迟了？</s></p>
-<p>闲话：我只是为了初赛练练组合数学而做的，没有多少 OI 内容（<s>可能复赛时会考虑添加？</s> 复赛寄的太彻底，不加了）。</p>
-<p>我们教练说：初赛时排列组合的题目不会做就大力递推。虽然 CSP 初赛中数学题目越来越简单了，但这并不妨碍我仍然害怕着排练组合的题目。于是他让我来做这道题，并不是码，而是把递推式列出来。这方法确实很有用——于是我就写了这篇文章。</p>
-<p>这篇文章是为我自己而写，也是为不会组合数学的人写的。所以很多理所当然的过程都写了上去，请多包含。</p>
-<p>另附一些符号约定：</p>
-<div class="table-wrap"><table>
-<thead>
-<tr>
-<th style="text-align:center">符号</th>
-<th style="text-align:center">意义</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">集合  的并集，</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">集合  的交集，</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">即 </td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">下降阶乘幂，</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center"></td>
-</tr>
-</tbody>
-</table></div>
-<hr>
-<h2 id="p5824-十二重计数法"><a class="markdownIt-Anchor" href="#p5824-十二重计数法"></a> <a href="https://www.luogu.com.cn/problem/P5824">P5824 十二重计数法</a></h2>
-<p>有  个球和  个盒子，要全部装进盒子里。<br>
-还有一些限制条件，那么有多少种方法放球？（与放的先后顺序无关）</p>
-<p>限制条件分别如下：</p>
-<p>：球之间互不相同，盒子之间互不相同。<br>
-：球之间互不相同，盒子之间互不相同，每个盒子至多装一个球。<br>
-：球之间互不相同，盒子之间互不相同，每个盒子至少装一个球。</p>
-<p>：球之间互不相同，盒子全部相同。<br>
-：球之间互不相同，盒子全部相同，每个盒子至多装一个球。<br>
-：球之间互不相同，盒子全部相同，每个盒子至少装一个球。</p>
-<p>：球全部相同，盒子之间互不相同。<br>
-：球全部相同，盒子之间互不相同，每个盒子至多装一个球。<br>
-：球全部相同，盒子之间互不相同，每个盒子至少装一个球。</p>
-<p>：球全部相同，盒子全部相同。<br>
-：球全部相同，盒子全部相同，每个盒子至多装一个球。<br>
-：球全部相同，盒子全部相同，每个盒子至少装一个球。</p>
-<hr>
-<h1 id="想法"><a class="markdownIt-Anchor" href="#想法"></a> 想法</h1>
-<hr>
-<h1 id="i"><a class="markdownIt-Anchor" href="#i"></a> </h1>
-<p>每个球都有  种方案数。答案即为<br>
-</p>
-<h1 id="ii"><a class="markdownIt-Anchor" href="#ii"></a> </h1>
-<p>依次取球放进盒子，每次放球后方案数都会少一种，乘起来答案为<br>
-</p>
-<h1 id="iii"><a class="markdownIt-Anchor" href="#iii"></a> </h1>
-<p>可以考虑先参考 。<br>
-那么考虑盒子的排列，一种很显然的答案就是<br>
-</p>
-<p>当然了，我们也可以考虑容斥：枚举空着的盒子的个数，不限制放置个数的方案总数 减去 有  个盒子空着时方案的总数 即为我们求的答案。<br>
-设全集  是所有放球的方法构成的集合（容易注意到 ）， 为能满足  个盒子为空的放法构成的集合。即求 。<br>
-容斥得<br>
-<br>
-前面的系数  可以归纳证明。 表示选  个作为空盒子， 的情景和  相同。</p>
-<p>所以答案就是</p>
-<p></p>
-<p>这个时候我们可以再次回看 。</p>
-<h1 id="iv"><a class="markdownIt-Anchor" href="#iv"></a> </h1>
-<p>先参考 。<br>
-与  不同的是没有了个数的限制。枚举非空盒子个数，所以是<br>
-</p>
-<h1 id="v"><a class="markdownIt-Anchor" href="#v"></a> </h1>
-<p>最简单的一集！由于盒子相同且最多放一个球，无论怎么装，都可以交换盒子顺序额得到同一种方案，所以答案为：<br>
-<br>
-顺带去看看 。</p>
-<h1 id="vi"><a class="markdownIt-Anchor" href="#vi"></a> </h1>
-<p>我会递推！<br>
-设  为  个球， 个盒子的方案数。<br>
-考虑新加进来一个球：</p>
-<ul>
-<li>可以再拿一个盒子，盒子数目也就从  个变成了  个。那就从  转移过来；</li>
-<li>可以放在之前任意一个盒子里，有  个盒子可选，即从  转移。<br>
-所以递推式为：<br>
-<br>
-实际上，这就是 <a href="https://oi.wiki/math/combinatorics/stirling/#%E7%AC%AC%E4%BA%8C%E7%B1%BB%E6%96%AF%E7%89%B9%E6%9E%97%E6%95%B0stirling-number">第二类斯特林数 </a> 。<br>
-解决  后，我们发现 。而 ，于是最后理所应当地得到了</li>
-</ul>
-<p><br>
-非常神奇呢。</p>
-<h1 id="vii"><a class="markdownIt-Anchor" href="#vii"></a> </h1>
-<p>我会递推！<br>
-设  为  个球， 个盒子的方案数。<br>
-考虑<strong>这一个球 不放而让新开的盒子空着 还是 在之前的盒子里放多个</strong>：</p>
-<ul>
-<li>可以不放这个球而让盒子空着，小球数目仍然为  个。拿过来了一个新的盒子，即从  转移。</li>
-<li>在之前的盒子里放多个，盒子数目仍然为  个。即从  转移。</li>
-</ul>
-<p>所以递推式为：<br>
-</p>
-<p>也可以从插板的角度考虑：</p>
-<blockquote>
-<p>先往每个盒子里塞一个球，最后把这个球拿走就行了。换言之，先求「将  个相同小球，放入到  个不同盒子，盒子至少装一球」的方案数，对于每个这个问题的划分方案，将每个盒子抽掉一个球，就是  的方案。因此该问答案即为</p>
-<p></p>
-<p><em>引用自 <a href="https://www.luogu.com.cn/article/2hb00cd4">囧仙</a></em></p>
-</blockquote>
-<h1 id="viii"><a class="markdownIt-Anchor" href="#viii"></a> </h1>
-<p>我会递推！<br>
-设  为  个球， 个盒子的方案数。<br>
-考虑<strong>这一个球 再开一个盒子放一个 还是 不放而让新开的盒子空着</strong>：</p>
-<ul>
-<li>再开一个盒子放一个，盒子数目也就从  个变成了  个。那就从  转移过来；</li>
-<li>可以不放这个球而让盒子空着，小球数目仍然为  个。拿过来了一个新的盒子，即从  转移。</li>
-</ul>
-<p>所以递推式为：<br>
-<br>
-实际上，这就是 <a href="https://oi.wiki/math/combinatorics/combination/#%E7%BB%84%E5%90%88%E6%95%B0">组合数 </a> 。<br>
-也可以直接考虑选  个盒子装球，那答案也是一样的。</p>
-<h1 id="ix"><a class="markdownIt-Anchor" href="#ix"></a> </h1>
-<p>我会递推！<br>
-设  为  个球， 个盒子的方案数。<br>
-考虑<strong>这一个球 再开一个盒子放一个 还是 在之前的盒子里放多个</strong>：</p>
-<ul>
-<li>再开一个盒子放一个，盒子数目也就从  个变成了  个。那就从  转移过来；</li>
-<li>在之前的盒子里放多个，盒子数目仍然为  个。即从  转移。</li>
-</ul>
-<p>所以递推式为：<br>
-</p>
-<p>也可以从插板的角度考虑，是最平凡的插板法。答案为<br>
-</p>
-<h1 id="x"><a class="markdownIt-Anchor" href="#x"></a> </h1>
-<p>我会递推！<br>
-设  为  个球， 个盒子的方案数。可以发现，在所谓「第一个盒子里装一个球、第三个盒子里装三个球」是和「第一个盒子里装三个球、第三个盒子里装一个球」无异的。一种比较讨巧的做法是这样的：将盒子按照球的数量从小到大排序。这样的话，两种方案相同，仅当两种方案排序后的序列相同。所以可以：</p>
-<ul>
-<li>在这个序列  开头加一个空盒子，盒子数目也就从  个变成了  个。那就从  转移过来；</li>
-<li>让所有盒子里都加一个球，也就从  转移过来；</li>
-</ul>
-<p>可以证明以上的转移方案是正确的。所以递推式为：</p>
-<p></p>
-<p>这个东西其实就是 <a href="https://oi-wiki.org/math/combinatorics/partition/">划分数</a>。</p>
-<h1 id="xi"><a class="markdownIt-Anchor" href="#xi"></a> </h1>
-<p>最简单的一集！<br>
-</p>
-<h1 id="xii"><a class="markdownIt-Anchor" href="#xii"></a> </h1>
-<p>与  的唯一差别是每个盒子里都至少要一个球——那就先往盒子里都放一个球就好了。答案就是<br>
-</p>
-]]></content>
-      <categories>
-        <category>题解</category>
-      </categories>
-      <tags>
-        <tag>OI</tag>
-        <tag>洛谷</tag>
-        <tag>数学</tag>
-        <tag>排列组合</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>日記</title>
-    <url>/2025/01/01/nikki/</url>
-    <content><![CDATA[<div class="hbe hbe-container" id="hexo-blog-encrypt" data-wpm="Oh, this is an invalid password. Check and try again, please." data-whm="OOPS, these decrypted content may changed, but you can still have a look.">
-  <script id="hbeData" type="hbeData" data-hmacdigest="341239515304aacfcb4dea65a6a4f80cf7f31ea31825c035b830e1aed03fa60c">b1df3e367478683d3ac69e8de851a96d5aa6d1bd552c38e3f41c6c1bf4e64978d1aa7a00b5486dd7ce5d7dd3a507b33dbbb522d72a229dcc1b92aedb3ae3b696c0e675797a0759321caed61cd73e0712262b51ca507ade27c724bd83cb76c3bf7e4930cd58d9a7e7bae2f8e4ac2e1c80f1daf0783cc58fed721c96c2ca3cdcc5a4ec9d941504c0b6911adc25fe5f753a69d053d488dcffcfe5030b74f3e83d6e4fc5b719ba3133f9e5782bfaabf056d485d86458330389a6eb6acf62b809745093ea1cbb981217f6f5117530583d2a217ad307f9a492ba6880b646afaf3d4fe2a8d24ffec4eb3e18fc3c0aac2cfe1d35d151150f9cbba85befe068bb920f3d52c0bb6d7f81577dc0f56bab9eb057e8b48d8532c00cb8735556d76a9c22bbefd0bddbdbbae8e4af8ca95d8f883aaad875d665a3c8302a3d3b5247687367f06d9880840150dbd1a43342e8653714e5ecbcee6d3fd81d10140cadc3d27a195bbd6346fa649d598b6cb2f22ef112388beb71653432a8f63c2b37d4f1cceaa1d848f9b6ef95fb8d456cb268bd173775cf057b0318dd9f85d8e177df35b4df7b9989bdfeb87750e70dda6db29b497a627155e015cf81b74e426499d70c45d70afa6a63a43e711f45e69cd9f7fd179d8cff032b94242e921e7ffc87339a663dfb1d4ac325f2f88deba961b8389dcfe5cef0e3377dc33168483a0e4be534ee8f04171817811fd7702f134223e368e3b3f8d2e003605bd821a1fd0483e5ef76c5cff8e9a26369fc59f478070bedaf2697ad0f733702c89650586b6a349b4a73e1574c441536335a6ee120ddcb968d4e4a51c125129ef08a8376d942573ccb6a03560f40e83f4606dd9794fad39ff3f1e173ea6f4fb9dd132742b821945ff9a2428872ad9484d04a4fe3017e483ca80d4de78910b06aa4987d7590f8ad19f57b0b6c748317ecd6c45906183654d190f587749c1c3adc2ced5fb605b7eceb04d4e59831cf38626fc60b8c74da846dcad676793af94fe78a53f8661877e664ee3db8292c27addd397c10ff3cf5e75275724fde0b459ae5a0630aade6d0076d744f512f72a1ed1e3970f607362c2bb4f60e64649416f57b4417844d31f7597ab577a6a4e633dac2bdef75f49cd5607e10b63d0be328a0588cf02266a7e12245cd09b88d090ffbe2a39188041fd73f66ede1f7fabaf0516cf77115eda4c43d4f299f3353a114575b0852146f78e5fd0802ecb3af45eb0b7334d18e6a3ffabcac2afbebc5e190fadf51741520f50f0a8c8d351200e9de3541375e4c41d15ad7fc792af8e8ef0291688ba794800c18f8c3f8c46bb1452d8ecd4edebadb8fac233a6ae31e237e36ddd88d3ad5ce618f0172eed39fed7ff0268daca07f4fe7cd3ecbb9de5cbf25073bfdc26edfe12638e5350c111f3de251577ce4ece417ce7d43eee8ada5a16f4432cce1ce5cd382d12ca8216ffb118ab681c9f0e03df20b8beee3381e6270793b394fabdb9e700973072af9efe882f9c060629864845ae33c45f085a4f27bc63443a83b03f4de73fa0a6f840be2ad542812b0f78a68c03e9e312a982d3e5c8886308ed985e9d16576be5236acc596d4eb6b4e316590b234232fac29167e91a7690ef3e8a73f542577d35ed560f5ed51e1f8df77780c093840f7a7ffa60ac23b38aed400631878505111ab71bac3dbaabe281932beb080f277ffdcb530ac1fb5b9681877d0f2631d62b5bfa1eba58734a549</script>
-  <div class="hbe hbe-content">
-    <div class="hbe hbe-input hbe-input-default">
-      <input class="hbe hbe-input-field hbe-input-field-default" type="password" id="hbePass">
-      <label class="hbe hbe-input-label hbe-input-label-default" for="hbePass">
-        <span class="hbe hbe-input-label-content hbe-input-label-content-default">请输入密码：</span>
-      </label>
-    </div>
-  </div>
-</div>
-<script data-pjax src="/lib/hbe.js"></script><link href="/css/hbe.style.css" rel="stylesheet" type="text/css">]]></content>
-      <categories>
-        <category>日記</category>
-      </categories>
-      <tags>
-        <tag>日記</tag>
       </tags>
   </entry>
   <entry>
@@ -730,6 +708,28 @@ Git: <a href="https://github.com/waylau/git-for-win">https://github.com/waylau/g
       <tags>
         <tag>计算机社</tag>
         <tag>永中</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>日記</title>
+    <url>/2025/01/01/nikki/</url>
+    <content><![CDATA[<div class="hbe hbe-container" id="hexo-blog-encrypt" data-wpm="Oh, this is an invalid password. Check and try again, please." data-whm="OOPS, these decrypted content may changed, but you can still have a look.">
+  <script id="hbeData" type="hbeData" data-hmacdigest="341239515304aacfcb4dea65a6a4f80cf7f31ea31825c035b830e1aed03fa60c">b1df3e367478683d3ac69e8de851a96d5aa6d1bd552c38e3f41c6c1bf4e64978d1aa7a00b5486dd7ce5d7dd3a507b33dbbb522d72a229dcc1b92aedb3ae3b696c0e675797a0759321caed61cd73e0712262b51ca507ade27c724bd83cb76c3bf7e4930cd58d9a7e7bae2f8e4ac2e1c80f1daf0783cc58fed721c96c2ca3cdcc5a4ec9d941504c0b6911adc25fe5f753a69d053d488dcffcfe5030b74f3e83d6e4fc5b719ba3133f9e5782bfaabf056d485d86458330389a6eb6acf62b809745093ea1cbb981217f6f5117530583d2a217ad307f9a492ba6880b646afaf3d4fe2a8d24ffec4eb3e18fc3c0aac2cfe1d35d151150f9cbba85befe068bb920f3d52c0bb6d7f81577dc0f56bab9eb057e8b48d8532c00cb8735556d76a9c22bbefd0bddbdbbae8e4af8ca95d8f883aaad875d665a3c8302a3d3b5247687367f06d9880840150dbd1a43342e8653714e5ecbcee6d3fd81d10140cadc3d27a195bbd6346fa649d598b6cb2f22ef112388beb71653432a8f63c2b37d4f1cceaa1d848f9b6ef95fb8d456cb268bd173775cf057b0318dd9f85d8e177df35b4df7b9989bdfeb87750e70dda6db29b497a627155e015cf81b74e426499d70c45d70afa6a63a43e711f45e69cd9f7fd179d8cff032b94242e921e7ffc87339a663dfb1d4ac325f2f88deba961b8389dcfe5cef0e3377dc33168483a0e4be534ee8f04171817811fd7702f134223e368e3b3f8d2e003605bd821a1fd0483e5ef76c5cff8e9a26369fc59f478070bedaf2697ad0f733702c89650586b6a349b4a73e1574c441536335a6ee120ddcb968d4e4a51c125129ef08a8376d942573ccb6a03560f40e83f4606dd9794fad39ff3f1e173ea6f4fb9dd132742b821945ff9a2428872ad9484d04a4fe3017e483ca80d4de78910b06aa4987d7590f8ad19f57b0b6c748317ecd6c45906183654d190f587749c1c3adc2ced5fb605b7eceb04d4e59831cf38626fc60b8c74da846dcad676793af94fe78a53f8661877e664ee3db8292c27addd397c10ff3cf5e75275724fde0b459ae5a0630aade6d0076d744f512f72a1ed1e3970f607362c2bb4f60e64649416f57b4417844d31f7597ab577a6a4e633dac2bdef75f49cd5607e10b63d0be328a0588cf02266a7e12245cd09b88d090ffbe2a39188041fd73f66ede1f7fabaf0516cf77115eda4c43d4f299f3353a114575b0852146f78e5fd0802ecb3af45eb0b7334d18e6a3ffabcac2afbebc5e190fadf51741520f50f0a8c8d351200e9de3541375e4c41d15ad7fc792af8e8ef0291688ba794800c18f8c3f8c46bb1452d8ecd4edebadb8fac233a6ae31e237e36ddd88d3ad5ce618f0172eed39fed7ff0268daca07f4fe7cd3ecbb9de5cbf25073bfdc26edfe12638e5350c111f3de251577ce4ece417ce7d43eee8ada5a16f4432cce1ce5cd382d12ca8216ffb118ab681c9f0e03df20b8beee3381e6270793b394fabdb9e700973072af9efe882f9c060629864845ae33c45f085a4f27bc63443a83b03f4de73fa0a6f840be2ad542812b0f78a68c03e9e312a982d3e5c8886308ed985e9d16576be5236acc596d4eb6b4e316590b234232fac29167e91a7690ef3e8a73f542577d35ed560f5ed51e1f8df77780c093840f7a7ffa60ac23b38aed400631878505111ab71bac3dbaabe281932beb080f277ffdcb530ac1fb5b9681877d0f2631d62b5bfa1eba58734a549</script>
+  <div class="hbe hbe-content">
+    <div class="hbe hbe-input hbe-input-default">
+      <input class="hbe hbe-input-field hbe-input-field-default" type="password" id="hbePass">
+      <label class="hbe hbe-input-label hbe-input-label-default" for="hbePass">
+        <span class="hbe hbe-input-label-content hbe-input-label-content-default">请输入密码：</span>
+      </label>
+    </div>
+  </div>
+</div>
+<script data-pjax src="/lib/hbe.js"></script><link href="/css/hbe.style.css" rel="stylesheet" type="text/css">]]></content>
+      <categories>
+        <category>日記</category>
+      </categories>
+      <tags>
+        <tag>日記</tag>
       </tags>
   </entry>
 </search>
