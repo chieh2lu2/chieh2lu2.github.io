@@ -11,7 +11,7 @@
   <rights>All rights reserved 2026, Zera / 捷攎</rights>
   <subtitle>Keep writing and Keep loving.</subtitle>
   <title>Zera 的小博客</title>
-  <updated>2026-10-09T06:20:35.228Z</updated>
+  <updated>2026-10-09T09:17:56.574Z</updated>
   <entry>
     <author>
       <name>Zera / 捷攎</name>
@@ -23,8 +23,8 @@
     <summary>
       <![CDATA[<p>杂咀，也许是通“杂俎”吧，我理解是“杂谈”的意思。这个词可能我之前见过，也许它存在于我的潜意识里，但是真正打出这两个字还是第一次。不知道我这样写会不会污染]]>
     </summary>
-    <title>杂咀其一之秋日午后，旧字形</title>
-    <updated>2026-10-09T06:20:35.228Z</updated>
+    <title>杂咀其一之秋日午后，旧字形与新字形</title>
+    <updated>2026-10-09T09:17:56.574Z</updated>
   </entry>
   <entry>
     <author>
@@ -131,9 +131,9 @@
     </author>
     <category term="过去的花" scheme="https://zerablog.top/categories/%E8%BF%87%E5%8E%BB%E7%9A%84%E8%8A%B1/"/>
     <category term="OI" scheme="https://zerablog.top/tags/OI/"/>
+    <category term="洛谷" scheme="https://zerablog.top/tags/%E6%B4%9B%E8%B0%B7/"/>
     <category term="数学" scheme="https://zerablog.top/tags/%E6%95%B0%E5%AD%A6/"/>
     <category term="C++" scheme="https://zerablog.top/tags/C/"/>
-    <category term="洛谷" scheme="https://zerablog.top/tags/%E6%B4%9B%E8%B0%B7/"/>
     <id>https://zerablog.top/2024/09/16/P10511/</id>
     <link href="https://zerablog.top/2024/09/16/P10511/"/>
     <published>2024-09-16T01:41:10.000Z</published>
@@ -147,9 +147,9 @@
     </author>
     <category term="过去的花" scheme="https://zerablog.top/categories/%E8%BF%87%E5%8E%BB%E7%9A%84%E8%8A%B1/"/>
     <category term="OI" scheme="https://zerablog.top/tags/OI/"/>
+    <category term="洛谷" scheme="https://zerablog.top/tags/%E6%B4%9B%E8%B0%B7/"/>
     <category term="数学" scheme="https://zerablog.top/tags/%E6%95%B0%E5%AD%A6/"/>
     <category term="C++" scheme="https://zerablog.top/tags/C/"/>
-    <category term="洛谷" scheme="https://zerablog.top/tags/%E6%B4%9B%E8%B0%B7/"/>
     <id>https://zerablog.top/2024/09/16/P10252/</id>
     <link href="https://zerablog.top/2024/09/16/P10252/"/>
     <published>2024-09-16T01:40:09.000Z</published>
@@ -163,8 +163,8 @@
     </author>
     <category term="过去的花" scheme="https://zerablog.top/categories/%E8%BF%87%E5%8E%BB%E7%9A%84%E8%8A%B1/"/>
     <category term="OI" scheme="https://zerablog.top/tags/OI/"/>
-    <category term="数学" scheme="https://zerablog.top/tags/%E6%95%B0%E5%AD%A6/"/>
     <category term="洛谷" scheme="https://zerablog.top/tags/%E6%B4%9B%E8%B0%B7/"/>
+    <category term="数学" scheme="https://zerablog.top/tags/%E6%95%B0%E5%AD%A6/"/>
     <category term="排列组合" scheme="https://zerablog.top/tags/%E6%8E%92%E5%88%97%E7%BB%84%E5%90%88/"/>
     <id>https://zerablog.top/2024/09/15/P5824/</id>
     <link href="https://zerablog.top/2024/09/15/P5824/"/>
@@ -193,8 +193,8 @@
     </author>
     <category term="过去的花" scheme="https://zerablog.top/categories/%E8%BF%87%E5%8E%BB%E7%9A%84%E8%8A%B1/"/>
     <category term="OI" scheme="https://zerablog.top/tags/OI/"/>
-    <category term="C++" scheme="https://zerablog.top/tags/C/"/>
     <category term="洛谷" scheme="https://zerablog.top/tags/%E6%B4%9B%E8%B0%B7/"/>
+    <category term="C++" scheme="https://zerablog.top/tags/C/"/>
     <id>https://zerablog.top/2024/09/15/UVA11437/</id>
     <link href="https://zerablog.top/2024/09/15/UVA11437/"/>
     <published>2024-09-15T13:14:20.000Z</published>
