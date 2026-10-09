@@ -3,22 +3,26 @@
 本目录下的 `zera-*.woff2` 都是**子集（subset）**：用 `E:\Coding\Blog\scripts\build-font-subset.py`
 把上游字体裁剪到「只含本博客实际用到的字形」后生成的 Web 字体，不是原始字体文件。
 
-裁剪是**必须的**：本站要用的 5 款字体原始体积合计约 **76 MB**，整包加载会把访客（尤其是
-国内走 GitHub Pages 的访客）拖垮；子集后总下载体积约 **0.82 MB**。
+裁剪是**必须的**：本站要用的字体原始体积合计约 **76 MB**，整包加载会把访客（尤其是
+国内走 GitHub Pages 的访客）拖垮；子集后总下载体积约 **0.71 MB**。
 
 | 生成文件 | 上游字体 | 上游授权 | 原始体积 | 子集体积 |
 |---|---|---|---|---|
-| `zera-latin.woff2` | Inter Variable 4.1 | SIL OFL 1.1 | 0.34 MB | 160.1 KB |
-| `zera-han-sans.woff2` | 尙古黑体 SC（Shanggu Sans SC VF） | SIL OFL 1.1 | 23.20 MB | 578.3 KB |
-| `zera-han-sip-b.woff2` | 遍黑体 Plangothic P1 | SIL OFL 1.1 | 19.47 MB | 9.3 KB |
-| `zera-han-sip-c.woff2` | 遍黑体 Plangothic P2 | SIL OFL 1.1 | 11.88 MB | 17.5 KB |
+| `zera-latin.woff2` | Inter Variable 4.1 | SIL OFL 1.1 | 0.34 MB | 166.7 KB |
+| `zera-han-sans.woff2` | 尙古黑体 SC（Shanggu Sans SC VF） | SIL OFL 1.1 | 23.20 MB | 464.8 KB |
+| `zera-han-sip-b.woff2` | 遍黑体 Plangothic P1 | SIL OFL 1.1 | 19.47 MB | 8.8 KB |
+| `zera-han-sip-c.woff2` | 遍黑体 Plangothic P2 | SIL OFL 1.1 | 11.88 MB | 10.7 KB |
 | `zera-mono.woff2` | IosevkaForZera Regular | SIL OFL 1.1 | 0.25 MB | 38.9 KB |
 | `zera-mono-bold.woff2` | IosevkaForZera Bold | SIL OFL 1.1 | 0.25 MB | 39.3 KB |
+| **合计** | | | **约 55 MB**（不含未生成子集的普惠体 L3） | **729.2 KB** |
 
-> 阿里巴巴普惠体 3.0 55 Regular L3（20.7 MB）当前**没有生成子集**：全站正文 1150 个字符里
+体积随 `--safety` 档位变化：`core`（默认）729 KB / `lean` 约 940 KB / `gb2312` 约 1.6 MB。
+
+> 阿里巴巴普惠体 3.0 55 Regular L3（20.7 MB）当前**没有生成子集**：全站正文 1441 个字符里
 > 没有任何一个字形是「尚古黑体没有、而它独有」的，所以它这层没有东西可发。详见
-> `build-font-subset.py` 的输出。它仍在 `custom.css` 第 7 节的 `font-family` 里以
-> 「本机已装则生效」的形式作为第 3 层回退。
+> `build-font-subset.py` 的输出。它仍在 `custom.css` 第 7 节里作为第 3 层回退，
+> 但只有 `local()`（本机已装则生效），**没有 url()，因此不会产生请求、也不会 404**。
+> `build-font-subset.py` 结尾会自检「本目录下每个 woff2 都被 custom.css 引用」这条不变量。
 
 ---
 

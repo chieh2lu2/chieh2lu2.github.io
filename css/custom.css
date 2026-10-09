@@ -517,20 +517,31 @@
 }
 
 /* 第 3 层：阿里巴巴普惠体 3.0 55 Regular L3 —— 生僻字补充（CJK 扩展 B~F）
-   ⚠️ 这一层当前【只走本机已装的字体】，没有自托管 webfont。
-   原因：全站正文 1150 个字符里，没有任何一个字形是「尚古黑体没有、而它独有」的
-   （它整包 20.7 MB 且只含扩展区），为假设中的生僻字让每个访客下 20 MB 不划算。
-   代价：访客本机没装这款字体时这一层直接被跳过，落到第 4 层遍黑体 / 系统字体。
-   如果你希望「任何访客都能看到生僻字」，两步开启：
-     ① 跑 scripts/build-font-subset.py —— 一旦正文出现扩展区生僻字，
-        它会生成 /fonts/zera-han-sip-a.woff2；
-     ② 把下面这行的注释去掉，插到 local(...) 前面。
-        src: url("/fonts/zera-han-sip-a.woff2") format("woff2"),
-             local("Alibaba PuHuiTi 3.0 55 Regular L3"),
-             local("阿里巴巴普惠体 3.0 55 Regular L3");
+   ⚠️ 这一层只有 local()，【没有 url()，也不该有】。
+   它不需要任何自托管文件，所以 /fonts/ 目录里没有、也不会有 zera-han-sip-a.woff2；
+   这个 CSS 里所有 url("/fonts/...") 加起来一共 6 个，和 source/fonts/ 下的 6 个 woff2
+   严格一一对应（可用 `grep -o 'url("/fonts/[^"]*"' custom.css` 自查）。
+
+   为什么不做成 webfont：
+   · 普惠体 3.0 L3 整包 20.7 MB，而且【只含 CJK 扩展 B~F】（cmap 里连常用汉字都没有）；
+   · 全站正文 1441 个字符里，没有任何一个字形是「尚古黑体没有、而它独有」的 ——
+     也就是说子集会是空的，生成不出文件；
+   · 若要让它对访客真的有意义，必须带上四万多个扩展区字形（woff2 约 10 MB），
+     本站线上实测吞吐只有 1.6~14 KB/s（见报告），下 10 MB 完全不现实。
+
+   所以这一层的定位是「本机已装则生效」：
+   装了普惠体 3.0 L3 的访客人（包括作者自己）能白拿扩展 B~F 的生僻字覆盖，0 字节；
+   没装的访客这一层被跳过，落到第 4 层遍黑体子集 / 系统字体。
+
    用 local() 而不是把字体名直接写进 font-family，是因为 Windows 上
    家族名是「Alibaba PuHuiTi 3.0」、完整名才是带「55 Regular L3」的那个，
-   直接写家族名会匹配到普通的 55 Regular（不含生僻字），用 local() 才能精确指向 L3。 */
+   直接写家族名会匹配到普通的 55 Regular（不含生僻字），用 local() 才能精确指向 L3。
+
+   以后如果真想给访客也发一份扩展区覆盖，做法是：
+   跑 scripts/build-font-subset.py（它会在正文出现扩展区生僻字时自动产出
+   zera-han-sip-a.woff2），然后在这里的 src 里补一行
+   `url("/fonts/zera-han-sip-a.woff2") format("woff2"),` 放在 local(...) 之前。
+   完整步骤见 source/fonts/LICENSES.txt 和脚本的 --help。 */
 @font-face {
   font-family: "Zera Han SIP A";
   src: local("Alibaba PuHuiTi 3.0 55 Regular L3"),
