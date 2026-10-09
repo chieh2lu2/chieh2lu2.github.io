@@ -1,0 +1,90 @@
+# 本站字体来源与授权声明
+
+本目录下的 `zera-*.woff2` 都是**子集（subset）**：用 `E:\Coding\Blog\scripts\build-font-subset.py`
+把上游字体裁剪到「只含本博客实际用到的字形」后生成的 Web 字体，不是原始字体文件。
+
+裁剪是**必须的**：本站要用的 5 款字体原始体积合计约 **76 MB**，整包加载会把访客（尤其是
+国内走 GitHub Pages 的访客）拖垮；子集后总下载体积约 **0.82 MB**。
+
+| 生成文件 | 上游字体 | 上游授权 | 原始体积 | 子集体积 |
+|---|---|---|---|---|
+| `zera-latin.woff2` | Inter Variable 4.1 | SIL OFL 1.1 | 0.34 MB | 160.1 KB |
+| `zera-han-sans.woff2` | 尙古黑体 SC（Shanggu Sans SC VF） | SIL OFL 1.1 | 23.20 MB | 578.3 KB |
+| `zera-han-sip-b.woff2` | 遍黑体 Plangothic P1 | SIL OFL 1.1 | 19.47 MB | 9.3 KB |
+| `zera-han-sip-c.woff2` | 遍黑体 Plangothic P2 | SIL OFL 1.1 | 11.88 MB | 17.5 KB |
+| `zera-mono.woff2` | IosevkaForZera Regular | SIL OFL 1.1 | 0.25 MB | 38.9 KB |
+| `zera-mono-bold.woff2` | IosevkaForZera Bold | SIL OFL 1.1 | 0.25 MB | 39.3 KB |
+
+> 阿里巴巴普惠体 3.0 55 Regular L3（20.7 MB）当前**没有生成子集**：全站正文 1150 个字符里
+> 没有任何一个字形是「尚古黑体没有、而它独有」的，所以它这层没有东西可发。详见
+> `build-font-subset.py` 的输出。它仍在 `custom.css` 第 7 节的 `font-family` 里以
+> 「本机已装则生效」的形式作为第 3 层回退。
+
+---
+
+## Inter
+
+- 来源：<https://github.com/rsms/inter>（Release v4.1，`web/InterVariable.woff2`）
+- 版权：Copyright (c) 2016 The Inter Project Authors
+- 授权：**SIL Open Font License 1.1**，未声明 Reserved Font Name
+- 允许：免费商用、修改、**嵌入网页**、再分发；禁止单独售卖字体文件
+- 许可全文见上游仓库 `LICENSE.txt`
+
+## 尙古黑体 / Shanggu Sans
+
+- 来源：<https://github.com/GuiWonder/Shanggu>（Release 1.028，`ShangguSansSC-VF.ttf`）
+- 说明：基于思源黑体（Source Han Sans）开发的「泛中日韩传承字形（旧字形）」字体家族。
+  取的是 **SC（简体中文标点）版**——本站正文是简体中文，SC 版使用简体规范标点。
+- 授权：**SIL Open Font License 1.1**，`LICENSE.txt` 中未声明 Reserved Font Name
+- 允许：免费商用、修改、**嵌入网页**、再分发；禁止单独售卖字体文件
+
+## 阿里巴巴普惠体 3.0
+
+- 来源：阿里巴巴普惠体官网 <https://www.alibabafonts.com/>；
+  官方 Web 字体服务端点 `https://fonts.alibabadesign.com/AlibabaPuHuiTi-3/...`
+- 版权：阿里巴巴集团
+- 授权：官方声明「全球永久免费正版商用」，并且**官方自己通过 `fonts.alibabadesign.com`
+  以 `@font-face` 的形式对外提供网页字体** —— 因此网页嵌入属于被许可的用法。
+- 本站只把子集**自托管在本站**用于本博客，不单独售卖、不二次分发字体文件本身。
+- ⚠️ 注意：本目录当前**没有**该字体的子集文件（见上面说明）。若将来生成了
+  `zera-han-sip-a.woff2`，它同样只包含本博客用到的字形。
+
+## 遍黑体 / Plangothic
+
+- 来源：<https://github.com/Fitzgerald-Porthmouth-Koenigsegg/Plangothic_Project>
+  （Release V2.9.5795，`PlangothicP1-Regular.ttf` / `PlangothicP2-Regular.ttf`）
+- 说明：基于思源黑体、按中国大陆字形标准对 CJK 扩展区（B~H）做字形补充的项目，
+  定位是**回退字体**，所以在本站 `font-family` 里排在中文主字体之后。
+- 授权：字体文件 **SIL Open Font License 1.1**；
+  仓库的构建脚本 / 代码是 MIT。二者不同，别混淆。
+- ⚠️ **Plangothic 声明了保留字体名（Reserved Font Names）：「Plangothic」「遍黑」。**
+  依据 OFL 1.1 第 3 条，**修改版（子集属于修改版）不得使用该保留名**。
+  因此本目录下由它派生的子集：
+  1. 内部 family / full name / PostScript name 已改为中性的 `Zera Han SIP`；
+  2. `copyright`(nameID 0) / `license`(13) / `licenseURL`(14) **原样保留**，
+     以满足 OFL「每个副本须随附版权声明与许可」的要求；
+  3. 同样以 **SIL OFL 1.1** 发布，不得改用其它协议。
+
+## Iosevka / IosevkaForZera
+
+- 来源：用户自行定制的 Iosevka 构建（本机 `D:\Files\Font\Iosevka\dist\IosevkaForZera\`），
+  上游为 <https://github.com/be5invis/Iosevka>
+- 授权：**SIL Open Font License 1.1**（定制版继承上游授权）
+- 同 Plangothic 的处理：子集内部 family / PS name 已改为中性的 `Zera Mono`，
+  版权与许可字段原样保留。
+
+---
+
+## OFL 1.1 对「子集」这件事怎么说
+
+子集在 OFL 的语境里属于 **Modified Version**（增删替换 Font Software 的组成部分）。
+需要满足的条件：
+
+1. 修改版同样以 OFL 1.1 发布（本目录下的所有 `zera-*.woff2` 都仍是 OFL 1.1）；
+2. 不得使用上游声明的保留字体名（Plangothic 有 → 已改名；Inter / Shanggu / Iosevka 未声明）；
+3. 每个副本须随附版权声明与许可（已保留在字体 name 表 0/13/14 号字段里，
+   并且本文件的表格就是文字版声明）;
+4. 不得单独售卖字体文件（本站只是自托管，不售卖）。
+
+> 「The requirement for fonts to remain under this license does not apply to any document
+> created using the fonts」—— 也就是说博客文章本身不受 OFL 约束，只有字体文件受约束。

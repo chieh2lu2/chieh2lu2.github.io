@@ -421,3 +421,268 @@
 .about-icons .icon-mail {
   font-size: 1.36rem;
 }
+
+
+/* ==========================================================================
+   7) 字体：西文 Inter → 中文 尚古黑体 → 生僻字 阿里巴巴普惠体 3.0 L3 / 遍黑体
+   ==========================================================================
+   需求：正文用「尚古黑体」，西文用「Inter」，回退用「阿里巴巴普惠体 3.0 L3」+「遍黑体」。
+
+   【为什么不能直接 @font-face 引原字体】
+   这几款字体的原始体积：尚古黑体 SC 23.2 MB、普惠体 3.0 L3 20.7 MB、
+   遍黑体 P1+P2 31.4 MB、Inter VF 0.34 MB —— 合计约 76 MB。
+   本站托管在 GitHub Pages（国内本来就慢），整包加载等于把访客劝退。
+   所以字体文件全部是【子集】：用 scripts/build-font-subset.py 扫描全站文字，
+   只保留真正用得到的字形，从 76 MB 裁到 0.82 MB。
+
+   【四层顺序为什么是这样】
+     · Inter 只覆盖西文（拉丁字母、数字、西文标点、希腊字母、数学符号），
+       不含任何汉字 —— 所以放在最前面是【对】的：中文字符在本层找不到字形，
+       浏览器自动落到下一层，不会出现「中文被西文渲染」的情况。
+     · 尚古黑体是中文主字体，放在第二位。
+     · 普惠体 3.0 L3 和遍黑体都是【生僻字补充字体】：
+       普惠体 L3 只有 CJK 扩展 B~F（GB18030-2022 实现级别 3 增补汉字），
+       遍黑体的定位也是扩展区回退。它们都没有常用汉字，
+       所以必须排在中文主字体【后面】—— 排前面会把常用汉字也抢走。
+     · 最后是系统字体兜底。
+
+   【关键机制：unicode-range 是免费的】
+   @font-face 里的 unicode-range 决定「浏览器在什么情况下才去下载这个文件」。
+   浏览器是**按字符逐个做字体匹配**的：页面上没有扩展区生僻字时，
+   普惠体 L3 / 遍黑体那几层连一个字节都不会请求。
+   所以生僻字兜底可以写得很慷慨，而日常访问一分钱不花。
+
+   【代码块】
+   代码块【绝对不能】用比例字体。主题（Fluid）自己没给 code/pre 设字体，
+   它们靠浏览器 UA 样式表的 monospace 生效。本节显式把代码块指向
+   用户定制的等宽字体 IosevkaForZera，并在等宽西文【之后】才挂中文回退 ——
+   等宽必须排第一，中文只负责「西文等宽字体没有的那些方块字」。
+   汉字本身就是全角方块，用它做回退不会破坏代码对齐。
+
+   【公式】
+   本站公式是构建时 MathJax 渲染成内嵌 SVG 的，字形是 <path>，
+   而且 MathJax 自己给容器写了 font-family: initial。
+   本节完全不动公式，末尾 7.5 只是加一条防御性声明。
+   实测见报告（/2024/09/15/P5824/ 截图对比）。
+
+   【改字体以后怎么重新生成】
+     cd E:\Coding\Blog\site
+     $env:NODE_OPTIONS = '--use-system-ca'
+     & 'E:\Coding\dsh-home\dsh-runtimes\dsh-primary-runtime\dependencies\python\python.exe' `
+         E:\Coding\Blog\scripts\build-font-subset.py
+     & .\node_modules\.bin\hexo.cmd clean ; & .\node_modules\.bin\hexo.cmd generate
+   发新文章、新页面、改碎碎念/关于页之后都要先跑一次（漏跑只会导致个别新字
+   回退到系统字体，不会报错）。字体来源与授权见 source/fonts/LICENSES.md。
+   ========================================================================== */
+
+
+/* --------------------------------------------------------------------------
+   7.1 字体文件声明
+   --------------------------------------------------------------------------
+   文件放在 source/fonts/，Hexo 原样复制到 public/fonts/，所以 URL 是 /fonts/xxx.woff2。
+   生成这些文件的是 scripts/build-font-subset.py；体积见 source/fonts/subset-manifest.json。
+
+   ⚠️ 子集是「修改版」，其中遍黑体声明了保留字体名「Plangothic」「遍黑」，
+   按 OFL 1.1 第 3 条修改版不得使用保留名 —— 所以 CSS 里的 font-family 用的是
+   中性的 Zera* 名字，版权/许可字段仍保留在字体内部（详见 LICENSES.md）。
+   -------------------------------------------------------------------------- */
+
+/* 第 1 层：西文 Inter（可变字重 100~900，一个文件覆盖所有字重） */
+@font-face {
+  font-family: "Zera Latin";
+  src: url("/fonts/zera-latin.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 100 900;          /* 可变字体：一个文件吃下所有字重 */
+  font-display: swap;
+  /* ⚠️ 这里【故意不包含】CJK 标点 U+3000-303F 和全角形式 U+FF00-FFEF，
+     否则「，。、；：」会被 Inter 抢走，变成居中的西文标点。 */
+  unicode-range: U+0000-00FF, U+0100-017F, U+0370-03FF, U+2000-206F, U+2070-209F,
+                 U+20A0-20CF, U+2100-214F, U+2150-218F, U+2190-21FF, U+2200-22FF,
+                 U+2300-23FF, U+2460-24FF, U+2500-257F, U+25A0-25FF, U+2600-26FF,
+                 U+2700-27BF, U+FE10-FE1F;
+}
+
+/* 第 2 层：中文主字体 尚古黑体 SC（可变字重 250~900） */
+@font-face {
+  font-family: "Zera Han Sans";
+  src: url("/fonts/zera-han-sans.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 250 900;
+  font-display: swap;
+  /* 含 CJK 基本区 / 扩展 A / 扩展 B~H 声明。扩展区里尚古黑体没有的字形，
+     子集里也不会有 → 浏览器会自动继续找下一层，不需要额外配置。 */
+  unicode-range: U+2E80-2FDF, U+3000-303F, U+3040-30FF, U+3100-312F, U+31C0-31EF,
+                 U+3200-32FF, U+3400-4DBF, U+4E00-9FFF, U+F900-FAFF, U+FE30-FE6F,
+                 U+FF00-FFEF, U+20000-3FFFF;
+}
+
+/* 第 3 层：阿里巴巴普惠体 3.0 55 Regular L3 —— 生僻字补充（CJK 扩展 B~F）
+   ⚠️ 这一层当前【只走本机已装的字体】，没有自托管 webfont。
+   原因：全站正文 1150 个字符里，没有任何一个字形是「尚古黑体没有、而它独有」的
+   （它整包 20.7 MB 且只含扩展区），为假设中的生僻字让每个访客下 20 MB 不划算。
+   代价：访客本机没装这款字体时这一层直接被跳过，落到第 4 层遍黑体 / 系统字体。
+   如果你希望「任何访客都能看到生僻字」，两步开启：
+     ① 跑 scripts/build-font-subset.py —— 一旦正文出现扩展区生僻字，
+        它会生成 /fonts/zera-han-sip-a.woff2；
+     ② 把下面这行的注释去掉，插到 local(...) 前面。
+        src: url("/fonts/zera-han-sip-a.woff2") format("woff2"),
+             local("Alibaba PuHuiTi 3.0 55 Regular L3"),
+             local("阿里巴巴普惠体 3.0 55 Regular L3");
+   用 local() 而不是把字体名直接写进 font-family，是因为 Windows 上
+   家族名是「Alibaba PuHuiTi 3.0」、完整名才是带「55 Regular L3」的那个，
+   直接写家族名会匹配到普通的 55 Regular（不含生僻字），用 local() 才能精确指向 L3。 */
+@font-face {
+  font-family: "Zera Han SIP A";
+  src: local("Alibaba PuHuiTi 3.0 55 Regular L3"),
+       local("Alibaba PuHuiTi 3 55 Regular L3"),
+       local("阿里巴巴普惠体 3.0 55 Regular L3"),
+       local("阿里巴巴普惠体 3 55 Regular L3");
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+20000-3FFFF, U+2E80-2FDF, U+31C0-31EF, U+2300-23FF, U+2460-26FF;
+}
+
+/* 第 4 层：遍黑体 Plangothic —— 更靠后的生僻字兜底（CJK 扩展 B~H）
+   遍黑体拆成 P1/P2 两个文件（字形集不完全重合），所以这里也拆成两个家族：
+   同一次字体匹配里，P1 找不到的字形会自动落到 P2，这是 CSS 字体链的天然行为。 */
+@font-face {
+  font-family: "Zera Han SIP B";
+  src: url("/fonts/zera-han-sip-b.woff2") format("woff2");
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+20000-3FFFF, U+2E80-2FDF, U+31C0-31EF, U+2300-23FF, U+2460-26FF;
+}
+
+@font-face {
+  font-family: "Zera Han SIP C";
+  src: url("/fonts/zera-han-sip-c.woff2") format("woff2");
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+20000-3FFFF, U+2E80-2FDF, U+31C0-31EF, U+2300-23FF, U+2460-26FF;
+}
+
+/* 代码块等宽字体：IosevkaForZera（用户自己定制的 Iosevka 构建） */
+@font-face {
+  font-family: "Zera Mono";
+  src: url("/fonts/zera-mono.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  unicode-range: U+0020-007E, U+2000-206F, U+2190-22FF, U+2500-25FF, U+2600-26FF;
+}
+
+@font-face {
+  font-family: "Zera Mono";
+  src: url("/fonts/zera-mono-bold.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  unicode-range: U+0020-007E, U+2000-206F, U+2190-22FF, U+2500-25FF, U+2600-26FF;
+}
+
+
+/* --------------------------------------------------------------------------
+   7.2 字体链变量
+   --------------------------------------------------------------------------
+   ⚠️ 顺手修一个主题里的隐性 bug：
+   主题 CSS 里有两处 `font-family: var(--font-family-sans-serif)`（body 和
+   .markdown-body），但【从头到尾没有任何地方定义过 --font-family-sans-serif】——
+   自定义属性没定义、又没有 fallback 值时，整条声明在计算值阶段就失效，
+   font-family 退回初始值 = 浏览器默认字体（Windows 上是 Times New Roman / 宋体）。
+   也就是说改字体之前，全站正文其实一直是浏览器默认字体在渲染。
+   在这个文件里定义变量就能修好它：主 CSS 在本文件之前加载，
+   但自定义属性是**在计算值时**才解析的，最终会取到这里的值。
+   -------------------------------------------------------------------------- */
+
+:root {
+  --font-family-sans-serif:
+    /* 1) 西文（只覆盖西文区，中文自动落到下一层） */
+    "Zera Latin",
+    /* 2) 中文主字体 */
+    "Zera Han Sans",
+    /* 3) 生僻字补充：阿里巴巴普惠体 3.0 L3 */
+    "Zera Han SIP A",
+    /* 4) 生僻字兜底：遍黑体 P1 / P2 */
+    "Zera Han SIP B",
+    "Zera Han SIP C",
+    /* 5) 系统字体兜底（按 Windows / macOS / Linux 常见顺序排） */
+    system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial,
+    "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei UI", "Microsoft YaHei",
+    "Noto Sans CJK SC", "Source Han Sans SC", "WenQuanYi Micro Hei",
+    /* 6) emoji（正文里有 😄✅❌ 这类字符，显式指定比让浏览器随机兜底更一致） */
+    "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji",
+    sans-serif;
+
+  /* 代码块专用：等宽西文在前，中文回退在后。
+     ⚠️ 顺序不能反 —— 汉字回退字体是比例字体，放前面会把代码里的西文也变成比例，
+     代码就没法对齐了。汉字本身是全角方块，放后面兜底不破坏对齐。 */
+  --font-family-monospace:
+    "Zera Mono",
+    ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas,
+    "Liberation Mono", "DejaVu Sans Mono", "Courier New", monospace,
+    "Zera Han Sans", "PingFang SC", "Microsoft YaHei", sans-serif;
+}
+
+
+/* --------------------------------------------------------------------------
+   7.3 把字体链应用出去
+   --------------------------------------------------------------------------
+   主题的 body / .markdown-body 会自己取 var(--font-family-sans-serif)，
+   7.2 定义了变量之后它们就已经生效。这里再显式写一遍，
+   是为了以后换主题、或者主题版本升级改掉了那两处引用时不会突然失效。
+   -------------------------------------------------------------------------- */
+
+body,
+.markdown-body,
+.page-content {
+  font-family: var(--font-family-sans-serif);
+}
+
+
+/* --------------------------------------------------------------------------
+   7.4 代码块 / 行内代码必须保持等宽
+   --------------------------------------------------------------------------
+   ⚠️ 为什么必须显式写而不能靠继承：
+   普通元素继承 body 的字体是没问题的，但 code/pre 的「等宽」是浏览器
+   UA 样式表给的（UA 给 code/pre 设了 font-family: monospace）。
+   UA 规则作用在元素自身上，会盖过继承值 —— 所以主题没设 code 字体时它们仍然是等宽的。
+   换字体之后如果我们不显式声明，中英混排的代码注释里中文会走系统默认字体
+   （Windows 上可能是宋体），一个代码块里出现两种风格。这里统一指向
+   IosevkaForZera + 中文回退。
+   -------------------------------------------------------------------------- */
+
+code,
+kbd,
+samp,
+pre,
+pre code,
+tt,
+.hljs,
+.markdown-body code,
+.markdown-body pre,
+.markdown-body kbd,
+.markdown-body samp,
+.page-content code,
+.page-content pre {
+  font-family: var(--font-family-monospace);
+}
+
+/* 行内代码：跟着上下文缩放，但保持等宽（主题只给了 code_font_size: 85% 给 pre code） */
+.markdown-body :not(pre) > code,
+.page-content :not(pre) > code {
+  font-family: var(--font-family-monospace);
+}
+
+
+/* --------------------------------------------------------------------------
+   7.5 公式保护
+   --------------------------------------------------------------------------
+   本站公式在【构建时】就被 MathJax 渲染成内嵌 SVG，字形是 <path>，
+   跟 CSS 字体链没有任何关系；MathJax 自己也在容器上写了 font-family: initial。
+   这里再声明一次完全相同的规则，纯粹是加一道保险：
+   万一以后有人给 mjx-container 设字体，也不会影响公式字形。
+   -------------------------------------------------------------------------- */
+
+mjx-container[jax="SVG"] {
+  font-family: initial;
+}
