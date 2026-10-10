@@ -551,8 +551,119 @@ mjx-container[display="true"] + br {
 
     
     
+  </div>
+
+
+        
+      </div>
+
       
-        <span id="zera-post-views" class="post-meta" style="display: none"><i class="iconfont icon-eye" aria-hidden="true"></i><span id="zera-pv-text"></span></span><script>(function(){var el=document.getElementById("zera-post-views");if(!el)return;var path=location.pathname;var LABEL="{} 次浏览";var API="https://comments.zerablog.top/api/article";function fill(n){var p=LABEL.split("{}");return p.length>=2?p[0]+n+p[1]:n;}function show(n){  if(typeof n!=="number"||isNaN(n))return;  document.getElementById("zera-pv-text").textContent=fill(n);  el.style.display="";}function read(){  fetch(API+"?path="+encodeURIComponent(path)+"&type=time",{credentials:"omit"})  .then(function(r){return r.json();})  .then(function(j){    if(j&&j.errno===0&&j.data&&j.data.length&&typeof j.data[0].time==="number"){show(Number(j.data[0].time)||0);}  }).catch(function(){});}fetch(API,{method:"POST",headers:{"Content-Type":"application/json"},credentials:"omit",  body:JSON.stringify({path:path,type:"time",action:"inc"})})  .then(function(r){return r.json();})  .then(function(j){    if(j&&j.errno===0&&j.data&&j.data.length&&typeof j.data[0].time==="number"){show(Number(j.data[0].time)||0);}    else{read();}  }).catch(function(){read();});})();</script>
+    </div>
+  </div>
+</div>
+
+
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">在杭电，优雅地远程使用电脑——Sunshine + Moonlight + Tailscale 平板串流</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="前言"><a class="markdownIt-Anchor" href="#前言"></a> 前言</h1>
+<p>大学之后才发现有这么多💦课，感觉就这样浪费甚是可惜，于是想拿电脑做点事情。但是直接把笔记本带到教室显然不现实：</p>
+<ul>
+<li>教室里没有插头（有也很少）</li>
+<li>电源适配器超级重，体积也很大</li>
+<li>风扇声音太大（虽然可以调小）</li>
+<li>……<br>
+总之有十万八千个理由。但是现在买一个轻薄本又是不可能的。直到有一天看到一位同学在课上优雅地使用平板<span style="font-size:12px;">（后来才发觉那是 Surface）</span>和 Claude 对话激发了我~<br>
+好吧，我也试试看用平板吧！在网上搜了一下已经有非常成熟的方案了，但是每个学校的网络情况并不相同，所以我在 AI 的帮助下 <span style="font-size:12px;">AI 真是太好用了你们知道吗</span> 完成了配置。<br>
+这篇文章就供在杭电且跟我有一样苦恼的同学们作参考。</li>
+</ul>
+<div class="note note-primary">
+            <p>这篇文章会一直更新 <span style="font-size:12px;">大概吧，看我心情</span>，后续可能会加上平板作笔记本副屏的方法，或者如果杭电网络情况变了我也会改。</p> 
+          </div>
+<h1 id="i-tailscale"><a class="markdownIt-Anchor" href="#i-tailscale"></a> Ⅰ Tailscale</h1>
+<h3 id="教室别用-4g用校园网-wifi"><a class="markdownIt-Anchor" href="#教室别用-4g用校园网-wifi"></a> 教室别用 4G，用校园网 WiFi</h3>
+<p><strong>这是我踩的最大的一个坑。</strong> 我一开始的想法是：教室用手机 4G 热点串流。结果：</p>
+<div class="code-wrapper"><pre><code class="hljs dns">手机 <span class="hljs-number">4</span>G → 寝室笔记本： relay<span class="hljs-punctuation">(</span>DERP sfo<span class="hljs-punctuation">)</span>  <span class="hljs-number">320m</span>s  ❌</code></pre></div>
+<p><strong>320ms 是什么概念</strong>：一次握手来回要 640ms。Moonlight 的握手有好几个来回，直接超时报错：</p>
+<blockquote>
+<p><code>Connection Error: Your network connection isn't performing well. Reduce your video bitrate setting or try a faster connection.</code></p>
+</blockquote>
+<p><strong>注意这个报错的误导性</strong>——它让你去降码率，但<strong>跟码率一点关系都没有</strong>。我的上传带宽有 75 Mbps，是延迟的问题。<strong>改成校园网 WiFi 之后</strong>：</p>
+<div class="code-wrapper"><pre><code class="hljs css">平板连 <span class="hljs-selector-tag">i</span>-HDU → 寝室笔记本： direct（直连）  ✅ 流畅</code></pre></div>
+<p>因为两端都在杭电的校园网里，直接就走通了。</p>
+<h3 id="安装"><a class="markdownIt-Anchor" href="#安装"></a> 安装</h3>
+<p>Windows 端下载：<a target="_blank" rel="noopener" href="https://tailscale.com/download/windows">https://tailscale.com/download/windows</a><br>
+装好后托盘图标右键 → Log in → 用邮箱注册登录。<br>
+记下它的 Tailscale IP（Addresses 那一栏）：<br>
+<img src="https://fastly.jsdelivr.net/gh/chieh2lu2/chieh2lu2.github.io@main/images/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202026-10-08%20165911.png" srcset="/images/placeholder.svg" lazyload alt="" onerror="this.onerror=null;this.src='/images/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202026-10-08%20165911.png'"><br>
+安卓端：<a target="_blank" rel="noopener" href="https://pkgs.tailscale.com/stable/">Tailscale Packages - stable track</a> iOS 得有美区 ID 才能在 App Store 下载。<br>
+打开后登录一样的账号，再把左上角的开关打开。此时 iOS/安卓会弹「想要添加 VPN 配置」之类的，允许即可。此时，设备列表里就能同时看见笔记本和平板了。</p>
+<p></p>
+<h1 id="ii-sunshine"><a class="markdownIt-Anchor" href="#ii-sunshine"></a> Ⅱ Sunshine</h1>
+<p><s>真是对称且优雅的取名啊。</s><br>
+首先在笔记本上下载 <a href="%5Bhttps://github.com/LizardByte/Sunshine/releases/latest%5D(https://github.com/LizardByte/Sunshine/releases/latest)">Sunshine</a>，一路安装。<br>
+然后打开 <a target="_blank" rel="noopener" href="https://localhost:47990">https://localhost:47990</a> ：<br>
+<img src="https://fastly.jsdelivr.net/gh/chieh2lu2/chieh2lu2.github.io@main/images/Pasted%20image%2020261008160151.png" srcset="/images/placeholder.svg" lazyload alt="" onerror="this.onerror=null;this.src='/images/Pasted%20image%2020261008160151.png'"></p>
+<p>创建管理账号。用户名和密码都可以自己设定，不过<strong>一旦设置好就不能修改了，一定要记住！</strong> 之后串流的时候还会用到。<br>
+其他设置没有特殊需要不用特别操作。<a target="_blank" rel="noopener" href="https://docs.lizardbyte.dev/projects/sunshine/latest/index.html">官方文档</a><br>
+在电脑 cmd 里输入 <code>ipconfig</code>，在输出里找到 <strong>无线局域网适配器 WLAN</strong> 那一段，看 <strong>IPv4 地址</strong>，形如 <code>192.168.43.xx</code>（手机热点一般是 <code>192.168.43.x</code>），记下来，一会会用。</p>
+<h1 id="iii-moonlight"><a class="markdownIt-Anchor" href="#iii-moonlight"></a> Ⅲ  Moonlight</h1>
+<p>在平板（如果没有的话可以现在手机上先尝试下）安装 Moonlight。iOS 直接搜索 <strong>Moonlight Game Streaming</strong> 就好，安卓端可以看 <a target="_blank" rel="noopener" href="https://github.com/moonlight-stream/moonlight-android/releases">这里</a>，选择非 Root 的版本就好。<br>
+此时主页就会出现你配对的电脑了：</p>
+<p><img src="https://fastly.jsdelivr.net/gh/chieh2lu2/chieh2lu2.github.io@main/images/7354e60453d0e3d8b3b1b3de6186a420.jpg" srcset="/images/placeholder.svg" lazyload alt="作者的电脑" onerror="this.onerror=null;this.src='/images/7354e60453d0e3d8b3b1b3de6186a420.jpg'"></p>
+<p>点击后，平板上会出现一串 4 位 PIN 码，此时电脑上也会提示 PIN 码配对。点开弹出的网页：<br>
+<img src="https://fastly.jsdelivr.net/gh/chieh2lu2/chieh2lu2.github.io@main/images/Pasted%20image%2020261008162610.png" srcset="/images/placeholder.svg" lazyload alt="" onerror="this.onerror=null;this.src='/images/Pasted%20image%2020261008162610.png'"><br>
+输入平板上弹出的 PIN 码，设备名称填和 Tailscale 上一样的就好了。此时应该就串流成功了！</p>
+<h1 id="闲话"><a class="markdownIt-Anchor" href="#闲话"></a> 闲话</h1>
+<p>咬牙买了小新 Pad Pro 12.7 吋。超级大……</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E6%8C%87%E5%8C%97/" class="category-chain-item">指北</a>
+  
+  
+
+      </span>
+    
+  
+</span>
 
     </div>
   
