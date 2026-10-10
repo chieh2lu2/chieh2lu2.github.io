@@ -550,15 +550,6 @@ mjx-container[display="true"] + br {
 
     
     
-      
-        <span id="busuanzi_container_page_pv" style="display: none">
-          <i class="iconfont icon-eye" aria-hidden="true"></i>
-          <span id="busuanzi_value_page_pv"></span> 次访问
-        </span>
-        
-
-      
-    
   </div>
 
 
@@ -648,9 +639,8 @@ mjx-container[display="true"] + br {
     
   
 </span>
-<span id="busuanzi_container_page_uv" class="post-meta" style="display: none"><i class="iconfont icon-user-fill" aria-hidden="true"></i> 人访客 人看过<span id="busuanzi_value_page_uv"></span></span>
 
-    </div>
+    <span id="zera-post-views" class="post-meta" style="display: none"><i class="iconfont icon-eye" aria-hidden="true"></i><span id="zera-pv-text"></span><span class="zera-views-sep">·</span><span id="zera-uv-text"></span></span></div><script>(function(){var el=document.getElementById("zera-post-views");if(!el)return;var path=location.pathname;var PV="{} 次浏览",UV="{} 人访客";function fill(n,t){var p=t.split("{}");return p.length>=2?p[0]+n+p[1]:n;}function get(type,cb){  fetch("https://comments.zerablog.top/api/article?path="+encodeURIComponent(path)+"&type="+type,        {credentials:"omit"})  .then(function(r){return r.json();})  .then(function(j){    if(j&&j.errno===0&&j.data&&j.data.length){cb(Number(j.data[0].time)||0);}else{cb(null);}  }).catch(function(){cb(null);});}var pv=null,uv=null,done=0;function maybe(){done++;if(done<2)return;  if(pv===null&&uv===null)return;  var pvEl=document.getElementById("zera-pv-text");  var uvEl=document.getElementById("zera-uv-text");  var sep=el.querySelector(".zera-views-sep");  if(pv!==null){pvEl.textContent=fill(pv,PV);}else{pvEl.style.display="none";}  if(uv!==null){uvEl.textContent=fill(uv,UV);}else{uvEl.style.display="none";}  if(pv===null||uv===null){sep.style.display="none";}  el.style.display="";}get("time",function(v){pv=v;maybe();});get("visitor",function(v){uv=v;maybe();});})();</script>
   
   
     <div class="post-meta">
