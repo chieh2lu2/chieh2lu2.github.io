@@ -11,7 +11,21 @@
   <rights>All rights reserved 2026, Zera / 捷攎</rights>
   <subtitle>Keep writing and Keep loving.</subtitle>
   <title>Zera 的小博客</title>
-  <updated>2026-10-13T01:25:08.023Z</updated>
+  <updated>2026-10-19T12:27:44.651Z</updated>
+  <entry>
+    <author>
+      <name>Zera / 捷攎</name>
+    </author>
+    <category term="杂咀" scheme="https://zerablog.top/categories/%E6%9D%82%E5%92%80/"/>
+    <id>https://zerablog.top/2026/10/19/zaju-03/</id>
+    <link href="https://zerablog.top/2026/10/19/zaju-03/"/>
+    <published>2026-10-19T11:20:41.000Z</published>
+    <summary>
+      <![CDATA[<p>题外话一则：我觉得在写什么东西的时候，若不是 技术 / 教学 文章，而是随心所欲地把脑子里的东西倒出来的时候，打断时间去考证一样论断/事实或者想法是否正确，不是一个合理的行为。这是否可以称得上是一种“思而不学”？我不知道，也许这不是一项好的习惯。但是正是一些错误可以给回忆附上一些浪漫色彩，所以我还是在写完这篇文章之前不去做任何的考证。错误是一种浪漫，不是吗？就像这句话，我也懒得去找这个世界上是否有想法跟我一样的人。当然了，对于一些笔记，我还是有想保持其 <mjx-container class="MathJax" jax="SVG"><svg]]>
+    </summary>
+    <title>杂咀其三之　昨日之盛、明日之俗，和今天处于幻想中的蛋糕</title>
+    <updated>2026-10-19T12:27:44.651Z</updated>
+  </entry>
   <entry>
     <author>
       <name>Zera / 捷攎</name>
@@ -33,14 +47,14 @@
       <name>Zera / 捷攎</name>
     </author>
     <category term="杂咀" scheme="https://zerablog.top/categories/%E6%9D%82%E5%92%80/"/>
-    <id>https://zerablog.top/2026/10/09/za-ju-001/</id>
-    <link href="https://zerablog.top/2026/10/09/za-ju-001/"/>
+    <id>https://zerablog.top/2026/10/09/zaju-01/</id>
+    <link href="https://zerablog.top/2026/10/09/zaju-01/"/>
     <published>2026-10-09T05:31:00.000Z</published>
     <summary>
       <![CDATA[<p>杂咀，也许是通“杂俎”吧，我理解是“杂谈”的意思。这个词可能我之前见过，也许它存在于我的潜意识里，但是真正打出这两个字还是第一次。不知道我这样写会不会污染]]>
     </summary>
     <title>杂咀其一之秋日午后与旧字形</title>
-    <updated>2026-10-09T14:52:49.541Z</updated>
+    <updated>2026-10-19T11:36:33.635Z</updated>
   </entry>
   <entry>
     <author>
@@ -84,10 +98,10 @@
       <name>Zera / 捷攎</name>
     </author>
     <category term="过去的花" scheme="https://zerablog.top/categories/%E8%BF%87%E5%8E%BB%E7%9A%84%E8%8A%B1/"/>
-    <category term="永中" scheme="https://zerablog.top/tags/%E6%B0%B8%E4%B8%AD/"/>
-    <category term="计算机社" scheme="https://zerablog.top/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%A4%BE/"/>
     <category term="Python" scheme="https://zerablog.top/tags/Python/"/>
     <category term="爬虫" scheme="https://zerablog.top/tags/%E7%88%AC%E8%99%AB/"/>
+    <category term="计算机社" scheme="https://zerablog.top/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%A4%BE/"/>
+    <category term="永中" scheme="https://zerablog.top/tags/%E6%B0%B8%E4%B8%AD/"/>
     <id>https://zerablog.top/2024/12/01/Spider/</id>
     <link href="https://zerablog.top/2024/12/01/Spider/"/>
     <published>2024-12-01T13:29:49.000Z</published>
@@ -194,8 +208,8 @@
       <name>Zera / 捷攎</name>
     </author>
     <category term="过去的花" scheme="https://zerablog.top/categories/%E8%BF%87%E5%8E%BB%E7%9A%84%E8%8A%B1/"/>
-    <category term="永中" scheme="https://zerablog.top/tags/%E6%B0%B8%E4%B8%AD/"/>
     <category term="计算机社" scheme="https://zerablog.top/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%A4%BE/"/>
+    <category term="永中" scheme="https://zerablog.top/tags/%E6%B0%B8%E4%B8%AD/"/>
     <id>https://zerablog.top/2024/09/15/YJZXCCReport/</id>
     <link href="https://zerablog.top/2024/09/15/YJZXCCReport/"/>
     <published>2024-09-15T13:15:14.000Z</published>
