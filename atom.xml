@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <author>
+    <name>Zera / 捷攎</name>
+  </author>
+  <generator uri="https://hexo.io/">Hexo</generator>
+  <icon>https://zerablog.top/images/l.svg</icon>
+  <id>https://zerablog.top/</id>
+  <link href="https://zerablog.top/" rel="alternate"/>
+  <link href="https://zerablog.top/atom.xml" rel="self"/>
+  <rights>All rights reserved 2026, Zera / 捷攎</rights>
+  <subtitle>Keep writing and Keep loving.</subtitle>
+  <title>Zera 的小博客</title>
+  <updated>2026-10-31T13:20:30.517Z</updated>
+  <entry>
+    <author>
+      <name>Zera / 捷攎</name>
+    </author>
+    <category term="杂咀" scheme="https://zerablog.top/categories/%E6%9D%82%E5%92%80/"/>
+    <id>https://zerablog.top/2026/10/19/zaju-03/</id>
+    <link href="https://zerablog.top/2026/10/19/zaju-03/"/>
+    <published>2026-10-19T11:20:41.000Z</published>
+    <summary>
+      <![CDATA[<p>题外话一则：我觉得在写什么东西的时候，若不是 技术 / 教学 文章，而是随心所欲地把脑子里的东西倒出来的时候，打断时间去考证一样论断/事实或者想法是否正确，不是一个合理的行为。这是否可以称得上是一种“思而不学”？我不知道，也许这不是一项好的习惯。但是正是一些错误可以给回忆附上一些浪漫色彩，所以我还是在写完这篇文章之前不去做任何的考证。错误是一种浪漫，不是吗？就像这句话，我也懒得去找这个世界上是否有想法跟我一样的人。当然了，对于一些笔记，我还是有想保持其 <mjx-container class="MathJax" jax="SVG"><svg]]>
+    </summary>
+    <title>杂咀其三之　昨日之盛、明日之俗，和今天处于幻想中的蛋糕</title>
+    <updated>2026-10-31T13:20:30.517Z</updated>
+  </entry>
+  <entry>
+    <author>
+      <name>Zera / 捷攎</name>
+    </author>
+    <category term="杂咀" scheme="https://zerablog.top/categories/%E6%9D%82%E5%92%80/"/>
+    <id>https://zerablog.top/2026/10/13/zaju-02/</id>
+    <link href="https://zerablog.top/2026/10/13/zaju-02/"/>
+    <published>2026-10-13T00:43:49.000Z</published>
+    <summary>
+      <![CDATA[<p>大学生活步入正轨六天。<br>
+你不能说这段时间我是游手好闲的；相反，我很忙，我有课要上、有团体操要排练、有作业要做、有杂七杂八的小东西要我搞、还有生活上的一些杂事。——而正是在这样看似充实的日子里让我感到无力与无助。</p>
+<h3 id="无力我的时间都去哪了"><a class="markdownIt-Anchor" href="#无力我的时间都去哪了"></a>]]>
+    </summary>
+    <title>杂咀其二之　无力与无助的感觉</title>
+    <updated>2026-10-31T13:20:30.517Z</updated>
+  </entry>
+  <entry>
+    <author>
+      <name>Zera / 捷攎</name>
+    </author>
+    <category term="杂咀" scheme="https://zerablog.top/categories/%E6%9D%82%E5%92%80/"/>
+    <id>https://zerablog.top/2026/10/09/zaju-01/</id>
+    <link href="https://zerablog.top/2026/10/09/zaju-01/"/>
+    <published>2026-10-09T05:31:00.000Z</published>
+    <summary>
+      <![CDATA[<p>杂咀，也许是通“杂俎”吧，我理解是“杂谈”的意思。这个词可能我之前见过，也许它存在于我的潜意识里，但是真正打出这两个字还是第一次。不知道我这样写会不会污染]]>
+    </summary>
+    <title>杂咀其一之　秋日午后想旧字形</title>
+    <updated>2026-10-31T13:20:30.517Z</updated>
+  </entry>
+  <entry>
+    <author>
+      <name>Zera / 捷攎</name>
+    </author>
+    <category term="指北" scheme="https://zerablog.top/categories/%E6%8C%87%E5%8C%97/"/>
+    <category term="串流" scheme="https://zerablog.top/tags/%E4%B8%B2%E6%B5%81/"/>
+    <category term="杭州电子科技大学" scheme="https://zerablog.top/tags/%E6%9D%AD%E5%B7%9E%E7%94%B5%E5%AD%90%E7%A7%91%E6%8A%80%E5%A4%A7%E5%AD%A6/"/>
+    <category term="校园网" scheme="https://zerablog.top/tags/%E6%A0%A1%E5%9B%AD%E7%BD%91/"/>
+    <id>https://zerablog.top/2026/10/08/pad-streaming/</id>
+    <link href="https://zerablog.top/2026/10/08/pad-streaming/"/>
+    <published>2026-10-08T07:18:22.000Z</published>
+    <summary>
+      <![CDATA[<h1 id="前言"><a class="markdownIt-Anchor" href="#前言"></a> 前言</h1>
+<p>大学之后才发现有这么多💦课，感觉就这样浪费甚是可惜，于是想拿电脑做点事情。但是直接把笔记本带到教室显然不现实：</p>
+<ul>
+<li>教室里没有插头（有也很少）</li>
+<li>电源适配器超级重，体积也很大</li>
+<li>风扇声音太大（虽然可以调小）</li>
+<li>……<br>
+总之有十万八千个理由。但是现在买一个轻薄本又是不可能的。直到有一天看到一位同学在课上优雅地使用平板<span]]>
+    </summary>
+    <title>在杭电，优雅地远程使用电脑——Sunshine + Moonlight + Tailscale 平板串流</title>
+    <updated>2026-10-31T13:20:30.517Z</updated>
+  </entry>
+  <entry>
+    <author>
+      <name>Zera / 捷攎</name>
+    </author>
+    <category term="日記" scheme="https://zerablog.top/categories/%E6%97%A5%E8%A8%98/"/>
+    <category term="日記" scheme="https://zerablog.top/tags/%E6%97%A5%E8%A8%98/"/>
+    <id>https://zerablog.top/2025/01/01/nikki/</id>
+    <link href="https://zerablog.top/2025/01/01/nikki/"/>
+    <published>2025-01-01T08:36:57.000Z</published>
+    <summary>个人日记，已加密。</summary>
+    <title>日記</title>
+    <updated>2026-10-31T13:20:30.517Z</updated>
+  </entry>
+  <entry>
+    <author>
+      <name>Zera / 捷攎</name>
+    </author>
+    <category term="过去的花" scheme="https://zerablog.top/categories/%E8%BF%87%E5%8E%BB%E7%9A%84%E8%8A%B1/"/>
+    <category term="Python" scheme="https://zerablog.top/tags/Python/"/>
+    <category term="爬虫" scheme="https://zerablog.top/tags/%E7%88%AC%E8%99%AB/"/>
+    <category term="计算机社" scheme="https://zerablog.top/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%A4%BE/"/>
+    <category term="永中" scheme="https://zerablog.top/tags/%E6%B0%B8%E4%B8%AD/"/>
+    <id>https://zerablog.top/2024/12/01/Spider/</id>
+    <link href="https://zerablog.top/2024/12/01/Spider/"/>
+    <published>2024-12-01T13:29:49.000Z</published>
+    <summary>从零开始的 Python 爬虫指北：服务器渲染与客户端渲染的区别、抓包方法、requests 库入门。</summary>
+    <title>从零开始的爬虫指北</title>
+    <updated>2026-10-31T13:20:30.517Z</updated>
+  </entry>
+  <entry>
+    <author>
+      <name>Zera / 捷攎</name>
+    </author>
+    <category term="过去的花" scheme="https://zerablog.top/categories/%E8%BF%87%E5%8E%BB%E7%9A%84%E8%8A%B1/"/>
+    <category term="OI" scheme="https://zerablog.top/tags/OI/"/>
+    <category term="区间 DP" scheme="https://zerablog.top/tags/%E5%8C%BA%E9%97%B4-DP/"/>
+    <category term="DP" scheme="https://zerablog.top/tags/DP/"/>
+    <category term="HDU" scheme="https://zerablog.top/tags/HDU/"/>
+    <id>https://zerablog.top/2024/09/30/HDU-5396/</id>
+    <link href="https://zerablog.top/2024/09/30/HDU-5396/"/>
+    <published>2024-09-30T11:54:08.000Z</published>
+    <summary>HDU 5396 Expression 题解：区间 DP，关键是考虑运算符的运算顺序，用组合数合并左右方案。</summary>
+    <title>HDU-5396 Expression 题解</title>
+    <updated>2026-10-31T13:20:30.517Z</updated>
+  </entry>
+  <entry>
+    <author>
+      <name>Zera / 捷攎</name>
+    </author>
+    <category term="指北" scheme="https://zerablog.top/categories/%E6%8C%87%E5%8C%97/"/>
+    <category term="字体" scheme="https://zerablog.top/tags/%E5%AD%97%E4%BD%93/"/>
+    <category term="美化" scheme="https://zerablog.top/tags/%E7%BE%8E%E5%8C%96/"/>
+    <id>https://zerablog.top/2024/09/16/PCFont/</id>
+    <link href="https://zerablog.top/2024/09/16/PCFont/"/>
+    <published>2024-09-16T13:21:42.000Z</published>
+    <summary>给 Windows 更换系统字体（含微软雅黑和 Segoe UI）的完整操作记录，附备份与还原方法。</summary>
+    <title>给你的 Windows 更换字体（包括微软雅黑和 Segoe UI！）</title>
+    <updated>2026-10-31T13:20:30.517Z</updated>
+  </entry>
+  <entry>
+    <author>
+      <name>Zera / 捷攎</name>
+    </author>
+    <category term="过去的花" scheme="https://zerablog.top/categories/%E8%BF%87%E5%8E%BB%E7%9A%84%E8%8A%B1/"/>
+    <category term="Hexo" scheme="https://zerablog.top/tags/Hexo/"/>
+    <category term="Git" scheme="https://zerablog.top/tags/Git/"/>
+    <category term="NodeJS" scheme="https://zerablog.top/tags/NodeJS/"/>
+    <category term="博客" scheme="https://zerablog.top/tags/%E5%8D%9A%E5%AE%A2/"/>
+    <id>https://zerablog.top/2024/09/16/HexoI/</id>
+    <link href="https://zerablog.top/2024/09/16/HexoI/"/>
+    <published>2024-09-16T03:07:14.000Z</published>
+    <summary>在 Windows 上用 Hexo + GitHub Pages 从零搭建个人博客的完整指北：装环境、配 SSH、部署、备份。</summary>
+    <title>Windows 下使用 Hexo + GitHub Pages 搭建自己的博客指北</title>
+    <updated>2026-10-31T13:20:30.517Z</updated>
+  </entry>
+  <entry>
+    <author>
+      <name>Zera / 捷攎</name>
+    </author>
+    <category term="过去的花" scheme="https://zerablog.top/categories/%E8%BF%87%E5%8E%BB%E7%9A%84%E8%8A%B1/"/>
+    <category term="OI" scheme="https://zerablog.top/tags/OI/"/>
+    <category term="洛谷" scheme="https://zerablog.top/tags/%E6%B4%9B%E8%B0%B7/"/>
+    <category term="数学" scheme="https://zerablog.top/tags/%E6%95%B0%E5%AD%A6/"/>
+    <category term="C++" scheme="https://zerablog.top/tags/C/"/>
+    <id>https://zerablog.top/2024/09/16/P10511/</id>
+    <link href="https://zerablog.top/2024/09/16/P10511/"/>
+    <published>2024-09-16T01:41:10.000Z</published>
+    <summary>洛谷 P10511 题解：用前缀和维护区间和与区间平方和，分整块与散块处理。</summary>
+    <title>P10511 题解</title>
+    <updated>2026-10-31T13:20:30.517Z</updated>
+  </entry>
+  <entry>
+    <author>
+      <name>Zera / 捷攎</name>
+    </author>
+    <category term="过去的花" scheme="https://zerablog.top/categories/%E8%BF%87%E5%8E%BB%E7%9A%84%E8%8A%B1/"/>
+    <category term="OI" scheme="https://zerablog.top/tags/OI/"/>
+    <category term="洛谷" scheme="https://zerablog.top/tags/%E6%B4%9B%E8%B0%B7/"/>
+    <category term="数学" scheme="https://zerablog.top/tags/%E6%95%B0%E5%AD%A6/"/>
+    <category term="C++" scheme="https://zerablog.top/tags/C/"/>
+    <id>https://zerablog.top/2024/09/16/P10252/</id>
+    <link href="https://zerablog.top/2024/09/16/P10252/"/>
+    <published>2024-09-16T01:40:09.000Z</published>
+    <summary>洛谷 P10252 题解：分析变换的单调性，再分情况讨论求解。</summary>
+    <title>P10252 题解</title>
+    <updated>2026-10-31T13:20:30.517Z</updated>
+  </entry>
+  <entry>
+    <author>
+      <name>Zera / 捷攎</name>
+    </author>
+    <category term="过去的花" scheme="https://zerablog.top/categories/%E8%BF%87%E5%8E%BB%E7%9A%84%E8%8A%B1/"/>
+    <category term="OI" scheme="https://zerablog.top/tags/OI/"/>
+    <category term="洛谷" scheme="https://zerablog.top/tags/%E6%B4%9B%E8%B0%B7/"/>
+    <category term="数学" scheme="https://zerablog.top/tags/%E6%95%B0%E5%AD%A6/"/>
+    <category term="排列组合" scheme="https://zerablog.top/tags/%E6%8E%92%E5%88%97%E7%BB%84%E5%90%88/"/>
+    <id>https://zerablog.top/2024/09/15/P5824/</id>
+    <link href="https://zerablog.top/2024/09/15/P5824/"/>
+    <published>2024-09-15T13:15:14.000Z</published>
+    <summary>洛谷 P5824「十二重计数法」题解：用递推与组合数学推出 12 种限制下的计数式，附完整推导。</summary>
+    <title>十二重计数法</title>
+    <updated>2026-10-31T13:20:30.517Z</updated>
+  </entry>
+  <entry>
+    <author>
+      <name>Zera / 捷攎</name>
+    </author>
+    <category term="过去的花" scheme="https://zerablog.top/categories/%E8%BF%87%E5%8E%BB%E7%9A%84%E8%8A%B1/"/>
+    <category term="计算机社" scheme="https://zerablog.top/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%A4%BE/"/>
+    <category term="永中" scheme="https://zerablog.top/tags/%E6%B0%B8%E4%B8%AD/"/>
+    <id>https://zerablog.top/2024/09/15/YJZXCCReport/</id>
+    <link href="https://zerablog.top/2024/09/15/YJZXCCReport/"/>
+    <published>2024-09-15T13:15:14.000Z</published>
+    <summary>永嘉中学计算机社一学期的活动内容设想，含活动背景、目标与具体安排。</summary>
+    <title>永嘉中学计算机社活动内容设想报告</title>
+    <updated>2026-10-31T13:20:30.517Z</updated>
+  </entry>
+  <entry>
+    <author>
+      <name>Zera / 捷攎</name>
+    </author>
+    <category term="过去的花" scheme="https://zerablog.top/categories/%E8%BF%87%E5%8E%BB%E7%9A%84%E8%8A%B1/"/>
+    <category term="OI" scheme="https://zerablog.top/tags/OI/"/>
+    <category term="洛谷" scheme="https://zerablog.top/tags/%E6%B4%9B%E8%B0%B7/"/>
+    <category term="C++" scheme="https://zerablog.top/tags/C/"/>
+    <id>https://zerablog.top/2024/09/15/UVA11437/</id>
+    <link href="https://zerablog.top/2024/09/15/UVA11437/"/>
+    <published>2024-09-15T13:14:20.000Z</published>
+    <summary>UVA11437 题解：海伦公式求面积 + 梅涅劳斯定理，推出 △ABC 与 △PQR 的面积比为 7:1。</summary>
+    <title>UVA11437 题解</title>
+    <updated>2026-10-31T13:20:30.517Z</updated>
+  </entry>
+</feed>

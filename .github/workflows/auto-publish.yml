@@ -1,0 +1,73 @@
+name: Auto publish blog
+
+on:
+  schedule:
+    # 每 10 分钟检查一次新的碎碎念（GitHub Discussions）
+    - cron: '*/10 * * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: blog-auto-publish
+  cancel-in-progress: true
+
+jobs:
+  build-deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - name: Checkout private source
+        uses: actions/checkout@v4
+        with:
+          repository: chieh2lu2/blog-source
+          ref: main
+          token: ${{ secrets.SOURCE_REPO_TOKEN }}
+          path: blog-source
+          fetch-depth: 1
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 11.24.0
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+          cache-dependency-path: blog-source/pnpm-lock.yaml
+
+      - name: Install dependencies
+        working-directory: blog-source
+        run: pnpm install --frozen-lockfile
+
+      - name: Ensure Fluid theme
+        working-directory: blog-source
+        run: |
+          if [ ! -f themes/fluid/package.json ]; then
+            rm -rf themes/fluid
+            git clone --depth 1 https://github.com/fluid-dev/hexo-theme-fluid.git themes/fluid
+            git -C themes/fluid fetch --depth 1 origin bcfd8bfe79f0818306cec090237c330df5534b73 || true
+            git -C themes/fluid checkout bcfd8bfe79f0818306cec090237c330df5534b73 || true
+          fi
+
+      - name: Build
+        working-directory: blog-source
+        run: |
+          pnpm exec hexo clean
+          pnpm exec hexo generate
+          mkdir -p public/.github/workflows
+          cp .github/workflows/auto-publish.yml public/.github/workflows/auto-publish.yml
+
+      - name: Deploy to Pages repo
+        working-directory: blog-source
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git config --global url."https://x-access-token:${GITHUB_TOKEN}@github.com/".insteadOf "https://github.com/"
+          pnpm exec hexo deploy

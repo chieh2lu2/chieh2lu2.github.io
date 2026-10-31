@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 300" width="800" height="300">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#EE6889"/>
+      <stop offset="55%" stop-color="#b76fd4"/>
+      <stop offset="100%" stop-color="#5b6ee1"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="0.78" cy="0.22" r="0.6">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.45"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="800" height="300" fill="url(#g)"/>
+  <rect width="800" height="300" fill="url(#glow)"/>
+  <g fill="#ffffff" opacity="0.30">
+    <circle cx="96"  cy="216" r="4"/>
+    <circle cx="168" cy="118" r="6"/>
+    <circle cx="248" cy="240" r="3"/>
+    <circle cx="330" cy="74"  r="5"/>
+    <circle cx="430" cy="188" r="4"/>
+    <circle cx="520" cy="108" r="7"/>
+    <circle cx="610" cy="228" r="4"/>
+    <circle cx="700" cy="86"  r="5"/>
+    <circle cx="760" cy="182" r="3"/>
+    <circle cx="58"  cy="76"  r="4"/>
+  </g>
+  <g fill="none" stroke="#ffffff" stroke-opacity="0.22" stroke-width="1.5">
+    <path d="M0 250 L140 200 L300 236 L470 160 L640 210 L800 150"/>
+    <path d="M0 70 L170 118 L340 62 L520 110 L690 56 L800 92"/>
+  </g>
+  <text x="400" y="150" text-anchor="middle" font-family="'PingFang SC','Microsoft YaHei',system-ui,sans-serif"
+        font-size="46" font-weight="600" fill="#ffffff" opacity="0.97" letter-spacing="4">Zera 的小博客</text>
+  <text x="400" y="192" text-anchor="middle" font-family="'PingFang SC','Microsoft YaHei',system-ui,sans-serif"
+        font-size="17" fill="#ffffff" opacity="0.82" letter-spacing="2">Keep writing and Keep loving.</text>
+</svg>
