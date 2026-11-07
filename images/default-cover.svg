@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" width="800" height="450" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%"   stop-color="#EE6889"/>
+      <stop offset="52%"  stop-color="#b76fd4"/>
+      <stop offset="100%" stop-color="#5b6ee1"/>
+    </linearGradient>
+    <radialGradient id="glowA" cx="0.18" cy="0.14" r="0.62">
+      <stop offset="0%"   stop-color="#ffffff" stop-opacity="0.50"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="glowB" cx="0.86" cy="0.88" r="0.70">
+      <stop offset="0%"   stop-color="#ffe9f0" stop-opacity="0.42"/>
+      <stop offset="100%" stop-color="#ffe9f0" stop-opacity="0"/>
+    </radialGradient>
+    <pattern id="dots" x="0" y="0" width="34" height="34" patternUnits="userSpaceOnUse">
+      <circle cx="2" cy="2" r="1.5" fill="#ffffff" fill-opacity="0.16"/>
+    </pattern>
+    <filter id="blurA" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="26"/>
+    </filter>
+  </defs>
+
+  <rect width="800" height="450" fill="url(#bg)"/>
+  <rect width="800" height="450" fill="url(#dots)"/>
+
+  <!-- 柔和的色块，让纯渐变不那么单调 -->
+  <circle cx="640" cy="120" r="150" fill="#ffffff" fill-opacity="0.20" filter="url(#blurA)"/>
+  <circle cx="120" cy="380" r="130" fill="#5b6ee1" fill-opacity="0.35" filter="url(#blurA)"/>
+
+  <rect width="800" height="450" fill="url(#glowA)"/>
+  <rect width="800" height="450" fill="url(#glowB)"/>
+
+  <!-- 右上角的装饰弧线 -->
+  <g fill="none" stroke="#ffffff" stroke-opacity="0.22" stroke-width="1.6">
+    <circle cx="720" cy="60" r="90"/>
+    <circle cx="720" cy="60" r="140"/>
+    <circle cx="720" cy="60" r="190"/>
+  </g>
+
+  <!-- 左下角的 Z 字标记 -->
+  <g opacity="0.30">
+    <path d="M62 372 H150 L86 408 H174" fill="none" stroke="#ffffff" stroke-width="7"
+          stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+
+  <!-- 底部渐隐，方便压字 -->
+  <linearGradient id="fade" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0%"   stop-color="#000000" stop-opacity="0"/>
+    <stop offset="100%" stop-color="#000000" stop-opacity="0.28"/>
+  </linearGradient>
+  <rect y="290" width="800" height="160" fill="url(#fade)"/>
+</svg>
